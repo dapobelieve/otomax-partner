@@ -1,0 +1,104 @@
+
+@import "./variables.scss";
+
+@font-face {
+    font-family: 'Yu Gothic';
+    src: url(../fonts/yugothib.woff);
+}
+
+@font-face {
+    font-family: 'Acumin';
+    font-weight: bold;
+    src: url(../fonts/Acumin-BdItPro.woff);
+}
+@font-face {
+    font-family: 'Acumin';
+    font-weight: normal;
+    src: url(../fonts/Acumin-RPro.woff);
+}
+@font-face {
+    font-family: 'Acumin';
+    font-weight: bolder;
+    src: url(../fonts/Acumin-BdPro.woff);
+}
+
+
+body {
+    font-family: 'Acumin', 'Segoe UI' !important;   
+    font-size: 16px;
+    width:  100%;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Yu Gothic', Verdana !important;
+}
+
+p{
+    font-size: .8rem;
+}
+
+hr{
+    opacity: 0.3;
+    margin-top:1em;
+}
+
+.small-font {
+    font-size: $small-font-size;
+}
+
+.rounded-border {
+    border-radius: 14px !important;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-sticky {
+    position: sticky;
+}
+
+.position-fixed {
+    position: fixed;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.w-{
+    &100{
+        min-width:100%
+    }
+    &50{
+        min-width:50%
+    }
+    &25{
+        min-width:25%
+    }
+}
+.mw-{
+    &100{
+        max-width:100% !important;
+    }
+    &50{
+        max-width:50% !important;
+    }
+    &25{
+        max-width:25% !important;
+    }
+}
+.top-0 {
+    top: auto;
+}
+
+
+.swiper-pagination-bullet {
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.clickable{
+    cursor: pointer;
+}

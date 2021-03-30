@@ -1,0 +1,110 @@
+
+@import "./variables";
+
+.bg-blue {
+  background-color: $blue !important;
+  border-color: $blue !important;
+}
+
+.bg-gray {
+  background-color: $component-gray;
+  border-color: $component-gray;
+}
+
+.bg-black{
+  background-color: $black;
+  border-color: $black;
+}
+
+.bg-cyan{
+  background-color: $cyan;
+  border-color: $cyan;
+}
+
+.bg-mid-gray{
+  background-color: $mid-gray;
+}
+
+.bg-yellow{
+  background-color: $yellow;
+  border-color: $yellow;
+}
+
+.bg-green{
+  background-color: $deep-cyan-green;
+  border-color: $deep-cyan-green;
+}
+
+.bg-lemon{
+  background-color: $lemon;
+  border-color: $lemon;
+}
+
+.bg-purple{
+  background-color: $purple;
+  border-color: $purple;
+}
+
+.bg-red{
+  background-color: $red;
+  border-color: $red;
+}
+
+.bg-pink{
+  background-color: $pink;
+  border-color: $pink;
+}
+
+.bg-brown{
+  background-color: $brown;
+  border-color: $brown;
+}
+
+.bg-white{
+  background-color: $white;
+  border-color: #707070;
+}
+
+.bg-light-white{
+  background-color: $light-white;
+}
+
+.bg-all{
+  background-image: linear-gradient(to right, #FF0000, #DED726, #1AFF94, #9F62A6, #1217A1);
+  border-color: #1217A1;
+}
+
+.bg-multi{
+  background-image: linear-gradient(#00FF99, #5522E6);
+  border-color: #5522E6;
+}
+
+.bg-light-blue {
+  background-color: $light-blue;
+  border-color: $light-blue;
+}
+
+.bg-sky-blue {
+  background-color: $light-sky-blue;
+  border-color: $light-sky-blue;
+}
+
+.text-black{
+  color: $black;
+}
+
+.text-blue{
+  color: $blue;
+}
+
+.text-grey-5 {
+  color: $dark-gray;
+}
+
+.text-muted{
+  opacity: 0.6;
+}
+
+.text-white {
+  color: $white;
+}
