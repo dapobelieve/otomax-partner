@@ -1,11 +1,11 @@
 <template>
     <div id="file-upload align-center">
-        <div class="front uploader pa-10 text-center" @click='triggerBrowse' :style="{ backgroundColor: bg, }">
+        <div class="front uploader pa-10 text-center" ref='dropArea' @click='triggerBrowse' :style="{ backgroundColor: bg, }">
            
             <v-img :src="icon" class='img' width='90' />
-            <div class="text-center mt-4">
+            <div class="text-center mt-0">
                 <small class="text-muted" v-if='files'> {{ files && files.name }} <br></small>
-                <!-- <small class="text-muted"> Drag and Drop or</small><br> -->
+                <small class="text-muted"> Drag and Drop or</small><br>
                 <small class="text-muted"> click to browse files</small>
             </div>
             <div class='loader' hidden>
@@ -30,10 +30,16 @@
         </v-row>
 
         <!-- preview -->
-        <v-row>
+        <v-row class='mt-8 px-4'>
+            <v-row style='width:100%;font-size: .8rem' class='px-2'>
+                <v-col> <span class='text-muted'> Minimum images 5 </span></v-col>
+                <v-col class='text-right'> 
+                    <b><span class='remainder text-red'>{{maxImg}}</span>/10</b> 
+                </v-col>
+            </v-row>
             <div class="img-area" v-for="(img, index) in readers" :key='index'>
                 <span class="close" @click='removeImage(img, index)'>x</span>
-                <img :src="require(`../assets/images/${img}`)" alt="">
+                <img :src="img" class='ma-2' alt="" width='150' height="150" />
             </div>
         </v-row>
     </div>
@@ -43,7 +49,7 @@
 export default {
     name: 'PreviewFileUpload',
     data: () => ({
-        fileTypes: 'image/*, .doc,.pdf,.docx',
+        fileTypes: 'image/*',
         files: [],
         readers: [ 'Group8365.png'],
         progress: 0,
@@ -52,10 +58,16 @@ export default {
         icon: { type: String, default: require('@/assets/images/Group8483.png') },
         bg: { type: String, default: 'transparent' },
         multiple: { type: Boolean, default: true, },
+        maxImages: { type: Number, default:  0, },
     },
     mounted() {
-        // this.reader.onload = this.handleUpdate
-        // this.reader.onerror = this.handleError
+        this.$refs.dropArea.ondragover = this.handleDrag
+        this.$refs.dropArea.ondrop = this.handleDrop
+    },
+    computed: {
+        maxImg() {
+            return (this.files.length > 0) ? this.files.length : this.maxImages;
+        },
     },
     methods: {
         triggerBrowse() {
@@ -64,20 +76,47 @@ export default {
         uploadFile(el) {
             this.files = el.target.files;
             el.target.files.forEach( file => {
-                this.readers.push( (new FileReader).readAsDataURL(file) )
-                console.log(file)
+                this.readImage(file)
             });
-            console.log('EL: ', this.files)
         },
         handleUpdate(reader) {
-            // this.img = reader.target.result;
             this.$emit('fileChanged', this.files)
-        },
-        handleError(file) {
-            console.log('Error: ', files)
         },
         removeImage(img, index) {
             this.readers = this.readers.filter( (x, i) => i !== index )
+        },
+        handleDrag(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            evt.dataTransfer.dropEffect = 'copy';
+        },
+        handleDrop(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            this.files.push(evt.dataTransfer.files);
+            console.log(this.files)
+            evt.dataTransfer.files.forEach( file => {
+                this.readImage(file)
+            });
+        },
+        filesMetadata() {
+            // for( const file of fileList ) {
+                
+            // }
+        },
+        readImage(file) {
+            // Check if the file is an image.
+            if (file.type && file.type.indexOf('image') === -1) {
+                console.log('File is not an image.', file.type, file);
+                this.$toast.error(file.name + ' has invalid file type')
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.addEventListener('load', (event) => {
+                this.readers.push(event.target.result)
+            });
+            reader.readAsDataURL(file);
         }
     },
 }
@@ -88,7 +127,6 @@ export default {
 
     .img-area {
         position: relative;
-
         .close {
             text-align: center;
             background: #000;
@@ -96,8 +134,8 @@ export default {
             padding: 0px 7px;
             position: absolute;
             color: #fff;
-            left: 10px;
-            top: 5px;
+            left: 15px;
+            top: 15px;
             cursor: pointer;
             transition: all .3s ease;
             &:hover {
@@ -105,5 +143,6 @@ export default {
             }
         }
     }
+    .text-red { color: #e11; }
 </style>
 
