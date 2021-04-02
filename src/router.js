@@ -16,6 +16,7 @@ import VehicleProfile from './pages/VehicleProfile'
 import PickVehicle from './pages/PickVehicle'
 import UploadLicense from './pages/UploadLicense'
 import VehicleUpload from './pages/VehicleUpload'
+import VehicleImagesUpload from './pages/VehicleImagesUpload'
 import NotFound from './pages/errors/NotFound'
 
 Vue.use(VueRouter);
@@ -86,6 +87,11 @@ export default new VueRouter({
           path: "vehicle-upload",
           name: "VehicleUpload",
           component: VehicleUpload
+        },
+        {
+          path: "/vehicle-images",
+          name: "VehicleImagesUpload",
+          component: VehicleImagesUpload
         },
         {
           path: 'vehicle',

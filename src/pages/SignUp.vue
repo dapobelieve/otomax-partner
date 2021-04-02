@@ -30,6 +30,8 @@
           <form-input name='name' type="text" placeholder="Full Name" :rules="rules.name" required />
           <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" required />
           <form-input name='phone' type="text" placeholder="Phone" :rules="rules.phone" required />
+          <form-input name='business' type="text" placeholder="Business Name" :rules="rules.business" required />
+          <form-input name='vat' type="text" placeholder="VAT" :rules="rules.vat" required />
           <form-input name='password' type="password" placeholder="Password" :rules='rules.password' required />
         </div>
         <div>
@@ -67,6 +69,13 @@ export default {
         phone: [
             value => !!value || 'Required!.',
             value => (value && value.length >= 3) || 'Phone is too short',
+        ],
+        business: [
+            value => !!value || 'Required!.',
+            value => (value && value.length >= 3) || 'Business name is too short',
+        ],
+        vat: [
+            value => !!value || 'Required!.',
         ],
         email: [
             value => !!value || 'Required!.',
