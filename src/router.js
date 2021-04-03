@@ -13,11 +13,10 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import ForgetPassword from "./pages/ForgetPassword"
 import VehicleProfile from './pages/VehicleProfile'
-import HireDuration from './pages/HireDuration'
 import PickVehicle from './pages/PickVehicle'
 import UploadLicense from './pages/UploadLicense'
-import ActiveHire from './pages/ActiveHire'
-import SuccessPayment from './pages/SuccessPayment'
+import VehicleUpload from './pages/VehicleUpload'
+import VehicleImagesUpload from './pages/VehicleImagesUpload'
 import NotFound from './pages/errors/NotFound'
 
 Vue.use(VueRouter);
@@ -85,9 +84,14 @@ export default new VueRouter({
           component: Filter
         },
         {
-          path: "success",
-          name: "SuccessPayment",
-          component: SuccessPayment
+          path: "vehicle-upload",
+          name: "VehicleUpload",
+          component: VehicleUpload
+        },
+        {
+          path: "/vehicle-images",
+          name: "VehicleImagesUpload",
+          component: VehicleImagesUpload
         },
         {
           path: 'vehicle',
@@ -99,11 +103,6 @@ export default new VueRouter({
               component: VehicleProfile,
             },
             {
-              path: '/vehicle/:id/hire',
-              name: 'HireDuration',
-              component: HireDuration,
-            },
-            {
               path: '/vehicle/:id/upload-license',
               name: 'UploadLicense',
               component: UploadLicense,
@@ -112,11 +111,6 @@ export default new VueRouter({
               path: "pickup",
               name: "PickVehicle",
               component: PickVehicle
-            },
-            {
-              path: 'active-hire',
-              name: 'ActiveHire',
-              component: ActiveHire,
             },
           ],
         },

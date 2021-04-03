@@ -24,8 +24,6 @@ import "@/assets/css/app.scss";
 import vuetify from "@/plugins/vuetify";
 
 
-import VueTransmit from "vue-transmit";
-
 // Vue toast Notification
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -49,7 +47,6 @@ axios.defaults.baseURL = baseUrl;
 if(localStorage.getItem('auth.token'))
   axios.defaults.headers.common['Authorization'] = `Bearer ` + localStorage.getItem('auth.token');
 
-Vue.use(VueTransmit)
 
 Vue.use(Vuex);
 Vue .config.productionTip = false;
