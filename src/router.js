@@ -16,6 +16,7 @@ import VehicleProfile from './pages/VehicleProfile'
 import PickVehicle from './pages/PickVehicle'
 import UploadLicense from './pages/UploadLicense'
 import VehicleUpload from './pages/VehicleUpload'
+import HirePricePage from './pages/HirePricePage'
 import VehicleImagesUpload from './pages/VehicleImagesUpload'
 import NotFound from './pages/errors/NotFound'
 
@@ -92,6 +93,11 @@ export default new VueRouter({
           path: "/vehicle-images",
           name: "VehicleImagesUpload",
           component: VehicleImagesUpload
+        },
+        {
+          path: "/hire-price",
+          name: "HirePricePage",
+          component: HirePricePage,
         },
         {
           path: 'vehicle',
