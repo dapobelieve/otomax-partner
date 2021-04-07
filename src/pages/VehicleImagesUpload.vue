@@ -9,7 +9,7 @@
 
         <v-row class='mt-8 d-flex justify-space-around align-center'>
             <v-col class='part'>
-                <preview-file-upload  :icon='require("@/assets/images/Group848.png")' bg='#F9F9F9' @fileChanged='files => handleUpload(files, "DRIVERLB")' />
+                <preview-file-upload  :icon='require("@/assets/images/Group8365.png")' bg='#F9F9F9' @fileChanged='files => handleUpload(files, "DRIVERLB")' />
             </v-col>
         </v-row>
 
