@@ -104,7 +104,7 @@ export default new VueRouter({
           component: BackLayout,
           children: [
             {
-              path: '/vehicle/:id',
+              path: '/vehicle',
               name: 'VehicleProfile',
               component: VehicleProfile,
             },

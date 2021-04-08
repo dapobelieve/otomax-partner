@@ -1,5 +1,8 @@
 <template>
     <div class='vehicle-profile'>
+        <div class="d-flex align-right">
+            <v-btn class='edit-btn' small>Edit Vehicle</v-btn>
+        </div>
         <div class="vehicle-content">
             <div class="vehicle-profile-section">
                 <image-slider-thumb :images="image"/> 
@@ -95,15 +98,15 @@ export default {
         VehicleBrief,
         ImageSliderThumb
     },
-    async beforeMount() {
-        console.log(this.$route.params.id)
-        this.vehicle = await this.$store.dispatch('findVehicle', this.$route.params.id).catch(err => {
-            this.$router.push({name: 'NotFound'})
-        })
-        if(!this.vehicle)
-            this.$router.push({name: 'NotFound'})
+    beforeMount() {
+        // console.log(this.$route.params.id)
+        // this.vehicle = await this.$store.dispatch('findVehicle', this.$route.params.id).catch(err => {
+        //     this.$router.push({name: 'NotFound'})
+        // })
+        // if(!this.vehicle)
+        //     this.$router.push({name: 'NotFound'})
 
-        console.log(this.vehicle)
+        // console.log(this.vehicle)
     },
     methods: {
         ...mapActions({createHireRequest:"createHireRequest"}),
@@ -131,12 +134,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import '../assets/css/_variables.scss';
+
     .vehicle-profile {
         width: 100%;
         margin: 0;
         background: #fff;
         padding: 30px;
         border-radius: 13px;
+
+        .edit-btn { color: $blue; }
 
         .vehicle-content {
             width: 100%;
