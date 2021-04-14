@@ -2,6 +2,12 @@
   <div class="hire-cost">
     <div class="hire-top">
       <div class="hire-item">
+        <slot>
+          <div v-if='icon' class="icon-area">
+            <a :href='iconLink'><img :src="icon" alt="" width='30' style="cursor: pointer" /></a><br>
+          </div>
+        </slot>
+
         <h4>Vehicle Hiring</h4>
         <small>Cost</small>
       </div>
@@ -21,6 +27,8 @@ export default {
   data: () => ({}),
   props: {
     price: { required: true, type: String },
+    icon: { required: false, type: String },
+    iconLink: { required: false, type: String },
   },
 };
 </script>
@@ -35,6 +43,7 @@ export default {
 
   .hire-top {
     display: flex;
+
     .hire-item {
       place-self: center;
       p {

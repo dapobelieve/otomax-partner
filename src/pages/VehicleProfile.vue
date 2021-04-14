@@ -1,8 +1,15 @@
 <template>
     <div class='vehicle-profile'>
+        <div class="d-flex align-right ">
+            <v-btn class='edit-btn' small>Edit Vehicle</v-btn>
+        </div>
         <div class="vehicle-content">
-            <div class="vehicle-profile-section">
+                <!-- <div class="edit-area">
+                    <img src="../assets/images/Group8338.png" alt="#">
+                </div> -->
+            <div class="vehicle-profile-section"  style='position: relative'>
                 <image-slider-thumb :images="image"/> 
+                
             </div>
             <div class="vehicle-profile-section">
                 <div class="hire-desc">
@@ -10,7 +17,7 @@
                         <h2>{{ vehicle.make }}</h2>
                         <span>{{ vehicle.model }}</span>
                     </div>
-                    <hire-cost class='h-cost' price='400' /> 
+                    <hire-cost class='h-cost' price='400' iconLink='#' :icon='require("../assets/images/Group8338.png")' /> 
                 </div>
                 <div class="vehicle-summary">
                     <vehicle-brief class='summary-item' text='Auto' details='Transmission' />
@@ -59,7 +66,7 @@
                 </div>
                 <div class="hire-now" style='margin-top: 20px;'>
                     <!--- if a hire request already exist, we'll need another button to contnue the request-->
-                    <v-btn @click="initHireRequest()" color='primary' block class='btn-long' height="40" elevation=0 :loading=this.loading>Hire Now</v-btn>
+                    <v-btn @click="initHireRequest()" color='primary' block class='btn-long' height="40" elevation=0 :loading=loading>Hire Now</v-btn>
                 </div>
             </div>
         </div>
@@ -95,15 +102,15 @@ export default {
         VehicleBrief,
         ImageSliderThumb
     },
-    async beforeMount() {
-        console.log(this.$route.params.id)
-        this.vehicle = await this.$store.dispatch('findVehicle', this.$route.params.id).catch(err => {
-            this.$router.push({name: 'NotFound'})
-        })
-        if(!this.vehicle)
-            this.$router.push({name: 'NotFound'})
+    beforeMount() {
+        // console.log(this.$route.params.id)
+        // this.vehicle = await this.$store.dispatch('findVehicle', this.$route.params.id).catch(err => {
+        //     this.$router.push({name: 'NotFound'})
+        // })
+        // if(!this.vehicle)
+        //     this.$router.push({name: 'NotFound'})
 
-        console.log(this.vehicle)
+        // console.log(this.vehicle)
     },
     methods: {
         ...mapActions({createHireRequest:"createHireRequest"}),
@@ -131,12 +138,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import '../assets/css/_variables.scss';
+
     .vehicle-profile {
         width: 100%;
         margin: 0;
         background: #fff;
         padding: 30px;
         border-radius: 13px;
+
+        .edit-btn { color: $blue; margin-left: auto; margin-bottom: 20px; }
+        .edit-area {
+            // position: absolute; 
+            top: -100px;
+        }
 
         .vehicle-content {
             width: 100%;
