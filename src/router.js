@@ -19,6 +19,7 @@ import VehicleUpload from './pages/VehicleUpload'
 import HirePricePage from './pages/HirePricePage'
 import VehicleImagesUpload from './pages/VehicleImagesUpload'
 import VehicleManager from './pages/VehicleManager'
+import VehicleListing from './pages/VehicleListing'
 import NotFound from './pages/errors/NotFound'
 
 Vue.use(VueRouter);
@@ -89,6 +90,11 @@ export default new VueRouter({
           path: "vehicle-manager",
           name: "VehicleManager",
           component: VehicleManager
+        },
+        {
+          path: "vehicle-listing",
+          name: "VehicleListing",
+          component: VehicleListing
         },
         {
           path: "vehicle-upload",
