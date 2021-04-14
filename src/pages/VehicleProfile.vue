@@ -1,11 +1,15 @@
 <template>
     <div class='vehicle-profile'>
-        <div class="d-flex align-right">
+        <div class="d-flex align-right ">
             <v-btn class='edit-btn' small>Edit Vehicle</v-btn>
         </div>
         <div class="vehicle-content">
-            <div class="vehicle-profile-section">
+                <!-- <div class="edit-area">
+                    <img src="../assets/images/Group8338.png" alt="#">
+                </div> -->
+            <div class="vehicle-profile-section"  style='position: relative'>
                 <image-slider-thumb :images="image"/> 
+                
             </div>
             <div class="vehicle-profile-section">
                 <div class="hire-desc">
@@ -13,7 +17,7 @@
                         <h2>{{ vehicle.make }}</h2>
                         <span>{{ vehicle.model }}</span>
                     </div>
-                    <hire-cost class='h-cost' price='400' /> 
+                    <hire-cost class='h-cost' price='400' iconLink='#' :icon='require("../assets/images/Group8338.png")' /> 
                 </div>
                 <div class="vehicle-summary">
                     <vehicle-brief class='summary-item' text='Auto' details='Transmission' />
@@ -143,7 +147,11 @@ export default {
         padding: 30px;
         border-radius: 13px;
 
-        .edit-btn { color: $blue; }
+        .edit-btn { color: $blue; margin-left: auto; margin-bottom: 20px; }
+        .edit-area {
+            // position: absolute; 
+            top: -100px;
+        }
 
         .vehicle-content {
             width: 100%;
