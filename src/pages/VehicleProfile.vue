@@ -66,7 +66,7 @@
                 </div>
                 <div class="hire-now" style='margin-top: 20px;'>
                     <!--- if a hire request already exist, we'll need another button to contnue the request-->
-                    <v-btn @click="initHireRequest()" color='primary' block class='btn-long' height="40" elevation=0 :loading=this.loading>Hire Now</v-btn>
+                    <v-btn @click="initHireRequest()" color='primary' block class='btn-long' height="40" elevation=0 :loading=loading>Hire Now</v-btn>
                 </div>
             </div>
         </div>
