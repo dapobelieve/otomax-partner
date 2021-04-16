@@ -7,7 +7,7 @@
             </div>
             <div style='margin-left: auto; align-self: flex-end'>
                 <slot>
-                    <v-btn small color='white' class='btn' elevation=0>{{ btnText }}</v-btn>
+                    <v-btn small color='white' class='btn' elevation='0' :href='href'>{{ btnText }}</v-btn>
                 </slot>
             </div>
         </div>
@@ -22,6 +22,7 @@ export default {
         description: { type: String },
         color: { type: String, default: '#ECF9FF', },
         btnText: { type: String, default: 'View' },
+        href: { type: String, default: '#' },
     },
 }
 </script>

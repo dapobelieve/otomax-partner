@@ -37,7 +37,7 @@ export default {
     @import  '@/assets/css/_variables.scss';
     .dashboard-item {
         display: block;
-        box-shadow: 0px 3px 50px #00000008;
+        box-shadow: 0px 10px 100px #00000008;
         border-radius: 4px;
         max-width: 320px;
         .count {
