@@ -24,7 +24,7 @@
               </div>
           </div>
           <div class="side">
-              
+              <!-- Other details here -->
           </div>
       </div>
 
