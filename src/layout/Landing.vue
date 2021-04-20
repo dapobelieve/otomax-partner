@@ -18,10 +18,10 @@ export default {
     })
   },
   beforeMount() {
-    if(!this.isLoggedIn) {
-      this.$store.dispatch('logout')
-      this.$router.push('/account/login')
-    }
+    // if(!this.isLoggedIn) {
+    //   this.$store.dispatch('logout')
+    //   this.$router.push('/account/login')
+    // }
   },
   components: {
     Header

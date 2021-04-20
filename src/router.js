@@ -21,6 +21,7 @@ import VehicleImagesUpload from './pages/VehicleImagesUpload'
 import VehicleManager from './pages/VehicleManager'
 import VehicleListing from './pages/VehicleListing'
 import FleetPartner from './pages/FleetPartner'
+import VehicleNotFound from './pages/VehicleNotFound'
 import NotFound from './pages/errors/NotFound'
 
 Vue.use(VueRouter);
@@ -116,6 +117,11 @@ export default new VueRouter({
           path: "/hire-price",
           name: "HirePricePage",
           component: HirePricePage,
+        },
+        {
+          path: "/vehicle-not-found",
+          name: "VehicleNotFound",
+          component: VehicleNotFound,
         },
         {
           path: 'vehicle',
