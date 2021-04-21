@@ -14,11 +14,11 @@
         </div>
       </v-row>
       
-      <div class="d-flex">
+      <div class="d-flex mt-8">
           <div class="side">
-              <div class="content">
+              <div class="content d-flex">
                   <dashboard-summary 
-                    class='mt-8'
+                    class=''
                     body-text='Upcoming Fund'
                     amount='400'
                     date='March 20th'
@@ -27,44 +27,65 @@
                     model='2018 Series'
                   />
 
-          <dashboard-item 
-            class='board-item'
-            title='Active Hire'
-            description='Vehicle(s) currently on hire.'
-            href='#'
-            :count='3'
-            :icon="require('@/assets/images/ActiveHire.png')"
-          />
                   <div class="return-vehicle">
-                    <div class="d-flex">
-                      <v-img :src='require("@/assets/images/ReturnedVehicles.png")' width='35'
-                       />
-                      <h3>Returned Vehicles</h3>
-                    </div>
-                    <div class="v-model-info">
-                      <h2>BMW X5</h2>
-                      <span>2018 Series</span>
-                    </div>
-                    <div class="v-car-info d-flex">
-                      <div>
-                        <span>Vehicle</span>
-                        <span>Pick Up Date</span>
-                      </div>
-                      <div>
-                        <v-btn class='vm-btn'>Request Date</v-btn>
-                      </div>
-                    </div>
-                    <div>
-                      <v-btn color='primary'>Pick Up</v-btn>
-                    </div>
+                    <dashboard-fleet-info 
+                      headerText='Returned Vehicles'
+                      :icon='require("@/assets/images/ReturnedVehicles.png")'
+                      bodyText='Pick Up Date'
+                      bodyDetails='17th May 2021'
+                      model='2018 Series'
+                      brand='BMW X5'
+                      linkText='Pick Up'
+                      class='mx-6'
+                    />
                   </div>
               </div>
-              <div class="extra">
+              <div class="extra mt-15">
                   <!-- Transaction details here -->
+                  <div>
+                    <h4>Received Recently</h4>
+                  </div>
+                  <div class="transactions mt-4">
+                    <transaction-item 
+                      brand='Toyota Corolla'
+                      model='2016'
+                      price='400'
+                      date='11/08/2021'
+                    />
+                    <transaction-item 
+                      brand='Toyota Corolla'
+                      model='2016'
+                      price='400'
+                      date='11/08/2021'
+                      background='#fff'
+                    />
+                    <transaction-item 
+                      brand='Toyota Corolla'
+                      model='2016'
+                      price='400'
+                      date='11/08/2021'
+                    />
+                  </div>
               </div>
           </div>
-          <div class="side">
+          <div class="side px-6">
               <!-- Other details here -->
+              <dashboard-fleet-item 
+                  title='Total  Vehicles'
+                  count='17'
+                  btnText='Add New Vehicle'
+              />
+
+              <dashboard-fleet-info 
+                headerText='Incomplete vehicle profile'
+                :icon='require("@/assets/images/Incomplete.png")'
+                bodyText='Pick Up Date'
+                bodyDetails='DU4-09AKG'
+                model='2018 Series'
+                brand='BMW X5'
+                linkText='Complete Profile'
+                class='my-10'
+              />
           </div>
       </div>
 
@@ -74,8 +95,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import DashboardItem from '../components/vehicle/DashboardItem'
+import DashboardFleetInfo from '../components/vehicle/DashboardFleetInfo';
+import DashboardFleetItem from '../components/vehicle/DashboardFleetItem'
 import DashboardSummary from '../components/vehicle/DashboardSummary';
+import TransactionItem from '../components/vehicle/TransactionItem';
 
 export default {
   name: 'FleetPartner',  
@@ -89,8 +112,10 @@ export default {
     }),
   },
   components: {
-    DashboardItem,
+    DashboardFleetItem,
     DashboardSummary,
+    DashboardFleetInfo,
+    TransactionItem,
   },
   mounted()  {
     console.log(this.user)
