@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import ForgetPassword from "./pages/ForgetPassword"
 import VehicleProfile from './pages/VehicleProfile'
+import EditVehicleProfile from './pages/EditVehicleProfile'
 import PickVehicle from './pages/PickVehicle'
 import UploadLicense from './pages/UploadLicense'
 import VehicleUpload from './pages/VehicleUpload'
@@ -131,6 +132,11 @@ export default new VueRouter({
               path: '/vehicle',
               name: 'VehicleProfile',
               component: VehicleProfile,
+            },
+            {
+              path: '/vehicle/edit',
+              name: 'EditVehicleProfile',
+              component: EditVehicleProfile,
             },
             {
               path: '/vehicle/:id/upload-license',
