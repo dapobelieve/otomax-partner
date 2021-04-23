@@ -5,17 +5,15 @@
         <v-img
           class="mb-9 text-center"
           style='margin: auto'
-          src="../assets/images/Group8399.png"
+          src="../assets/images/Group8404.png"
           width="100"
           height="100"></v-img>
 
-        <h2 class="mb-2">Upload Vehicle Info</h2>
-        <p class='text-center'>
-          Enter the registration number (license number) of the vehicle below
+        <h2 class="mb-2">In Review by Otomax</h2>
+        <p class='text-center mb-12'>
+          Price will be reviewed by otomax and a suggested price will be provide based on market trend
         </p>
-
-        <form-input class='mt-8' style="width:100%" rounded placeholder='e.g UCO-UY87D' />
-        <v-btn  block color="primary" elevation="0" ><h6>Fetch Vehicle Info</h6></v-btn>
+        <v-btn  block color="primary" elevation="0" href='/vehicle'><h6>Proceed to vehicle profile</h6></v-btn>
       </div>
 
       <v-btn class='top-btn' color='white'><h6>Skip</h6></v-btn>
@@ -28,7 +26,7 @@
 import FormInput from '@/components/forms/FormInput'
 
 export default {
-  name: 'VehicleUpload',
+  name: 'HirePricePage',
   data: () => ({
 
   }),
