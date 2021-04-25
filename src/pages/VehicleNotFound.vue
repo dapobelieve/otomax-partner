@@ -13,7 +13,7 @@
         <p class='text-center mt-6'>
           If you are sure that you entered the correct registration number (UY75-09DVC) and details could not be fetched proceed to manual upload
         </p>
-        <v-btn  block color="primary" elevation="0" class='mt-15'><h6>Manual Upload</h6></v-btn>
+        <v-btn  block color="primary" elevation="0" class='mt-15' href='/vehicle/upload'><h6>Manual Upload</h6></v-btn>
       </div>
 
       <v-btn class='top-btn' color='white'><h6>Skip</h6></v-btn>

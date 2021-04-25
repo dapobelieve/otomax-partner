@@ -1,5 +1,5 @@
 <template>
-    <v-container id="upload-license" class="pa-lg-10">
+    <v-container id="upload-license" class="pa-lg-10 mt-15">
         <div class='pl-4 d-flex align-center'>
             <div>
                 <v-img src="@/assets/images/Group848.png" width='65' class='u-img' /> 
@@ -14,7 +14,7 @@
         </v-row>
 
         <div class="d-flex align-center justify-center mb-6 mt-12">
-            <v-btn color='primary' elevation="0" min-width="320" min-height="45"> Upload & Continue </v-btn>
+            <v-btn color='primary' elevation="0" min-width="320" min-height="45" href='/hire-price'> Upload & Continue </v-btn>
         </div>
     </v-container>
 </template>
@@ -60,6 +60,7 @@ export default {
     @import '../assets/css/_variables.scss';
 
     #upload-license {
+        width: 70%;
         background: $white;
         border-radius: $border-radius;
 

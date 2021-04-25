@@ -13,10 +13,13 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import ForgetPassword from "./pages/ForgetPassword"
 import VehicleProfile from './pages/VehicleProfile'
+import EditVehicleProfile from './pages/EditVehicleProfile'
+import UploadVehicle from './pages/UploadVehicle'
 import PickVehicle from './pages/PickVehicle'
 import UploadLicense from './pages/UploadLicense'
-import VehicleUpload from './pages/VehicleUpload'
+import VehicleUploadInfo from './pages/VehicleUploadInfo'
 import HirePricePage from './pages/HirePricePage'
+import VehicleReviewPage from './pages/VehicleReviewPage'
 import VehicleImagesUpload from './pages/VehicleImagesUpload'
 import VehicleManager from './pages/VehicleManager'
 import VehicleListing from './pages/VehicleListing'
@@ -104,9 +107,9 @@ export default new VueRouter({
           component: VehicleListing
         },
         {
-          path: "vehicle-upload",
-          name: "VehicleUpload",
-          component: VehicleUpload
+          path: "vehicle-info-upload",
+          name: "VehicleUploadInfo",
+          component: VehicleUploadInfo
         },
         {
           path: "/vehicle-images",
@@ -117,6 +120,11 @@ export default new VueRouter({
           path: "/hire-price",
           name: "HirePricePage",
           component: HirePricePage,
+        },
+        {
+          path: "/vehicle-review",
+          name: "VehicleReviewPage",
+          component: VehicleReviewPage,
         },
         {
           path: "/vehicle-not-found",
@@ -131,6 +139,16 @@ export default new VueRouter({
               path: '/vehicle',
               name: 'VehicleProfile',
               component: VehicleProfile,
+            },
+            {
+              path: '/vehicle/edit',
+              name: 'EditVehicleProfile',
+              component: EditVehicleProfile,
+            },
+            {
+              path: '/vehicle/upload',
+              name: 'UploadVehicle',
+              component: UploadVehicle,
             },
             {
               path: '/vehicle/:id/upload-license',
