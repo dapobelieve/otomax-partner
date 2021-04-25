@@ -1,8 +1,15 @@
 <template>
     <div class='vehicle-profile'>
+        <div class="d-flex align-right ">
+            <v-btn class='edit-btn' small>Edit Vehicle</v-btn>
+        </div>
         <div class="vehicle-content">
-            <div class="vehicle-profile-section">
+                <!-- <div class="edit-area">
+                    <img src="../assets/images/Group8338.png" alt="#">
+                </div> -->
+            <div class="vehicle-profile-section"  style='position: relative'>
                 <image-slider-thumb :images="image"/> 
+                
             </div>
             <div class="vehicle-profile-section">
                 <div class="hire-desc">
@@ -10,7 +17,7 @@
                         <h2>{{ vehicle.make }}</h2>
                         <span>{{ vehicle.model }}</span>
                     </div>
-                    <hire-cost class='h-cost' price='400' /> 
+                    <hire-cost class='h-cost' price='200' iconLink='#' :icon='require("../assets/images/Group8338.png")' /> 
                 </div>
                 <div class="vehicle-summary">
                     <vehicle-brief class='summary-item' text='Auto' details='Transmission' />
@@ -47,19 +54,26 @@
                         </strong>
                     </div>
                 </div>
-                <div class="license-area">
-                    <div class="license">
-                        <span>M.O.T license Expires Date</span>
-                        <strong>15th August 2021</strong>
-                    </div>
-                    <div class="license">
-                        <span>Taxi license Expires Date</span>
-                        <strong>12th October 2021</strong>
-                    </div>
-                </div>
                 <div class="hire-now" style='margin-top: 20px;'>
                     <!--- if a hire request already exist, we'll need another button to contnue the request-->
-                    <v-btn @click="initHireRequest()" color='primary' block class='btn-long' height="40" elevation=0 :loading=this.loading>Hire Now</v-btn>
+                    <v-btn @click="initHireRequest()" color='primary' block class='btn-long' height="40" elevation=0 :loading=loading>Hire Now</v-btn>
+                    <div class='vehicle-number d-flex bg-gray pa-6 px-10 mt-6 rounded'>
+                        <p>Vehicle License Number</p>
+                        <h4 class='ml-auto'>DU4-09AKG</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vehicle-license-section mt-15">
+            <h2 class='ml-4 mb-8 text-grey-5'>License Details</h2>
+
+            <div class="license-area">
+                <div class="license">
+                    <expire-info description='M.O.T license Expires Date' title='15th August 2021' href='#' />
+                </div>
+                <div class="license">
+                    <expire-info description='Taxi license Expires Date' title='12th ' href='#' color='#FFF9D1' />
                 </div>
             </div>
         </div>
@@ -70,12 +84,14 @@
 import HireCost from '@/components/vehicle/HireCost'
 import ImageSliderThumb from '../components/ImageSliderThumb'
 import VehicleBrief from "@/components/vehicle/VehicleBrief";
+import ExpireInfo from '@/components/activeHire/ExpireInfo'
 
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'VehicleProfile',
     data: () => ({
+        loading: false,
         image: [
             require("../assets/images/car.jpg"),
             require("../assets/images/bmw.png"),
@@ -88,22 +104,26 @@ export default {
             require("../assets/images/blue.png"),
             require("../assets/images/bmw.png"),
         ],
-        vehicle: {},
+        vehicle: {
+            make: 'BMW X5',
+            model: '2018 Series',
+        },
     }),
     components: {
         HireCost,
         VehicleBrief,
-        ImageSliderThumb
+        ImageSliderThumb,
+        ExpireInfo,
     },
-    async beforeMount() {
-        console.log(this.$route.params.id)
-        this.vehicle = await this.$store.dispatch('findVehicle', this.$route.params.id).catch(err => {
-            this.$router.push({name: 'NotFound'})
-        })
-        if(!this.vehicle)
-            this.$router.push({name: 'NotFound'})
+    beforeMount() {
+        // console.log(this.$route.params.id)
+        // this.vehicle = await this.$store.dispatch('findVehicle', this.$route.params.id).catch(err => {
+        //     this.$router.push({name: 'NotFound'})
+        // })
+        // if(!this.vehicle)
+        //     this.$router.push({name: 'NotFound'})
 
-        console.log(this.vehicle)
+        // console.log(this.vehicle)
     },
     methods: {
         ...mapActions({createHireRequest:"createHireRequest"}),
@@ -131,12 +151,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import '../assets/css/_variables.scss';
+
     .vehicle-profile {
         width: 100%;
         margin: 0;
         background: #fff;
         padding: 30px;
         border-radius: 13px;
+
+        .edit-btn { color: $blue; margin-left: auto; margin-bottom: 20px; }
+        .edit-area {
+            // position: absolute; 
+            top: -100px;
+        }
 
         .vehicle-content {
             width: 100%;
@@ -154,7 +182,7 @@ export default {
                     display: flex;
                     place-items: center;
                     margin-bottom: 40px;
-                    .h-summary { padding: 0 20px; }
+                    .h-summary { color: #000; padding: 0 20px; }
                     .h-cost { margin-left: auto; }
                 }
                 .vehicle-summary {
@@ -183,24 +211,6 @@ export default {
                         }
                     }
                 }
-                .license-area {
-                    display: flex;
-                    .license {
-                        // display: inline-block;
-                        padding: 10px 20px;
-                        background: #ECF9FF;
-                        margin: 10px;
-                        width: 50%;
-                        border-radius: 10px;
-
-                        &:last-child {
-                            background: #FFF9D1;
-                        }
-
-                        span { display: block; margin-bottom: 5px; font-size: .8rem; }
-                        strong { display: block; font-size: .9rem; }
-                    }
-                }
                 .hire-now {
                     width: 100%;
                     text-align: right;
@@ -208,6 +218,14 @@ export default {
                         padding: 10px 40px;
                     }
                 }
+            }
+        }
+
+        .license-area {
+            display: flex;
+            .license {
+                margin: 10px;
+                width: 50%;
             }
         }
 
