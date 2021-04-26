@@ -13,7 +13,9 @@
         <div class="d-flex mt-10 align-center justify-center" style='width: 100%'>
             <div class='count ml-3'>{{ count }}</div>
             <div style='margin-left: auto'>
-                <v-btn elevation="0" class='btn' :href='href'><small>{{ btnText }}</small></v-btn>
+                <router-link :to="href">
+                    <v-btn elevation="0" class='btn'><small>{{ btnText }}</small></v-btn>
+                </router-link>
             </div>
         </div>
     </v-row>

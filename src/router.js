@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 import Landing from "./layout/Landing";
 import BackLayout from "./layout/BackLayout";
 import AuthLayout from "./layout/AuthLayout";
-import Home from "./pages/Home";
 import Vendor from "./pages/Vendor";
 import Notify from "./pages/Notification";
 import Profile from "./pages/Profile";
@@ -68,8 +67,8 @@ export default new VueRouter({
       children: [
         {
           path: "/",
-          name: "Home",
-          component: Home
+          name: "FleetPartner",
+          component: FleetPartner
         },
         {
           path: "vendor",
@@ -92,39 +91,9 @@ export default new VueRouter({
           component: Filter
         },
         {
-          path: "vehicle-manager",
-          name: "VehicleManager",
-          component: VehicleManager
-        },
-        {
-          path: "fleet-partner",
-          name: "FleetPartner",
-          component: FleetPartner
-        },
-        {
-          path: "vehicle-listing",
-          name: "VehicleListing",
-          component: VehicleListing
-        },
-        {
-          path: "vehicle-info-upload",
-          name: "VehicleUploadInfo",
-          component: VehicleUploadInfo
-        },
-        {
-          path: "/vehicle-images",
-          name: "VehicleImagesUpload",
-          component: VehicleImagesUpload
-        },
-        {
           path: "/hire-price",
           name: "HirePricePage",
           component: HirePricePage,
-        },
-        {
-          path: "/vehicle-review",
-          name: "VehicleReviewPage",
-          component: VehicleReviewPage,
         },
         {
           path: "/vehicle-not-found",
@@ -136,24 +105,45 @@ export default new VueRouter({
           component: BackLayout,
           children: [
             {
-              path: '/vehicle',
+              path: '/:id',
               name: 'VehicleProfile',
               component: VehicleProfile,
+            },
+            {
+              path: "/vehicle/manager",
+              name: "VehicleManager",
+              component: VehicleManager
+            },
+            {
+              path: "/vehicle/upload/images",
+              name: "VehicleImagesUpload",
+              component: VehicleImagesUpload
+            },
+            {
+              path: "/vehicle/review",
+              name: "VehicleReviewPage",
+              component: VehicleReviewPage,
             },
             {
               path: '/vehicle/edit',
               name: 'EditVehicleProfile',
               component: EditVehicleProfile,
             },
+
+            {
+              path: "/vehicle/listing",
+              name: "VehicleListing",
+              component: VehicleListing
+            },
+            {
+              path: "/vehicle/upload/info",
+              name: "VehicleUploadInfo",
+              component: VehicleUploadInfo
+            },
             {
               path: '/vehicle/upload',
               name: 'UploadVehicle',
               component: UploadVehicle,
-            },
-            {
-              path: '/vehicle/:id/upload-license',
-              name: 'UploadLicense',
-              component: UploadLicense,
             },
             {
               path: "pickup",

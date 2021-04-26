@@ -18,7 +18,7 @@
             class='board-item'
             title='Incomplete Profile'
             description='Please complete the vehicle listing'
-            href='#'
+            href='/vehicle/listing'
             :count='2'
             :icon="require('@/assets/images/Incomplete.png')"
           />
@@ -27,7 +27,7 @@
             class='board-item'
             title='Active Hire'
             description='Vehicle(s) currently on hire.'
-            href='#'
+            href='/vehicle/listing'
             :count='3'
             :icon="require('@/assets/images/ActiveHire.png')"
           />
@@ -35,7 +35,7 @@
             class='board-item'
             title='Available for Hire'
             description='Vehicle(s) awaiting hire.'
-            href='#'
+            href='/vehicle/listing'
             :count='2'
             :icon="require('@/assets/images/AvailableforHire.png')"
           />
@@ -45,14 +45,14 @@
             class='board-item'
             title='In Review by Otomax Admin'
             description='Vehicle(s) pending review by Otomax..'
-            href='#'
+            href='/vehicle/listing'
             :count='1'
           />
           <dashboard-item 
             class='board-item'
             title='Not Available for Hire'
             description='Vehicle(s) currently not up for hire.'
-            href='#'
+            href='/vehicle/listing'
             :count='8'
             :icon="require('@/assets/images/NotAvailableforHire.png')"
           />
@@ -60,7 +60,7 @@
             class='board-item'
             title='Returned Vehicles'
             description='Vehicle(s) to be picked up in 24 hours from Otomax.'
-            href='#'
+            href='/vehicle/listing'
             :count='1'
             :icon="require('@/assets/images/ReturnedVehicles.png')"
           />
