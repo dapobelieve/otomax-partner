@@ -1,5 +1,15 @@
 <template>
-  <main>
+  <main style="position:relative">
+    <div v-if="editable" style="
+                    position: absolute;
+                    z-index: 3433434;
+                    top: 10px;
+                    right: 30px;
+                    background: blue;
+                    padding: 6px;
+                    color: white;
+                ">Edit</div>
+
     <div class="thumb-example mb-8 w-100">
       <swiper
         class="swiper gallery-top"
@@ -51,6 +61,7 @@ export default {
   name: "SwiperExampleThumbsGallery",
   props: {
     images: { required: true, type: Array },
+    editable: { required: true, default:true,type: Boolean }
   },
   components: {
     Swiper,
