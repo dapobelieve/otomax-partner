@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex'
 import AuthHeader from '../components/AuthHeader'
 
 export default {
-
+  name: 'AuthHeader',
   beforeMount() {
     if(this.isLoggedIn) {
       this.$router.push('/profile')
@@ -27,4 +27,3 @@ export default {
   }
 }
 </script>
-    AuthHeader

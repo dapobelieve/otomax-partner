@@ -17,12 +17,12 @@ export default {
       isLoggedIn: 'isAuthenticated',
     })
   },
-  // beforeMount() {
-  //   if(!this.isLoggedIn) {
-  //     this.$store.dispatch('logout')
-  //     this.$router.push('/account/login')
-  //   }
-  // },
+  beforeMount() {
+    // if(!this.isLoggedIn) {
+    //   this.$store.dispatch('logout')
+    //   this.$router.push('/account/login')
+    // }
+  },
   components: {
     Header
   }

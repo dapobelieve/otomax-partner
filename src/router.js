@@ -13,11 +13,18 @@ import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import ForgetPassword from "./pages/ForgetPassword"
 import VehicleProfile from './pages/VehicleProfile'
+import EditVehicleProfile from './pages/EditVehicleProfile'
+import UploadVehicle from './pages/UploadVehicle'
 import PickVehicle from './pages/PickVehicle'
 import UploadLicense from './pages/UploadLicense'
-import VehicleUpload from './pages/VehicleUpload'
+import VehicleUploadInfo from './pages/VehicleUploadInfo'
 import HirePricePage from './pages/HirePricePage'
+import VehicleReviewPage from './pages/VehicleReviewPage'
 import VehicleImagesUpload from './pages/VehicleImagesUpload'
+import VehicleManager from './pages/VehicleManager'
+import VehicleListing from './pages/VehicleListing'
+import FleetPartner from './pages/FleetPartner'
+import VehicleNotFound from './pages/VehicleNotFound'
 import NotFound from './pages/errors/NotFound'
 
 Vue.use(VueRouter);
@@ -85,9 +92,24 @@ export default new VueRouter({
           component: Filter
         },
         {
-          path: "vehicle-upload",
-          name: "VehicleUpload",
-          component: VehicleUpload
+          path: "vehicle-manager",
+          name: "VehicleManager",
+          component: VehicleManager
+        },
+        {
+          path: "fleet-partner",
+          name: "FleetPartner",
+          component: FleetPartner
+        },
+        {
+          path: "vehicle-listing",
+          name: "VehicleListing",
+          component: VehicleListing
+        },
+        {
+          path: "vehicle-info-upload",
+          name: "VehicleUploadInfo",
+          component: VehicleUploadInfo
         },
         {
           path: "/vehicle-images",
@@ -100,13 +122,33 @@ export default new VueRouter({
           component: HirePricePage,
         },
         {
+          path: "/vehicle-review",
+          name: "VehicleReviewPage",
+          component: VehicleReviewPage,
+        },
+        {
+          path: "/vehicle-not-found",
+          name: "VehicleNotFound",
+          component: VehicleNotFound,
+        },
+        {
           path: 'vehicle',
           component: BackLayout,
           children: [
             {
-              path: '/vehicle/:id',
+              path: '/vehicle',
               name: 'VehicleProfile',
               component: VehicleProfile,
+            },
+            {
+              path: '/vehicle/edit',
+              name: 'EditVehicleProfile',
+              component: EditVehicleProfile,
+            },
+            {
+              path: '/vehicle/upload',
+              name: 'UploadVehicle',
+              component: UploadVehicle,
             },
             {
               path: '/vehicle/:id/upload-license',

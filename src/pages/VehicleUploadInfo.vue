@@ -5,17 +5,17 @@
         <v-img
           class="mb-9 text-center"
           style='margin: auto'
-          src="../assets/images/Group8402.png"
+          src="../assets/images/Group8399.png"
           width="100"
           height="100"></v-img>
 
-        <h2 class="mb-2">Minimum Hire Price weekly</h2>
+        <h2 class="mb-2">Upload Vehicle Info</h2>
         <p class='text-center'>
-          How much do you mjam augue lacus, efficitur quis iaculis in, elementum at eros. Suspendisse
+          Enter the registration number (license number) of the vehicle below
         </p>
 
-        <form-input class='mt-8' style="width:100%" rounded placeholder='$ 200' />
-        <v-btn  block color="primary" elevation="0" href='/vehicle-review'><h6>Save</h6></v-btn>
+        <form-input class='mt-8' style="width:100%" rounded placeholder='e.g DU4-09AKG' />
+        <v-btn  block color="primary" elevation="0" href='/vehicle-not-found' ><h6>Fetch Vehicle Info</h6></v-btn>
       </div>
 
       <v-btn class='top-btn' color='white'><h6>Skip</h6></v-btn>
@@ -28,7 +28,7 @@
 import FormInput from '@/components/forms/FormInput'
 
 export default {
-  name: 'HirePricePage',
+  name: 'VehicleUploadInfo',
   data: () => ({
 
   }),
