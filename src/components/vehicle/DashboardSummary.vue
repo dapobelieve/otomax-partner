@@ -54,7 +54,7 @@ export default {
     @import '../../assets/css/_variables.scss';
 
     .dashboard-summary {
-        min-width: 400px;
+        min-width: 550px;
         background: #000;
         border-radius: 8px;
         padding: 20px 30px;

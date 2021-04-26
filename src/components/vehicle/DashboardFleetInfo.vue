@@ -4,7 +4,7 @@
             <div>
                 <v-img :src='icon' width='35' />
             </div>
-            <h4 class='ml-4'>{{ headerText }}</h4>
+            <h5 class='ml-4'>{{ headerText }}</h5>
         </div>
         <div class="v-model-info mt-10">
             <h2>{{ brand }}</h2>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class='d-flex'>
-            <v-btn color='primary' class='ml-auto' elevation="0"><small>{{ linkText }}</small></v-btn>
+            <v-btn color='primary' class='ml-auto' elevation="0" small><small>{{ linkText }}</small></v-btn>
         </div>
     </div>
 </template>
@@ -47,6 +47,7 @@ export default {
         box-shadow: 0px 10px 100px #00000008;
         padding: 30px;
         background: #fff;
+        border-radius: 8px;
 
         .v-car-info {
             background: #F9F9F9;

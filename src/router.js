@@ -129,7 +129,6 @@ export default new VueRouter({
               name: 'EditVehicleProfile',
               component: EditVehicleProfile,
             },
-
             {
               path: "/vehicle/listing",
               name: "VehicleListing",
