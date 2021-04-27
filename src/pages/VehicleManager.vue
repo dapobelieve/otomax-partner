@@ -1,5 +1,5 @@
 <template>
-  <v-container class="bg-white mt-9" style="border-radius: 8px; width: 70%;">
+  <v-container class="bg-white mt-4" style="border-radius: 8px;">
     <main class="py-15 px-15">
       <v-row>
         <div class="d-flex justify-left align-center" style='width: 100%'>
@@ -9,11 +9,11 @@
             </div>
 
             <div style='margin-left: auto'>
-              <v-btn color="primary">Add new Vehicle</v-btn>
+              <v-btn color="primary" elevation=0>Add new Vehicle</v-btn>
             </div>
         </div>
       </v-row>
-      <div class='board-content'>
+      <div class='board-content mt-6'>
           <dashboard-item 
             class='board-item'
             title='Incomplete Profile'
@@ -99,7 +99,6 @@ export default {
   padding-left: 207px !important;
 }
 .board-content {
-  margin-top: 80px;
   display: grid;
   grid-template-columns: repeat(3, minmax(250px, 1fr));
   align-items: center;
