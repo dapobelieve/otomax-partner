@@ -51,7 +51,7 @@ export default {
     data: () => ({
         fileTypes: 'image/*',
         files: [],
-        readers: [ 'Group8365.png'],
+        readers: [],
         progress: 0,
     }),
     props: {
@@ -66,7 +66,7 @@ export default {
     },
     computed: {
         maxImg() {
-            return (this.files.length > 0) ? this.files.length : this.maxImages;
+            return (this.readers.length > 0) ? this.readers.length : this.maxImages;
         },
     },
     methods: {
