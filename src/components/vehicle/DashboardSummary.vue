@@ -1,5 +1,5 @@
 <template>
-    <div class="dashboard-summary">
+    <div class="dashboard-summary px-6 py-8">
         <div class="d-flex">
             <div class='d-flex justify-center align-center'>
                 <v-img :src='require("@/assets/images/ActiveHire.png")' width='35' />
@@ -28,7 +28,7 @@
                 <span>{{ model }}</span>
             </div>
             <div class='ml-auto'>
-                <v-btn class='btn' :href='href' small>{{ linkText }}</v-btn>
+                <v-btn class='btn' elevation=0 :href='href' small>{{ linkText }}</v-btn>
             </div>
         </div>
     </div>
@@ -58,7 +58,6 @@ export default {
         min-width: 550px;
         background: #000;
         border-radius: 8px;
-        padding: 20px 30px;
         color: #fff;
 
         .leaf {
