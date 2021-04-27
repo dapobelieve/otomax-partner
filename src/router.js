@@ -24,6 +24,7 @@ import VehicleListing from './pages/VehicleListing'
 import FleetPartner from './pages/FleetPartner'
 import VehicleNotFound from './pages/VehicleNotFound'
 import NotFound from './pages/errors/NotFound'
+import PaymentDetailsForm from './pages/PaymentDetailsForm'
 
 Vue.use(VueRouter);
 
@@ -101,6 +102,11 @@ export default new VueRouter({
           ],
         },
 
+        {
+          path: '/payment-details-form',
+          name: 'PaymentDetailsForm',
+          component: PaymentDetailsForm,
+        },
         {
           path: 'vehicle',
           component: BackLayout,
