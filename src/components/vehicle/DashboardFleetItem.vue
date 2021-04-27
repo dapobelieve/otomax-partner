@@ -1,5 +1,5 @@
 <template>
-    <v-row class="dashboard-item pa-6" elevation='4'>
+    <div class="dashboard-item pa-6">
         <div class="d-flex align-center mr-12">
             <div class="img-area mr-4">
                 <img :src="icon" alt="" width='35'>
@@ -15,7 +15,7 @@
                 <v-btn elevation="0" class='btn' :href='href' color='primary' small><small>{{ btnText }}</small></v-btn>
             </div>
         </div>
-    </v-row>
+    </div>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
     @import  '@/assets/css/_variables.scss';
     .dashboard-item {
         display: block;
-        box-shadow: 0px 10px 100px #00000008;
+        box-shadow: 5px 21px 20px rgb(191 191 191 / 17%);
         border-radius: 8px;
         max-width: 320px;
         background-color: $white;

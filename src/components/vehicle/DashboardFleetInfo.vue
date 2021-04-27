@@ -6,17 +6,16 @@
             </div>
             <h5 class='ml-4'>{{ headerText }}</h5>
         </div>
-        <div class="v-model-info mt-10">
-            <h2>{{ brand }}</h2>
+        <div class="v-model-info mt-4">
+            <h3>{{ brand }}</h3>
             <span>{{ model }}</span>
         </div>
-        <div class="v-car-info d-flex pa-4 my-6 align-center">
+        <div class="v-car-info d-flex pa-4 my-5 align-center">
             <div class='mr-12'>
-                <small>Vehicle</small> <br>
                 <small>{{ bodyText }}</small>
             </div>
             <div class='ml-auto'>
-                <h3>{{ bodyDetails }}</h3>
+                <h5>{{ bodyDetails }}</h5>
             </div>
         </div>
         <div class='d-flex'>
@@ -44,7 +43,7 @@ export default {
 
 <style lang="scss" scoped>
     .dashboard-fleet-info {
-        box-shadow: 0px 10px 100px #00000008;
+        box-shadow: 5px 21px 20px rgb(191 191 191 / 17%);
         padding: 30px;
         background: #fff;
         border-radius: 8px;

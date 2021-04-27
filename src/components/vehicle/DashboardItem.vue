@@ -1,5 +1,5 @@
 <template>
-    <v-row class="dashboard-item pa-6" elevation='4'>
+    <div class="dashboard-item pa-6">
         <div class="d-flex align-center justify-center">
             <div class="img-area mr-4">
                 <img :src="icon" alt="" width='40'>
@@ -18,7 +18,7 @@
                 </router-link>
             </div>
         </div>
-    </v-row>
+    </div>
 </template>
 
 <script>
@@ -39,9 +39,8 @@ export default {
     @import  '@/assets/css/_variables.scss';
     .dashboard-item {
         display: block;
-        box-shadow: 0px 10px 100px #00000008;
+        box-shadow: 5px 21px 20px rgb(191 191 191 / 17%);
         border-radius: 4px;
-        max-width: 320px;
         .count {
             font-weight: bold;
             font-size: 2rem;

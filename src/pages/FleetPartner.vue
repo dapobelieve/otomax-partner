@@ -1,13 +1,10 @@
 <template>
-  <v-container class=" mt-9" style="border-radius: 8px; width: 75%;">
-    <main class="py-15 px-15">
-
-
+  <v-container class="mt-5">
+    <main c>
       <v-row>
         <div class="d-flex justify-left align-center ml-0" style='width: 100%'>
-            <div class="d-header d-flex align-center ml-2">
-              <!-- <img src="../assets/images/Group8355.png" width='90' class='mr-4'> -->
-              <h3>Welcome James!</h3>
+            <div class="d-header d-flex align-center">
+              <h2 class="ml-4">Welcome James!</h2>
             </div>
         </div>
       </v-row>
@@ -36,7 +33,7 @@
                     model='2018 Series'
                     brand='BMW X5'
                     linkText='Pick Up'
-                    class='mx-6'
+                    class='ml-6'
                   />
                 </div>
               </div>
@@ -68,7 +65,7 @@
                   </div>
               </div>
           </div>
-          <div class="side px-6 mt-4" style='box-sizing: content-box;'>
+          <div class="side pl-6">
               <!-- Other details here -->
               <dashboard-fleet-item 
                   title='Total  Vehicles'
@@ -84,7 +81,7 @@
                 model='2018 Series'
                 brand='BMW X5'
                 linkText='Complete Profile'
-                class='my-10'
+                class='mt-6'
               />
           </div>
       </div>
