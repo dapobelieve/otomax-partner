@@ -46,7 +46,7 @@
               <img left src="../assets/images/icon-google.svg" />
               <span class="ml-3">Login with Google</span>
             </v-btn>
-            <v-btn elevation="0" block color="#3B5998" large @click='handleFacebookLogin'>
+            <v-btn elevation="0" block color="#3B5998" large>
               <img left src="../assets/images/icon-facebook.svg" />
               <span class="text-white ml-3">Login with Facebook</span>
             </v-btn>
@@ -104,19 +104,8 @@ export default {
         else
           this.$toast.error(err.message)
       })
-    },
-    handleFacebookLogin() {
-      axios.post('/auth/facebook/token').then(res => {
-        this.$router.push('/profile')
-        window.location.reload();
-      }).catch(err => {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
-      })
-    },
-  },
+    }
+  }
 };
 </script>
 

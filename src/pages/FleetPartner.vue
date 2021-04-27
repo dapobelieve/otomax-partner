@@ -37,7 +37,7 @@
                   />
                 </div>
               </div>
-              <div class="extra mt-10 bg-white pa-6 px-8">
+              <div class="extra mt-8 bg-white pa-6 px-8">
                   <!-- Transaction details here -->
                   <div>
                     <h4>Received Recently</h4>

@@ -40,27 +40,6 @@ export default new VueRouter({
       name: 'NotFound',
     },
     {
-      path: '/account',
-      component: AuthLayout,
-      children: [
-        {
-          path: 'login',
-          name: 'Login',
-          component: Login,
-        },
-        {
-          path: 'sign-up',
-          name: 'Signup',
-          component: SignUp,
-        },
-        {
-          path: 'forget-password',
-          name: 'ForgetPassword',
-          component: ForgetPassword,
-        },
-      ],
-    },
-    {
       path: "/",
       component: Landing,
       children: [
@@ -99,6 +78,29 @@ export default new VueRouter({
           name: "VehicleNotFound",
           component: VehicleNotFound,
         },
+
+        {
+          path: 'account',
+          component: AuthLayout,
+          children: [
+            {
+              path: 'login',
+              name: 'Login',
+              component: Login,
+            },
+            {
+              path: 'sign-up',
+              name: 'Signup',
+              component: SignUp,
+            },
+            {
+              path: 'forget-password',
+              name: 'ForgetPassword',
+              component: ForgetPassword,
+            },
+          ],
+        },
+
         {
           path: 'vehicle',
           component: BackLayout,
