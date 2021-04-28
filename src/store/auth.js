@@ -47,8 +47,12 @@ export default {
             })
         },
         logout(store) {
-            localStorage.clear();
-            store.commit('clearAuth');
+            return new Promise( (resolve, reject) => {
+                localStorage.clear();
+                return resolve(store.commit('clearAuth'));
+            }).then(res => {
+                return res;
+            })
         },
     },
 };

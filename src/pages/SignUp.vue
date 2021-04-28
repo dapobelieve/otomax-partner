@@ -28,10 +28,10 @@
         </div>
         <div>
           <form-input name='name' type="text" placeholder="Full Name" :rules="rules.name" required />
+          <form-input name='userName' type="text" placeholder="Username" :rules="rules.username" required />
           <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" required />
-          <form-input name='phone' type="text" placeholder="Phone" :rules="rules.phone" required />
-          <form-input name='business' type="text" placeholder="Business Name" :rules="rules.business" required />
-          <form-input name='vat' type="text" placeholder="VAT" :rules="rules.vat" required />
+          <!-- <form-input name='business' type="text" placeholder="Business Name" :rules="rules.business" required />
+          <form-input name='vat' type="text" placeholder="VAT" :rules="rules.vat" required /> -->
           <form-input name='password' type="password" placeholder="Password" :rules='rules.password' required />
         </div>
         <div>
@@ -55,6 +55,7 @@ import FormInput from "../components/forms/FormInput.vue";
 import LoginModal from "../components/modal/LoginModal.vue";
 import SignUpModal from "../components/modal/SignUpModal.vue";
 export default {
+  name: 'SignUp',
   data: () => ({
     loginModal: false,
     loading: false,
@@ -66,9 +67,9 @@ export default {
             value => !!value || 'Required!.',
             value => (value && value.length >= 2) || 'Name too short',
         ],
-        phone: [
+        username: [
             value => !!value || 'Required!.',
-            value => (value && value.length >= 3) || 'Phone is too short',
+            value => (value && value.length >= 3) || 'Username is too short',
         ],
         business: [
             value => !!value || 'Required!.',
@@ -100,7 +101,6 @@ export default {
       form.append('source', 'web');
       form.append('firstName', first)
       form.append('lastName', last)
-      form.append('phone', '')
 
       const data = {}
       form.forEach( (x, b) => {
