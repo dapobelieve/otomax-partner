@@ -1,21 +1,21 @@
 <template>
-    <v-row class="dashboard-item pa-6" elevation='4'>
+    <div class="dashboard-item pa-6">
         <div class="d-flex align-center mr-12">
             <div class="img-area mr-4">
                 <img :src="icon" alt="" width='35'>
             </div>
             <div class="content">
-                <h4>{{ title }}</h4>
+                <h5>{{ title }}</h5>
             </div>
         </div>
 
         <div class="d-flex mt-10 align-center" style='width: 100%'>
             <div class='count ml-3 mr-auto'>{{ count }}</div>
             <div style='margin-left: auto'>
-                <v-btn elevation="0" class='btn' :href='href' color='primary'><small>{{ btnText }}</small></v-btn>
+                <v-btn elevation="0" class='btn' :href='href' color='primary' small><small>{{ btnText }}</small></v-btn>
             </div>
         </div>
-    </v-row>
+    </div>
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
         count: { type: String, required: false, default: '0' },
         btnText: { type: String, default: 'View' },
         href: { type: String, default: '#' },
-        icon: { type: String, required: false, default: require('@/assets/images/InReview.png') },
+        icon: { type: String, required: false, default: require('@/assets/images/Group8461.png') },
     },
 }
 </script>
@@ -35,9 +35,10 @@ export default {
     @import  '@/assets/css/_variables.scss';
     .dashboard-item {
         display: block;
-        box-shadow: 0px 10px 100px #00000008;
-        border-radius: 4px;
+        box-shadow: 5px 21px 20px rgb(191 191 191 / 17%);
+        border-radius: 8px;
         max-width: 320px;
+        background-color: $white;
         .count {
             font-weight: bold;
             font-size: 2rem;

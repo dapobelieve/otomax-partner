@@ -1,5 +1,5 @@
 <template>
-    <div class='vehicle' :style="{ backgroundImage: `url(${photo})` }">
+    <div class='vehicle mx-3' :style="{ backgroundImage: `url(${photo})` }">
         <div class="content">
             <h2>{{ brand }}</h2>
             <p>{{ model }}</p>
@@ -22,7 +22,7 @@ export default {
     .vehicle {
         border-radius: 8px;
         height: auto;
-        width: 380px;
+        min-width: 330px;
         background: transparent no-repeat;
         background-size: cover;
 

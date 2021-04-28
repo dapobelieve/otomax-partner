@@ -8,7 +8,7 @@
                     <img src="../assets/images/Group8338.png" alt="#">
                 </div> -->
             <div class="vehicle-profile-section"  style='position: relative'>
-                <image-slider-thumb :images="image"/> 
+                <image-slider-thumb :images="image" editLink='#'/> 
                 
             </div>
             <div class="vehicle-profile-section">

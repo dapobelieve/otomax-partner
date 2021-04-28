@@ -67,19 +67,19 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      // user: {
-      //   name: "Joe Ali",
-      //   age: "Age 34",
-      //   phoneNumber: "(+447) 845-6289-456",
-      //   dob: "22-04-1987",
-      //   address: "40 Green Lane London NW04 8UB",
-      // },
+      user: {
+        name: "Joe Ali",
+        age: "Age 34",
+        phoneNumber: "(+447) 845-6289-456",
+        dob: "22-04-1987",
+        address: "40 Green Lane London NW04 8UB",
+      },
     };
   },
   computed: {
-    ...mapGetters({
-      user: 'user',
-    }),
+    // ...mapGetters({
+    //   user: 'user',
+    // }),
   },
   mounted()  {
     console.log(this.user)

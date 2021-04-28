@@ -1,24 +1,20 @@
 <template>
-  <v-container class="bg-white mt-9" style="border-radius: 8px; width: 70%;">
-    <main class="py-15 px-15">
+  <v-container class="mt-5">
+    <main c>
       <v-row>
-        <div class="d-flex justify-left align-center" style='width: 100%'>
+        <div class="d-flex justify-left align-center ml-0" style='width: 100%'>
             <div class="d-header d-flex align-center">
-              <img src="../assets/images/Group8355.png" width='90' class='mr-4'>
-              <h2>Welcome James!</h2>
-            </div>
-
-            <div style='margin-left: auto'>
-              <v-btn color="primary">Add new Vehicle</v-btn>
+              <h2 class="ml-4">Welcome James!</h2>
             </div>
         </div>
       </v-row>
       
-      <div class="d-flex mt-8">
+      <div class="d-flex mt-8 justify-center">
+        
           <div class="side">
               <div class="content d-flex">
+                <div class='d-flex' style='flex-grow: 2;'>
                   <dashboard-summary 
-                    class=''
                     body-text='Upcoming Fund'
                     amount='400'
                     date='March 20th'
@@ -26,21 +22,22 @@
                     brand='BMW X5'
                     model='2018 Series'
                   />
+                </div>
 
-                  <div class="return-vehicle">
-                    <dashboard-fleet-info 
-                      headerText='Returned Vehicles'
-                      :icon='require("@/assets/images/ReturnedVehicles.png")'
-                      bodyText='Pick Up Date'
-                      bodyDetails='17th May 2021'
-                      model='2018 Series'
-                      brand='BMW X5'
-                      linkText='Pick Up'
-                      class='mx-6'
-                    />
-                  </div>
+                <div class="return-vehicle" style='flex-grow: 0'>
+                  <dashboard-fleet-info 
+                    headerText='Returned Vehicles'
+                    :icon='require("@/assets/images/ReturnedVehicles.png")'
+                    bodyText='Pick Up Date'
+                    bodyDetails='17th May 2021'
+                    model='2018 Series'
+                    brand='BMW X5'
+                    linkText='Pick Up'
+                    class='ml-6'
+                  />
+                </div>
               </div>
-              <div class="extra mt-15">
+              <div class="extra mt-8 bg-white pa-6 px-8">
                   <!-- Transaction details here -->
                   <div>
                     <h4>Received Recently</h4>
@@ -68,7 +65,7 @@
                   </div>
               </div>
           </div>
-          <div class="side px-6">
+          <div class="side pl-6">
               <!-- Other details here -->
               <dashboard-fleet-item 
                   title='Total  Vehicles'
@@ -84,7 +81,7 @@
                 model='2018 Series'
                 brand='BMW X5'
                 linkText='Complete Profile'
-                class='my-10'
+                class='mt-6'
               />
           </div>
       </div>
@@ -124,5 +121,5 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
+  .extra { border-radius: 8px !important; }
 </style>
