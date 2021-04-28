@@ -3,7 +3,7 @@
     <v-container>
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
+          alt="Otomax Logo"
           class="shrink mr-2"
           contain
           src="../assets/images/logo-black.svg"
@@ -14,3 +14,9 @@
     </v-container>
   </v-app-bar>
 </template>
+
+<script>
+export default {
+  name: 'AuthHeader',
+}
+</script>

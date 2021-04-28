@@ -1,6 +1,6 @@
 <template>
   <main>
-    <auth-header />
+    <!-- <auth-header /> -->
 
     <router-view />
   </main>
@@ -14,7 +14,7 @@ export default {
   name: 'AuthHeader',
   beforeMount() {
     if(this.isLoggedIn) {
-      this.$router.push('/profile')
+      this.$router.push('/')
     }
   },
   computed: {
