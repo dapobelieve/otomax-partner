@@ -1,9 +1,9 @@
 <template>
-  <v-container class='pt-15 border-radius' style='width: 70%'>
+  <v-container class='mt-6 border-radius'>
     <status-component title='Not Available for Hire' />
 
     <div class="vehicle-listing bg-white mt-9 pt-4 border-radius">
-        <div class="v-list-items pa-6">
+        <div class="v-list-items pa-6 d-flex flex-wrap">
             <vehicle-list-item brand='BMW X5' model='2018 Series' />
             <vehicle-list-item brand='BMW X5' model='2018 Series' />
             <vehicle-list-item brand='BMW X5' model='2018 Series' />

@@ -40,8 +40,8 @@
             ></i>
           </router-link>
           <router-link
-            to="/vendor"
-            :class="{ active: currentRoute == 'Vendor' }"
+            to="/vehicle/manager"
+            :class="{ active: currentRoute == 'Vehicle Manager' }"
           >
             <i
               class="ml-8 fas fa-car text-decoration-none "
