@@ -110,7 +110,7 @@ export default {
       this.$store.dispatch('register', data).then(res => {
         this.$store.dispatch('login', { email: form.get('email'), password: form.get('password') }).then( result => {
           this.loading = false;
-          this.$router.push('/profile')
+          this.$router.push('/')
         })
       }).catch(err => {
         this.loading = false;
