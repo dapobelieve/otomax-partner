@@ -68,17 +68,11 @@
               class="rounded-circle ml-8"
             />
           </router-link>
-          <router-link
-            to="/filter"
+          <otomax-menu 
+            class="ml-8" 
             :class="{ active: currentRoute == 'Filter' }"
-            class="ml-8"
-          >
-            <v-img
-              src="../assets/images/icon-menu.svg"
-              height="38"
-              width="38"
-            />
-          </router-link>
+            :items='menuItems' 
+          />
         </div>
       </v-container>
     </v-app-bar>
@@ -87,11 +81,34 @@
 
 <script>
 import { EventBus } from '../utils/event-bus'
+import OtomaxMenu from '@/components/OtomaxMenu'
 
 export default {
-  data: () => ({
-    query: '',
-  }),
+  data() {
+    return {
+      query: '',
+      menuItems: [
+        { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
+        { title: 'Payment', icon: require('@/assets/images/card.png'), href: '#' },
+        { title: 'History', icon: require('@/assets/images/clock.png'), href: '#' },
+        { title: 'Contact Otomax', icon: require('@/assets/images/chat.png'), href: '#' },
+        { title: "FAQ's", icon: require('@/assets/images/call.png'), href: '#' },
+        { 
+          title: 'Logout', 
+          icon: require('@/assets/images/logout.png'), 
+          href: '#', 
+          action: () => { 
+            this.$store.dispatch('logout').then( res => {
+              this.$router.push('/account/login')
+            })
+          }, 
+        },
+      ],
+    }
+  },
+  components: {
+    OtomaxMenu,
+  },
   computed: {
     currentRoute() {
       return this.$route.name;
