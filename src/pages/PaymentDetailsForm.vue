@@ -1,6 +1,6 @@
 <template>
-  <v-container class="page-container d-flex justify-center mt-15 ">
-    <div class="holder bg-white mt-12 px-15 py-12 d-flex justify-center align-center">
+  <v-container class="page-container d-flex justify-center ">
+    <div class="holder bg-white  px-15 py-12 d-flex justify-center align-center">
 
         <div class="size align-center">
             <div class='text-center mb-8'>

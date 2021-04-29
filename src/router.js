@@ -99,13 +99,18 @@ export default new VueRouter({
               name: 'ForgetPassword',
               component: ForgetPassword,
             },
+
           ],
         },
-
         {
-          path: '/payment-details-form',
-          name: 'PaymentDetailsForm',
-          component: PaymentDetailsForm,
+          path: 'settings',
+          component: BackLayout,
+          children: [
+            {
+              path: 'payment-details',
+              name: 'PaymentDetailsForm',
+              component: PaymentDetailsForm,
+            }]
         },
         {
           path: 'vehicle',

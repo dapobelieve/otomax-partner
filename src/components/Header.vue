@@ -89,7 +89,7 @@ export default {
       query: '',
       menuItems: [
         { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
-        { title: 'Payment', icon: require('@/assets/images/card.png'), href: '#' },
+        { title: 'Payment', icon: require('@/assets/images/card.png'), href: '/settings/payment-details' },
         { title: 'History', icon: require('@/assets/images/clock.png'), href: '#' },
         { title: 'Contact Otomax', icon: require('@/assets/images/chat.png'), href: '#' },
         { title: "FAQ's", icon: require('@/assets/images/call.png'), href: '#' },
