@@ -1,16 +1,13 @@
 <template>
-  <v-container class="mt-5">
-    <main c>
+  <v-container class="mt-4">
       <v-row>
-        <div class="d-flex justify-left align-center ml-0" style='width: 100%'>
+        <div class="d-flex justify-left align-center ml-0">
             <div class="d-header d-flex align-center">
               <h2 class="ml-4">Welcome James!</h2>
             </div>
         </div>
       </v-row>
-      
       <div class="d-flex mt-8 justify-center">
-        
           <div class="side">
               <div class="content d-flex">
                 <div class='d-flex' style='flex-grow: 2;'>
@@ -85,8 +82,6 @@
               />
           </div>
       </div>
-
-    </main>
   </v-container>
 </template>
 
