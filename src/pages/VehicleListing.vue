@@ -41,7 +41,7 @@ export default {
         .v-list-items {
             margin: auto;
             display: grid !important;
-            grid-template-columns: repeat(5, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
             align-items: center;
             justify-items: center;
             grid-row-gap: 30px;
