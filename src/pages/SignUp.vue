@@ -101,6 +101,7 @@ export default {
       form.append('source', 'web');
       form.append('firstName', first)
       form.append('lastName', last)
+      form.append('domain', 'otomax-fleet-ui')
 
       const data = {}
       form.forEach( (x, b) => {
