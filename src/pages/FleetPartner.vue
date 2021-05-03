@@ -71,6 +71,7 @@
                   title='Total  Vehicles'
                   count='17'
                   btnText='Add New Vehicle'
+                  href='/vehicle/upload/info'
               />
 
               <dashboard-fleet-info 
