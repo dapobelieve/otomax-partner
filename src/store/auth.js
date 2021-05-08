@@ -1,58 +1,60 @@
-import axios from "axios";
+import Api from "@/utils/Api"
 
 const apiPath = '/accounts/api/v1.1';
 
 export default {
-    state: {
-      token: localStorage.getItem('auth.token') || '',
-      user: JSON.parse(localStorage.getItem('auth.user')) || null,
-    },
-    getters: {
-        user: (state) => state.user,
-        authToken: (state) => state.token,
-        isAuthenticated: (state) => {
-            return state.user && state.token
-        },
-    },    
-    mutations: {
-        setToken(state, token) { state.token = token; },
-        clearToken(state) { state.token = '' },
-        setUser(state, user) { state.user = user; },
-        clearUser(state) { state.user = null },
-        clearAuth(state) {
-            state.user = null;
-            state.token = '';
-        },
-    },
+	namespaced: true,
+	state: {
+	  token: null,
+	  user: null,
+	},
+	getters: {
+		user: (state) => state.user,
+		authToken: (state) => state.token,
+		isAuthenticated: (state) => {
+			return state.user && state.token
+		},
+	},    
+	mutations: {
+		SET_TOKEN(state, token) { state.token = token; },
+		clearToken(state) { state.token = '' },
+		SET_USER(state, user) { state.user = user; },
+		clearUser(state) { state.user = null },
+		clearAuth(state) {
+			state.user = null;
+			state.token = '';
+		},
+	},
+	actions: {
+		async login({dispatch,  commit}, payload) {
+			let res = await Api.post(`${apiPath}/auth/login`, payload, false)
+			if(res.status === 200) {
+				const {data} = res.data
+				localStorage.setItem('auth.token', data.accessToken)
+				localStorage.setItem('auth.refresh', data.refreshToken)
+				commit('SET_TOKEN', data.accessToken);
+				await dispatch('fetchAuthUser')
+			}
 
-    actions: {
-        login(store, payload) {
-            return axios.post(apiPath + '/auth/login', payload).then( res => {
-                const data = res.data.data
-                localStorage.setItem('auth.token', data.accessToken)
-                localStorage.setItem('auth.refresh', data.refreshToken)
-                window.axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
-                store.commit('setToken', data.accessToken);
-                store.dispatch('fetchAuthUser')
-                return res.data;
-            })
-        },
-        register(store, payload) {
-            return axios.post(apiPath + '/auth/signup', payload)
-        },
-        fetchAuthUser(store) {
-            return axios.get(apiPath + '/users/me').then(res => {
-                localStorage.setItem('auth.user', JSON.stringify(res.data.data))
-                store.commit('setUser', res.data.data)
-            })
-        },
-        logout(store) {
-            return new Promise( (resolve, reject) => {
-                localStorage.clear();
-                return resolve(store.commit('clearAuth'));
-            }).then(res => {
-                return res;
-            })
-        },
-    },
+			return res;
+		},
+		async register({ commit, dispatch }, payload) {
+			return await Api.post(`${apiPath}/auth/signup`, payload, false)
+		},
+		async fetchAuthUser({commit}) {
+			let res = await Api.get(`${apiPath}/users/me`) //signed, to include auth header
+			
+			if(res.status === 200) {
+				const { data: user } = res.data
+				commit('SET_USER', user)
+			}
+
+			return res;
+		},
+		async logout({commit}) {
+			localStorage.clear();
+			commit('clearAuth')
+			return
+		},
+	}
 };

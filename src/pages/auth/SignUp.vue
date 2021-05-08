@@ -5,7 +5,7 @@
     <v-img
       max-height="100%"
       style="opacity: 0.2;"
-      src="../assets/images/test-park.png"
+      :src="require('@/assets/images/test-park.png')"
     ></v-img>
 
     <div class="top-right">
@@ -30,18 +30,16 @@
           <form-input name='name' type="text" placeholder="Full Name" :rules="rules.name" required />
           <form-input name='userName' type="text" placeholder="Username" :rules="rules.username" required />
           <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" required />
-          <!-- <form-input name='business' type="text" placeholder="Business Name" :rules="rules.business" required />
-          <form-input name='vat' type="text" placeholder="VAT" :rules="rules.vat" required /> -->
           <form-input name='password' type="password" placeholder="Password" :rules='rules.password' required />
         </div>
         <div>
           <v-btn elevation="0" large block color="primary" class="mb-7" :loading='loading' type="submit">Sign Up</v-btn>
           <v-btn elevation="0" class="mb-5" block color="white" large @click.prevent='handleGoogle'>
-            <img left src="../assets/images/icon-google.svg" />
+            <img left :src="require('@/assets/images/icon-google.svg')" />
             <span class="ml-3">Sign up with Google</span>
           </v-btn>
           <v-btn elevation="0" block color="#3B5998" large>
-            <img left src="../assets/images/icon-facebook.svg" />
+            <img left :src="require('@/assets/images/icon-facebook.svg')" />
             <span class="text-white ml-3">Sign up with Facebook</span>
           </v-btn>
         </div>
@@ -51,9 +49,9 @@
 </template>
 
 <script>
-import FormInput from "../components/forms/FormInput.vue";
-import LoginModal from "../components/modal/LoginModal.vue";
-import SignUpModal from "../components/modal/SignUpModal.vue";
+import FormInput from "@/components/forms/FormInput.vue";
+import LoginModal from "@/components/modal/LoginModal.vue";
+import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
   name: 'SignUp',
   data: () => ({
@@ -94,7 +92,7 @@ export default {
     SignUpModal,
   },
   methods: {
-    handleSubmit(e) {
+    async handleSubmit(e) {
       this.loading = true;
       const form = new FormData(e.target)
       const [ first, last ] = form.get('name').split(' ')
@@ -105,23 +103,23 @@ export default {
 
       const data = {}
       form.forEach( (x, b) => {
-            data[b] = x
-        }) 
-
-      this.$store.dispatch('register', data).then(res => {
-        this.$store.dispatch('login', { email: form.get('email'), password: form.get('password') }).then( result => {
-          this.loading = false;
-          this.$router.push('/')
-        })
-      }).catch(err => {
-        this.loading = false;
-        this.$store.dispatch('logout')
-
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
+        data[b] = x
       }) 
+
+      try {
+        let resRegister = await this.$store.dispatch('auth/register', data)
+        const {email, password, domain } = data
+        let res = await this.$store.dispatch('auth/login', {email, password, domain})
+
+        this.$router.replace('/')
+      } 
+      catch(err) {
+        this.$toast.error(err.message)
+        console.log({e})
+      }
+      finally {
+        this.loading = false;
+      }
     },
     handleGoogle() {
       axios.post('auth/google/token', { }).then(res => {

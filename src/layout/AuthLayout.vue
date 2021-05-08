@@ -1,7 +1,6 @@
 <template>
   <main>
     <!-- <auth-header /> -->
-
     <router-view />
   </main>
 </template>
@@ -19,7 +18,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'isAuthenticated',
+      isLoggedIn: 'auth/isAuthenticated',
     })
   },
   components: {
