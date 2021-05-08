@@ -87,22 +87,27 @@ export default {
     SignUpModal,
   },
   methods: {
-    handleSubmit(e) {
+    async handleSubmit(e) {
       const form = new FormData(e.target)
       this.loading = true;
-      this.$store.dispatch('login', { email: form.get('email'), password: form.get('password') }).then(res => {
-        this.loading = false;
-        this.$store.dispatch('fetchAuthUser').then(res => {
-          this.$router.push('/')
-          this.$toast.success('Login Successful')
+      try {
+        await this.$store.dispatch('auth/login', {
+          email: form.get('email'),
+          password: form.get('password')
         })
-      }).catch(err => {
-        this.loading = false;
+
+        this.$toast.success('Login Successful')
+        this.$router.replace('/')        
+      }
+      catch(e) {
         if(err.response && err.response.data)
           this.$toast.error(err.response.data.message)
         else
           this.$toast.error(err.message)
-      })
+      }
+      finally {
+        this.loading = false;
+      }
     }
   }
 };
