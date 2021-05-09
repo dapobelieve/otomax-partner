@@ -1,26 +1,30 @@
 
 @import './theme.scss';
 @import './color.scss';
-@import './utility.scss';
+// @import './utility.scss';
 
 :root {
-    --app-blue: #2633EC;
-    --app-grey: #B7B7B7;
+	--app-blue: #2633EC;
+	--app-grey: #B7B7B7;
 }
 
 /***Hack**/
-.v-text-field .v-input__slot {
-    border: solid 1px $lite-gray;
-    box-shadow: none !important;
-    background-color: $component-gray !important;
-}
+// .v-text-field .v-input__slot {
+// 	border: solid 1px $lite-gray;
+// 	box-shadow: none !important;
+// 	background-color: $component-gray !important;
+// }
 
 .v-rating .v-icon { padding: 0 !important; }
 
-.v-text-field .v-input__slot {
-    background-color: $white !important;
+// .v-text-field .v-input__slot {
+// 		background-color: $white !important;
+// }
+// .v-text-field {
+// 		padding-top: 0;
+// }
+// .v-input--selection-controls .v-input__slot > .v-label, .v-input--selection-controls .v-radio > .v-label { font-size: $small-font-size; }
+.v-btn {
+	// background-color: #fff;
+	// border: 1px solid #EBEBEB !important;
 }
-.v-text-field {
-    padding-top: 0;
-}
-.v-input--selection-controls .v-input__slot > .v-label, .v-input--selection-controls .v-radio > .v-label { font-size: $small-font-size; }

@@ -93,13 +93,14 @@ export default {
       try {
         await this.$store.dispatch('auth/login', {
           email: form.get('email'),
-          password: form.get('password')
+          password: form.get('password'),
+          domain: "otomax-fleet-ui"
         })
 
         this.$toast.success('Login Successful')
         this.$router.replace('/')        
       }
-      catch(e) {
+      catch(err) {
         if(err.response && err.response.data)
           this.$toast.error(err.response.data.message)
         else

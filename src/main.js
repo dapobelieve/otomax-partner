@@ -6,12 +6,14 @@ import store from '@/store'
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
-// import Swiper JS
-import Swiper from 'swiper/bundle';
-
 // import Swiper styles
 import "swiper/swiper-bundle.css";
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
+
+// import Swiper JS
+import Swiper from 'swiper/bundle';
+
+
 
 // Vuetify
 import "@/assets/css/app.scss";
@@ -21,8 +23,6 @@ import vuetify from "@/plugins/vuetify";
 // Vue toast Notification
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
-import { baseUrl } from './utils/constants'
-import Api from "@/utils/Api"
 
 Vue.use(VueToast, {
   position: 'top-right',

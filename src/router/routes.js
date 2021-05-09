@@ -75,8 +75,7 @@ export default new VueRouter({
           path: "/vehicle-not-found",
           name: "VehicleNotFound",
           component: () => import("@/pages/VehicleNotFound"),
-        },
-        
+        },      
         {
           path: 'settings',
           component: () => import("@/layout/BackLayout"),
@@ -88,9 +87,19 @@ export default new VueRouter({
             }]
         },
         {
-          path: 'vehicle',
-          component: () => import("@/layout/BackLayout"),
+          path: '/vehicle',
+          component: () => import("@/layout/VehicleLayout"),
           children: [
+            {
+              path: 'create',
+              name: 'vehicle-create',
+              component: () => import("@/pages/vehicle/create")
+            },
+             {
+              path: 'create/manual',
+              name: 'vehicle-create-manual',
+              component: () => import("@/pages/vehicle/create-manual")
+            },
             {
               path: '/:id',
               name: 'VehicleProfile',

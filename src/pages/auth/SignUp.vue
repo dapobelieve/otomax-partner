@@ -121,27 +121,15 @@ export default {
         this.loading = false;
       }
     },
-    handleGoogle() {
-      axios.post('auth/google/token', { }).then(res => {
-
-      }).catch(err => {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
-        console.log(err)
-      })
+    async handleGoogle() {
+      try {}
+      catch(e) {}
+      finally {}
     },
-    handleFacebook() {
-      axios.post('auth/google/token', { }).then(res => {
-
-      }).catch(err => {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
-        console.log(err)
-      })
+    async handleFacebook() {
+      try {}
+      catch(e) {}
+      finally {}
     },
   },
 };
