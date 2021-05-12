@@ -1,11 +1,12 @@
 <template>
   <div>
-    <slot name="label"></slot>
+    <label>{{label}}</label>
     <v-text-field
       :class="classes"
       class="mt-2"
       @input="handleEvent"
       :value="value"
+      :type="type"
       elevation="0"
       :required="required"
       solo
@@ -23,6 +24,10 @@ export default {
   props: {
     value: {
       type: String,
+    },
+    type: {
+      type: String,
+      default: "text"
     },
     position: {
       type: String,
@@ -49,8 +54,7 @@ export default {
   computed: {
     classes () {
       let classes =""
-
-      classes+=`${this.position} `      ;
+      classes+=`${this.position} ` ;
 
       return classes;
     }

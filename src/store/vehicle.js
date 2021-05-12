@@ -1,26 +1,32 @@
 import Api from "@/utils/Api"
+import _get from "lodash.get"
+import Vue from "vue"
 
 const apiPath = '/vehicle/api/v1.1'
 
 export default {
 	namespaced: true,
 	state: {
-	  vehicles: [],
 	  hireRequest: {},
+	  vehicles: {}
 	},
 	getters: {
 		vehicles: (state) => state.vehicles,
 		hireRequest: (state) => state.hireRequest,
+		getVehicle: (state) => (vrm) => state.vehicles[vrm],
 	},
 	mutations: {
 		setVehicles(state, vehicles) { 
-			state.vehicles.push(...vehicles); 
+			state.fehicles.push(...vehicles); 
 		},
 		clearVehicles(state) { 
-			state.vehicles = [];
+			state.fehicles = [];
 		},
 		setHireRequest(state, hireRequest) { 
 			state.hireRequest = hireRequest
+		},
+		SAVE_VEHICLE_DETAILS(state, data) {
+			Vue.set(state.vehicles, [data.vrm], data.details)
 		}
 	},
 	actions: {
@@ -44,39 +50,49 @@ export default {
 				return res.data
 			} )
 		},
-		uploadDoc(store, payload) {
-			return Api.patch(`${apiPath}/vehicles/${payload.get('parentId')}/documents/upload`, payload, {
-				headers: {
-					'Content-Type': 'multipart/form-data', 
-				},
-			}).then( res => res.data )
-		},
+		async getVehicleInfo({commit}, payload) {
+			let res = await Api.post(`${apiPath}/vehicles/details`, {
+				vrm: payload.number
+			})
 
-		createHireRequest({commit, getters}, payload) {
-			const hireRequestExist = getters.hireRequest.vehicleId == payload.vehicleId;
-			if(hireRequestExist){
-				return new Promise((resolve, reject)=>{
-					resolve(getters.hireRequest);
-				})
+			const vehicleInfo = _get(res.data.data, 'Response')
+
+			if(vehicleInfo.StatusCode === "KeyInvalid") {
+				throw new Error("Invalid vehicle registration mark")
+			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
+				// set empty defaults except the platnumber
+				const vehicleDetails = ["color", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
+					result[value] = null
+					return result
+				}, {})
+
+				commit('SAVE_VEHICLE_DETAILS', {vrm: payload.number, details: {...vehicleDetails, 
+					vrm: payload.number,
+					taxi: {date: null, file: null}, 
+					mot: {date: null, file: null},
+					logBook: null,
+					roadTax: null}})
+				return false;
+
+			}else {
+				const {BodyStyle: bodyType = ""} = vehicleInfo.DataItems.SmmtDetails
+				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmission, YearOfManufacture:year} 
+					= vehicleInfo.DataItems.VehicleRegistration
+
+				let moreInfo = {color, make, model, seats, fuelType, transmission, year, bodyType,
+					vrm: payload.number,
+					taxi: {date: null, file: null}, 
+					mot: {date: null, file: null},
+					logBook: null,
+					mileage: null,
+					isTax: null,
+					roadTax: null
+				}
+				commit('SAVE_VEHICLE_DETAILS', {vrm: payload.number, details: moreInfo})
+				return true;
 			}
 
-			return Api.post(`${apiPath}/hire-requests`, payload).then( res => { 
-				commit('setHireRequest', res.data.data)
-				return res.data 
-			})
-		},
-
-		updateHireRequest({commit, getters}, payload) {
-			const existingHireRequest = getters.hireRequest.vehicleId == payload.id;
-			if(!existingHireRequest){
-				new Error("No hire request found for vehicle in current session");
-			}
-			const data  = {...getters.hireRequest, ...payload};
-			return Api.patch(`${apiPath}/hire-requests/${data._id}`, data).then( res => { 
-				// We need to remove the hire request once the session is completed
-				commit('setHireRequest', res.data.data)
-				return res.data 
-			})
-		},
+			
+		}
 	},
 };

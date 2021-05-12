@@ -1,15 +1,42 @@
 <template>
-  <v-container fluid>
-        <v-select
-          dense
-          solo
-          v-on='$listeners'
-          v-bind='$attrs'
-        ></v-select>
-  </v-container>
+    <div>
+      <label for="">{{label}}</label>
+      <v-select :value="value" @change="handleChange($event)" :placeholder="placeholder" class="mt-2" flat solo items.text="text" items.value="value" :items="items" />
+    </div>
 </template>
 
 <script>
-  export default {
+export default {
+  props: {
+    value: {
+      type: [String, Number, Boolean]
+    },
+    label: {
+      type: String,
+      default: "",
+      required: false
+    },
+    placeholder: {
+      type: String,
+      default: "",
+      required: false
+    },
+    // pass an array of objects [text => "value"]
+    items: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
+  methods: {
+    handleChange(e) {
+      console.log(e)
+      this.$emit('input', e)
+    }
   }
+}
 </script>
+<style lang="scss">
+.v-input__slot {
+}
+</style>

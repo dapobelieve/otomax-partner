@@ -20,17 +20,16 @@
       <form
         class="bg-light-white pa-11 rounded"
         style="width: 448px"
-        @submit.prevent="handleSubmit"
-      >
+        @submit.prevent="handleSubmit">
         <div class="mb-9">
           <span class="text-h6 font-weight-bold">Sign Up</span>
           <h6 class="font-weight-thin">Create new account</h6>
         </div>
         <div>
-          <form-input name='name' type="text" placeholder="Full Name" :rules="rules.name" required />
-          <form-input name='userName' type="text" placeholder="Username" :rules="rules.username" required />
-          <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" required />
-          <form-input name='password' type="password" placeholder="Password" :rules='rules.password' required />
+          <form-input name='name' v-model="form.name" type="text" placeholder="Full Name" :rules="rules.name" required />
+          <form-input name='userName' v-model="form.userName" type="text" placeholder="Username" :rules="rules.username" required />
+          <form-input name='email' v-model="form.email" type="email" placeholder="Email Address" :rules="rules.email" required />
+          <form-input name='password' v-model="form.password" type="password" placeholder="Password" :rules='rules.password' required />
         </div>
         <div>
           <v-btn elevation="0" large block color="primary" class="mb-7" :loading='loading' type="submit">Sign Up</v-btn>
@@ -94,24 +93,28 @@ export default {
   methods: {
     async handleSubmit(e) {
       this.loading = true;
-      const form = new FormData(e.target)
-      const [ first, last ] = form.get('name').split(' ')
-      form.append('source', 'web');
-      form.append('firstName', first)
-      form.append('lastName', last)
-      form.append('domain', 'otomax-fleet-ui')
-
-      const data = {}
-      form.forEach( (x, b) => {
-        data[b] = x
-      }) 
+      const names = this.form.name.split(' ')
+      this.form.firstName = names[0]
+      this.form.lastName = names[1]
+      this.form.domain = 'otomax-fleet-ui'
+      
 
       try {
-        let resRegister = await this.$store.dispatch('auth/register', data)
-        const {email, password, domain } = data
+        let resRegister = await this.$store.dispatch('auth/register', this.form)
+        const {email, password, domain } = this.form
         let res = await this.$store.dispatch('auth/login', {email, password, domain})
 
-        this.$router.replace('/')
+        this.$toast.success('Account Created Successfully', {
+          type: 'success',
+
+        })
+        this.$toast.success('You have been automatically logged in', {
+          type: 'info',
+          duration: 5000
+        })
+        this.$router.replace({
+          name: 'vehicle-create'
+        })
       } 
       catch(err) {
         this.$toast.error(err.message)

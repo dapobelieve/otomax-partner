@@ -24,8 +24,8 @@
             <h6 class="font-weight-thin">Login to your account</h6>
           </div>
           <div>
-            <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" />
-            <form-input name='password' type="password" placeholder="Password" :rules="rules.password" />
+            <form-input v-model="form.email" name='email' type="email" placeholder="Email Address" :rules="rules.email" />
+            <form-input v-model="form.password" name='password' type="password" placeholder="Password" :rules="rules.password" />
           </div>
           <div class="d-flex justify-space-between">
             <v-checkbox v-model="checkbox">
@@ -66,6 +66,7 @@ export default {
     loginModal: false,
     checkbox: false,
     loading: false,
+    form: {},
     rules: {
         email: [
             value => !!value || 'Required!.',
@@ -88,13 +89,11 @@ export default {
   },
   methods: {
     async handleSubmit(e) {
-      const form = new FormData(e.target)
+      this.form.domain = "otomax-fleet-ui"
       this.loading = true;
       try {
         await this.$store.dispatch('auth/login', {
-          email: form.get('email'),
-          password: form.get('password'),
-          domain: "otomax-fleet-ui"
+          ...this.form
         })
 
         this.$toast.success('Login Successful')
