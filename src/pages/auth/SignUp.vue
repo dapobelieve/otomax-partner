@@ -11,6 +11,7 @@
     <div class="top-right">
       <div class="d-flex mb-12 ml-12">
         <h5 class="mr-4 mt-2">Already have an account?</h5>
+        <span class="text-grey-5" @click="$router.push({name: 'vehicle-create'})">tEST Go</span>
         <router-link to="login">
           <v-btn elevation="0" small color="#0D1040">
             <span class="font-weight-light text-white"> Login </span>

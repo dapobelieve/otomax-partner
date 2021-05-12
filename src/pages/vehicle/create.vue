@@ -4,7 +4,7 @@
 			<v-btn class="bg-white primary--text" text outlined icon color="">
 				<i class="fas fa-arrow-left"/>
 			</v-btn>
-			<v-btn class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" small text color="">Skip</v-btn>
+			<v-btn v-if="isFromSignUp" class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" small text color="">Skip</v-btn>
 		</v-row>
 		<v-row justify="center">
 			<v-col cols="12" md="7">
@@ -41,9 +41,10 @@
 export default {
 	data () {
 		return {
-			plateNumber: "KM14AKK",
+			plateNumber: "",
 			loading: false,
-			vehicleFound: "ENTER_INFO"
+			vehicleFound: "ENTER_INFO",
+			isFromSignUp: false
 		}
 	},
 	components: {
@@ -52,7 +53,7 @@ export default {
 	},
 	computed: {
 		fromSignUp() {
-			return ""
+			return this.$router
 		}
 	},
 	methods: {
@@ -89,8 +90,13 @@ export default {
 			})
 		}
 	},
-	beforeMount(to, from) {
-		console.log(to, from)
+	beforeRouteEnter(to, from, next) {
+		console.log(from)
+		next(vm => {
+			if(from.name === 'sign-up') {
+				vm.isFromSignUp = true
+			}
+		})
 	}
 }	
 </script>

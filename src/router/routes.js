@@ -25,7 +25,7 @@ const baseRoutes = [
       },
       {
         path: 'sign-up',
-        name: 'Signup',
+        name: 'sign-up',
         component: () => import("@/pages/auth/SignUp"),
       },
       {
