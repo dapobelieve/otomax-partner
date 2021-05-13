@@ -3,6 +3,10 @@ import Vuex from 'vuex';
 import App from "./App.vue";
 import router from "./router/routes.js";
 import store from '@/store'
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
+
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 

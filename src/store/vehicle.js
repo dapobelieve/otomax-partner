@@ -26,22 +26,19 @@ export default {
 			state.hireRequest = hireRequest
 		},
 		SAVE_VEHICLE_DETAILS(state, data) {
-			Vue.set(state.vehicles, [data.vrm], data.details)
+			Vue.set(state.vehicles, [data.regNumber], data)
 		}
 	},
 	actions: {
-		fetchVehicles(store, page=1) {
-			return Api.get(`${apiPath}/vehicles?page=${page}&limit=10`).then( res => {
-				if(page === 1 && res.data.data) store.commit('clearVehicles',[]);
-				store.commit('setVehicles', res.data.data);
-				return res.data;
-			})
-		},
-		createVehicle({commit}, payload) {
-			return Api.post(apiPath + '/vehicles', payload).then( res => res.data )
-		},
-		findVehicle(store, vehicleId) {
-			return Api.get(`${apiPath}/vehicles/${vehicleId}`).then( res => res.data.data )
+		async createVehicle({commit}, payload) {
+			let res = await Api.post(`${apiPath}/vehicles`, payload)
+
+			if(res.status === 201) {
+				const { _id: id, ...rest} = _get(res, 'data.data')
+				commit('SAVE_VEHICLE_DETAILS', {id, ...rest})
+			}
+
+			return res;
 		},
 		searchVehicle(store, query) {
 			const  data = new URLSearchParams(query);
@@ -60,18 +57,19 @@ export default {
 			if(vehicleInfo.StatusCode === "KeyInvalid") {
 				throw new Error("Invalid vehicle registration mark")
 			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
-				// set empty defaults except the platnumber
+				// set empty defaults except the regNumber
 				const vehicleDetails = ["color", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
 					return result
 				}, {})
 
-				commit('SAVE_VEHICLE_DETAILS', {vrm: payload.number, details: {...vehicleDetails, 
-					vrm: payload.number,
+				commit('SAVE_VEHICLE_DETAILS', {...vehicleDetails, 
+					regNumber: payload.number,
 					taxi: {date: null, file: null}, 
 					mot: {date: null, file: null},
 					logBook: null,
-					roadTax: null}})
+					age: null,
+					roadTax: null})
 				return false;
 
 			}else {
@@ -79,20 +77,19 @@ export default {
 				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmission, YearOfManufacture:year} 
 					= vehicleInfo.DataItems.VehicleRegistration
 
-				let moreInfo = {color, make, model, seats, fuelType, transmission, year, bodyType,
-					vrm: payload.number,
+				const details = {color, make, model, seats, fuelType, transmission, year, bodyType,
+					regNumber: payload.number,
 					taxi: {date: null, file: null}, 
 					mot: {date: null, file: null},
 					logBook: null,
+					age: year ? new Date().getFullYear() - new Date('2014').getFullYear() : null,
 					mileage: null,
 					isTax: null,
 					roadTax: null
 				}
-				commit('SAVE_VEHICLE_DETAILS', {vrm: payload.number, details: moreInfo})
+				commit('SAVE_VEHICLE_DETAILS', details)
 				return true;
 			}
-
-			
 		}
 	},
 };

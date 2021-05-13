@@ -14,7 +14,12 @@ export default [
       component: () => import("@/pages/vehicle/create-manual")
     },
     {
-      path: '/:id',
+      path: 'create/:id/upload-images',
+      name: "vehicle-upload-images",
+      component: () => import("@/pages/vehicle/ImageUpload")
+    },
+    {
+      path: 'some',
       name: 'VehicleProfile',
       component: () => import("@/pages/VehicleProfile"),
     },
@@ -34,24 +39,9 @@ export default [
       component: () => import("@/pages/VehicleReviewPage"),
     },
     {
-      path: '/vehicle/edit',
-      name: 'EditVehicleProfile',
-      component: () => import("@/pages/EditVehicleProfile"),
-    },
-    {
       path: "/vehicle/listing",
       name: "VehicleListing",
       component: () => import("@/pages/VehicleListing")
-    },
-    {
-      path: "/vehicle/upload/info",
-      name: "VehicleUploadInfo",
-      component: () => import("@/pages/VehicleUploadInfo")
-    },
-    {
-      path: '/vehicle/upload',
-      name: 'UploadVehicle',
-      component: () => import("@/pages/UploadVehicle"),
     },
     {
       path: "pickup",

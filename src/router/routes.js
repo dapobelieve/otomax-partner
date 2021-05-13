@@ -32,8 +32,7 @@ const baseRoutes = [
         path: 'forget-password',
         name: 'ForgetPassword',
         component: () => import("@/pages/ForgetPassword"),
-      },
-
+      }
     ],
   },
   {

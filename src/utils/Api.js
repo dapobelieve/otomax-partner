@@ -53,8 +53,8 @@ class Api {
     return await instance.post(url, payload)
   }
 
-  static async put(url, payload = {}) {
-    return await instance.put(url, payload);
+  static async patch(url, payload = {}) {
+    return await instance.patch(url, payload);
   }
 
   static async delete(url, payload = {}) {

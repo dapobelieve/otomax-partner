@@ -2,7 +2,7 @@
   <div>
     <label>{{label}}</label>
     <v-text-field
-      :class="classes"
+      :class="[classes, error ? 'has-error' : '' ]"
       class="mt-2"
       @input="handleEvent"
       :value="value"
@@ -10,20 +10,25 @@
       elevation="0"
       :required="required"
       solo
+      :hint="message"
       flat
       :placeholder="placeholder"
       :autofocus="false"
-    >
-      
-    </v-text-field>
+      />
+      <small v-if="error" class="ms-2 error--text">{{message}}</small>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    value: {
-      type: String,
+    error: {
+      type: Boolean,
+      default: false
+    },
+    value: {},
+    message: {
+      type: String
     },
     type: {
       type: String,
@@ -64,36 +69,43 @@ export default {
 
 <style lang="scss">
 .v-input {
-    &.left {
-      input {
-        text-align: left ;
-      }
+  &.left {
+    input {
+      text-align: left ;
     }
-    &.center {
-      input {
-        text-align: center ;
-      }
+  }
+  &.center {
+    input {
+      text-align: center ;
     }
-    &.right {
-      input {
-        text-align: right ;
-      }
+  }
+  &.right {
+    input {
+      text-align: right ;
     }
+  }
+
+  &.has-error {
+    .v-input__slot {
+      border: 1px solid red;
+    }
+  }
 }
 .v-input__slot {
   background-color: var(--v-light_grey-base) !important;
   border-radius: 0.85rem !important;
 
-  .v-text-field__slot {
+  &.error {
+    border: 1px solid red !important;
+  }
+  
 
+  .v-text-field__slot {
     .v-label {
       display: none;
     }
   }
 }
 
-.v-text-field__details {
-  display: none;
-}
 
 </style>

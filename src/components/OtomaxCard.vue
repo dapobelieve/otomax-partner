@@ -13,3 +13,9 @@ export default {
 	}
 }	
 </script>
+<style lang="scss" scoped>
+@import "@/assets/css/_variables.scss";
+.v-card {
+	border-radius: $border-radius !important
+}	
+</style>

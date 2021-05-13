@@ -11,15 +11,15 @@
 	    >
 	      <template v-slot:activator="{ on, attrs }">
 	        <v-text-field
+	        	:class="[error ? 'has-error' : '']"
 	        	class="mt-2"
-	          v-model="dateFormatted"
+	          v-model="computedDateFormatted"
 	          label="Date"
 	          v-bind="attrs"
 	          solo
 	          flat
 	          append-icon="mdi-calendar-today text-grey-5"
 	          placeholder="dd/mm/yy"
-	          @blur="date = parseDate(dateFormatted)"
 	          v-on="on"
 	        ></v-text-field>
 	      </template>
@@ -33,10 +33,14 @@
 	</div>
 </template>
 <script>
+import format from 'date-fns/format'	
 export default {
 	props: {
 		value: {
 			type: [String, Array]
+		},
+		error: {
+			type: Boolean
 		},
 		label: {
 			type: String,
@@ -50,18 +54,18 @@ export default {
   }),
   computed: {
     computedDateFormatted () {
-      return this.formatDate(this.date)
+    	return format(new Date(this.date), "do  LLLL  Y")
     },
   },
   watch: {
     date (val) {
-      this.dateFormatted = this.formatDate(this.date)
+      this.formatDate(this.date)
     },
     value: {
     	immediate: true,
     	handler (newVal, oldVal) {
     		if(newVal) {
-    			this.dateFormatted = this.formatDate(newVal)
+    			this.formatDate(newVal)
     		}    		
     	}
     }
@@ -71,13 +75,16 @@ export default {
       if (!date) return null
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
-    },
-    parseDate (date) {
-      if (!date) return null
-
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
+    }
   },
 }
 </script>
+<style lang="scss">
+.v-input {
+&.has-error {
+    .v-input__slot {
+      border: 1px solid red;
+    }
+ }	
+}
+</style>
