@@ -12,8 +12,16 @@
 							<div :class="{'dragging': dragging}" @dragover.prevent="dragging = true" @dragleave.prevent="dragging = false" class="upload-zone pt-16 pb-8 position-relative" color="#F9F9F9">
 								<div class="text-center" justify="center">
 									<img class="mb-5" :src="require('@/assets/images/Group8365.png')" alt="">
-									<p class="info--text">Drag and drop or <br> click to browse your files</p>
+									<p v-if="progress > 0" class="info--text">Uploading...{{progress}}%</p>
+									<p v-else class="info--text">Drag and drop or <br> click to browse your files</p>
+									
 								</div>
+								<v-row justify="center">
+									<v-col cols="10" md="8" class="d-flex flex justify-center ">
+									<v-progress-linear
+									 background-color="light_grey" color="primary" striped rounded v-model="progress" ></v-progress-linear>
+									</v-col>
+								</v-row>
 								<input :disabled="files.length === 10" multiple @change="handleUploads" accept="images/jpg, images/png" class="position-absolute" type="file">
 							</div>
 							<div class="w-100 d-flex mt-3 px-md-2">
@@ -55,11 +63,6 @@ export default {
 			progress: 0
 		}
 	},
-	watch: {
-		progress: (val) =>{
-			console.log(val)
-		}
-	},
 	components: {
 		Ocard: () => import("@/components/OtomaxCard"),
 		Opreview: () => import("@/components/UploadPreviewComponent")
@@ -87,13 +90,12 @@ export default {
 			this.files.forEach(file => {
 				form.append(file.name, file)
 			})
-			
-			console.log({form})
+
 			return form
 		},
 		async uploadImages() {
 			try {
-				// let res = await Api.patch(`/vehicle/api/v1.1/vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(this.files[0]), {
+				// let res = await Api.patch(`/vehicle/api/v1.1/vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(), {
 				// 	onUploadProgress: this.handleUploadProgress,
 				// })
 				let res = await axios.post(`https://reqres.in/api/users/uploads/video`, this.makeFormData(), {
