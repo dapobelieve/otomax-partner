@@ -5,7 +5,7 @@
     <v-img
       max-height="100%"
       style="opacity: 0.2;"
-      src="../assets/images/test-park.png"
+      :src="require('@/assets/images/test-park.png')"
     ></v-img>
 
     <div class="top-right">
@@ -20,28 +20,25 @@
       <form
         class="bg-light-white pa-11 rounded"
         style="width: 448px"
-        @submit.prevent="handleSubmit"
-      >
+        @submit.prevent="handleSubmit">
         <div class="mb-9">
           <span class="text-h6 font-weight-bold">Sign Up</span>
           <h6 class="font-weight-thin">Create new account</h6>
         </div>
         <div>
-          <form-input name='name' type="text" placeholder="Full Name" :rules="rules.name" required />
-          <form-input name='userName' type="text" placeholder="Username" :rules="rules.username" required />
-          <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" required />
-          <!-- <form-input name='business' type="text" placeholder="Business Name" :rules="rules.business" required />
-          <form-input name='vat' type="text" placeholder="VAT" :rules="rules.vat" required /> -->
-          <form-input name='password' type="password" placeholder="Password" :rules='rules.password' required />
+          <form-input name='name' v-model="form.name" type="text" placeholder="Full Name" :rules="rules.name" required />
+          <form-input name='userName' v-model="form.userName" type="text" placeholder="Username" :rules="rules.username" required />
+          <form-input name='email' v-model="form.email" type="email" placeholder="Email Address" :rules="rules.email" required />
+          <form-input name='password' v-model="form.password" type="password" placeholder="Password" :rules='rules.password' required />
         </div>
         <div>
           <v-btn elevation="0" large block color="primary" class="mb-7" :loading='loading' type="submit">Sign Up</v-btn>
           <v-btn elevation="0" class="mb-5" block color="white" large @click.prevent='handleGoogle'>
-            <img left src="../assets/images/icon-google.svg" />
+            <img left :src="require('@/assets/images/icon-google.svg')" />
             <span class="ml-3">Sign up with Google</span>
           </v-btn>
           <v-btn elevation="0" block color="#3B5998" large>
-            <img left src="../assets/images/icon-facebook.svg" />
+            <img left :src="require('@/assets/images/icon-facebook.svg')" />
             <span class="text-white ml-3">Sign up with Facebook</span>
           </v-btn>
         </div>
@@ -51,9 +48,9 @@
 </template>
 
 <script>
-import FormInput from "../components/forms/FormInput.vue";
-import LoginModal from "../components/modal/LoginModal.vue";
-import SignUpModal from "../components/modal/SignUpModal.vue";
+import FormInput from "@/components/forms/FormInput.vue";
+import LoginModal from "@/components/modal/LoginModal.vue";
+import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
   name: 'SignUp',
   data: () => ({
@@ -94,55 +91,48 @@ export default {
     SignUpModal,
   },
   methods: {
-    handleSubmit(e) {
+    async handleSubmit(e) {
       this.loading = true;
-      const form = new FormData(e.target)
-      const [ first, last ] = form.get('name').split(' ')
-      form.append('source', 'web');
-      form.append('firstName', first)
-      form.append('lastName', last)
+      const names = this.form.name.split(' ')
+      this.form.firstName = names[0]
+      this.form.lastName = names[1]
+      this.form.domain = 'otomax-fleet-ui'
+      
 
-      const data = {}
-      form.forEach( (x, b) => {
-            data[b] = x
-        }) 
+      try {
+        let resRegister = await this.$store.dispatch('auth/register', this.form)
+        const {email, password, domain } = this.form
+        let res = await this.$store.dispatch('auth/login', {email, password, domain})
 
-      this.$store.dispatch('register', data).then(res => {
-        this.$store.dispatch('login', { email: form.get('email'), password: form.get('password') }).then( result => {
-          this.loading = false;
-          this.$router.push('/')
+        this.$toast.success('Account Created Successfully', {
+          type: 'success',
+
         })
-      }).catch(err => {
+        this.$toast.success('You have been automatically logged in', {
+          type: 'info',
+          duration: 5000
+        })
+        this.$router.replace({
+          name: 'vehicle-create'
+        })
+      } 
+      catch(err) {
+        this.$toast.error(err.message)
+        console.log({e})
+      }
+      finally {
         this.loading = false;
-        this.$store.dispatch('logout')
-
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
-      }) 
+      }
     },
-    handleGoogle() {
-      axios.post('auth/google/token', { }).then(res => {
-
-      }).catch(err => {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
-        console.log(err)
-      })
+    async handleGoogle() {
+      try {}
+      catch(e) {}
+      finally {}
     },
-    handleFacebook() {
-      axios.post('auth/google/token', { }).then(res => {
-
-      }).catch(err => {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
-        else
-          this.$toast.error(err.message)
-        console.log(err)
-      })
+    async handleFacebook() {
+      try {}
+      catch(e) {}
+      finally {}
     },
   },
 };

@@ -1,7 +1,6 @@
 <template>
   <main>
     <!-- <auth-header /> -->
-
     <router-view />
   </main>
 </template>
@@ -14,12 +13,12 @@ export default {
   name: 'AuthHeader',
   beforeMount() {
     if(this.isLoggedIn) {
-      this.$router.push('/')
+      // this.$router.push('/')
     }
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'isAuthenticated',
+      isLoggedIn: 'auth/isAuthenticated',
     })
   },
   components: {

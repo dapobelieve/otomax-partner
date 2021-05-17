@@ -4,7 +4,7 @@
     <v-img
       max-height="100%"
       style="opacity: 0.2;"
-      src="../assets/images/test-park.png"
+      :src="require('@/assets/images/test-park.png')"
     ></v-img>
 
     <div class="top-right">
@@ -24,8 +24,8 @@
             <h6 class="font-weight-thin">Login to your account</h6>
           </div>
           <div>
-            <form-input name='email' type="email" placeholder="Email Address" :rules="rules.email" />
-            <form-input name='password' type="password" placeholder="Password" :rules="rules.password" />
+            <form-input v-model="form.email" name='email' type="email" placeholder="Email Address" :rules="rules.email" />
+            <form-input v-model="form.password" name='password' type="password" placeholder="Password" :rules="rules.password" />
           </div>
           <div class="d-flex justify-space-between">
             <v-checkbox v-model="checkbox">
@@ -43,11 +43,11 @@
           <div>
             <v-btn elevation="0" large block color="primary" class="mb-7" type='submit' :loading='loading'> Login</v-btn>
             <v-btn elevation="0" class="mb-5" block color="white" large>
-              <img left src="../assets/images/icon-google.svg" />
+              <img left :src="require('@/assets/images/icon-google.svg')" />
               <span class="ml-3">Login with Google</span>
             </v-btn>
             <v-btn elevation="0" block color="#3B5998" large>
-              <img left src="../assets/images/icon-facebook.svg" />
+              <img left :src="require('@/assets/images/icon-facebook.svg')" />
               <span class="text-white ml-3">Login with Facebook</span>
             </v-btn>
           </div>
@@ -59,13 +59,14 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import FormInput from "../components/forms/FormInput";
-import SignUpModal from "../components/modal/SignUpModal.vue";
+import FormInput from "@/components/forms/FormInput";
+import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
   data: () => ({
     loginModal: false,
     checkbox: false,
     loading: false,
+    form: {},
     rules: {
         email: [
             value => !!value || 'Required!.',
@@ -87,23 +88,26 @@ export default {
     SignUpModal,
   },
   methods: {
-    handleSubmit(e) {
-
-      const form = new FormData(e.target)
+    async handleSubmit(e) {
+      this.form.domain = "otomax-fleet-ui"
       this.loading = true;
-      this.$store.dispatch('login', { email: form.get('email'), password: form.get('password') }).then(res => {
-        this.loading = false;
-        this.$store.dispatch('fetchAuthUser').then(res => {
-          this.$router.push('/')
-          this.$toast.success('Login Successful')
+      try {
+        await this.$store.dispatch('auth/login', {
+          ...this.form
         })
-      }).catch(err => {
-        this.loading = false;
+
+        this.$toast.success('Login Successful')
+        this.$router.replace('/')        
+      }
+      catch(err) {
         if(err.response && err.response.data)
           this.$toast.error(err.response.data.message)
         else
           this.$toast.error(err.message)
-      })
+      }
+      finally {
+        this.loading = false;
+      }
     }
   }
 };

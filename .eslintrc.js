@@ -4,6 +4,7 @@ module.exports = {
       // 'eslint:recommended',
       'plugin:vue/recommended'
     ],
+    "parserOptions": {"parser": "babel-eslint"},
     rules: {
       // override/add rules settings here, such as:
       'no-unused-vars': 'off',
@@ -23,5 +24,6 @@ module.exports = {
       'vue/attribute-hyphenation': 'off',
       'vue/html-closing-bracket-newline': 'off',
       'vue/mustache-interpolation-spacing': 'off',
+      'vue/return-in-computed-property': 'off',
     }
   }

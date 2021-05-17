@@ -98,7 +98,7 @@ export default {
           icon: require('@/assets/images/logout.png'), 
           href: '#', 
           action: () => { 
-            this.$store.dispatch('logout').then( res => {
+            this.$store.dispatch('auth/logout').then( res => {
               this.$router.push('/account/login')
             })
           }, 
