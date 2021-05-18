@@ -19,7 +19,6 @@ export default {
 		imageUrl() {
 			if(this.image)
 				return URL.createObjectURL(this.image)
-			console.log(this.image)
 		}
 	}
 }	

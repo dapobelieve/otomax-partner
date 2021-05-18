@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="9" class="">
+			<v-col cols="12" md="9" lg="9" xl="6" class="">
 				<Ocard class="pa-md-15 pa-3">
 					<v-row align="center" class="mb-md-16 mb-10">
 						<v-col class="d-flex justify-center" cols="12" md="1"><img :src="require('@/assets/images/Group848.png')" alt=""></v-col>
@@ -43,7 +43,7 @@
 					</v-row>
 					<v-row justify="center">
 						<v-col cols="6">
-							<v-btn disable elevation="0" @click="uploadImages" :loading="loading" block x-large color="light_grey">Save & Continue</v-btn>
+							<v-btn :disabled="files.length < 1" elevation="0" @click="uploadImages" :loading="loading" block x-large color="primary">Save & Continue</v-btn>
 						</v-col>
 					</v-row>
 				</Ocard>
@@ -72,6 +72,7 @@ export default {
 			this.files.splice(this.files.indexOf(file), 1)
 		},
 		handleUploadProgress(e) {
+			console.log({e})
 			this.progress = Math.round((e.loaded * 100) / e.total)
 		},
 		handleUploads(e) {
@@ -88,28 +89,30 @@ export default {
 		makeFormData(file) {
 			const form = new FormData();
 			this.files.forEach(file => {
-				form.append(file.name, file)
+				form.append('files', file)
 			})
 
 			return form
 		},
 		async uploadImages() {
+			this.loading = true
 			try {
-				// let res = await Api.patch(`/vehicle/api/v1.1/vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(), {
+				let res = await Api.patch(`/vehicle/api/v1.1/vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(), this)
+				// let res = await axios.patch(`https://reqres.in/api/users/uploads/video`, this.makeFormData(), {
 				// 	onUploadProgress: this.handleUploadProgress,
 				// })
-				let res = await axios.post(`https://reqres.in/api/users/uploads/video`, this.makeFormData(), {
-					onUploadProgress: this.handleUploadProgress,
-				})
 			}
 			catch(e) {
+				this.$toast.open({
+					type: 'error',
+					message: e.message
+				})
 				console.log(e)
 			}
-			finally {}
+			finally {
+				this.loading = false
+			}
 		}
-	},
-	mounted() {
-		// console.log(this.$route)
 	}
 }	
 </script>
@@ -128,7 +131,7 @@ export default {
 	}
 
 	&.dragging {
-		border: 2px dashed blue;
+		border: 2px dashed var(--v-primary-base);
 	}
 }
 

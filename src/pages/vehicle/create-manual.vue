@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="10">
+			<v-col cols="12" md="10" lg="8">
 				<Ocard class="py-10 px-6">
 					<v-row class="mb-9">
 						<v-col cols="12">
@@ -264,7 +264,8 @@ export default {
 		}
 	},
 	mounted() {
-		this.form = JSON.parse(JSON.stringify(this.vehicle))
+		if(this.vehicle)
+			this.form = JSON.parse(JSON.stringify(this.vehicle))
 	}
 }	
 </script>

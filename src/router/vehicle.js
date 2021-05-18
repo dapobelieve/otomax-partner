@@ -19,35 +19,40 @@ export default [
       component: () => import("@/pages/vehicle/ImageUpload")
     },
     {
-      path: 'some',
-      name: 'VehicleProfile',
-      component: () => import("@/pages/VehicleProfile"),
+      path: 'create/hire-price',
+      name: "vehicle-upload-hire-price",
+      component: () => import("@/pages/vehicle/HirePrice")
     },
     {
-      path: "/vehicle/manager",
-      name: "VehicleManager",
-      component: () => import("@/pages/VehicleManager")
+      path: 'create/sign-doc',
+      name: "vehicle-create-sign-document",
+      component: () => import("@/pages/vehicle/DocumentSign")
     },
     {
-      path: "/vehicle/upload/images",
-      name: "VehicleImagesUpload",
-      component: () => import("@/pages/VehicleImagesUpload")
-    },
-    {
-      path: "/vehicle/review",
-      name: "VehicleReviewPage",
-      component: () => import("@/pages/VehicleReviewPage"),
-    },
-    {
-      path: "/vehicle/listing",
-      name: "VehicleListing",
-      component: () => import("@/pages/VehicleListing")
-    },
-    {
-      path: "pickup",
-      name: "PickVehicle",
-      component: () => import("@/pages/PickVehicle")
-    },
+      path: 'create/sign-doc/callback',
+      name: "vehicle-create-sign-document",
+      component: () => import("@/pages/vehicle/DocumentSign")
+    }
+    // {
+    //   path: "/vehicle/manager",
+    //   name: "VehicleManager",
+    //   component: () => import("@/pages/VehicleManager")
+    // },
+    // {
+    //   path: "/vehicle/review",
+    //   name: "VehicleReviewPage",
+    //   component: () => import("@/pages/VehicleReviewPage"),
+    // },
+    // {
+    //   path: "/vehicle/listing",
+    //   name: "VehicleListing",
+    //   component: () => import("@/pages/VehicleListing")
+    // },
+    // {
+    //   path: "pickup",
+    //   name: "PickVehicle",
+    //   component: () => import("@/pages/PickVehicle")
+    // },
   ],
 },
 ]

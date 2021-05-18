@@ -1,13 +1,6 @@
-
+const fs = require("fs")
 const { VuetifyLoaderPlugin } = require('vuetify-loader')
 module.exports = {
-	css: {
-		loaderOptions: {
-			sass: {
-				// additionalData: `@import "@/assets/css/_variables.scss"`
-			}
-		}
-	},
 	runtimeCompiler: true,
 	configureWebpack: {
 		plugins: [
@@ -16,5 +9,11 @@ module.exports = {
 	},
 	transpileDependencies: [
 		'vuetify'
-	]
+	],
+	// devServer: {
+	// 	https: {
+	// 		key: fs.readFileSync("./certs/localhost-key.pem"),
+	// 		cert: fs.readFileSync("./certs/localhost.pem"),
+	// 	}
+	// }
 }

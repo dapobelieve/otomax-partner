@@ -53,8 +53,12 @@ class Api {
     return await instance.post(url, payload)
   }
 
-  static async patch(url, payload = {}) {
-    return await instance.patch(url, payload);
+  static async patch(url, payload = {}, context) {
+    return await instance.patch(url, payload, {
+      onUploadProgress: (e) => {
+        context.progress = Math.round((e.loaded * 100) / e.total)
+      },
+    });
   }
 
   static async delete(url, payload = {}) {
