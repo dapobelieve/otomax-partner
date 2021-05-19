@@ -56,7 +56,8 @@ class Api {
   static async patch(url, payload = {}, context) {
     return await instance.patch(url, payload, {
       onUploadProgress: (e) => {
-        context.progress = Math.round((e.loaded * 100) / e.total)
+        if(context.progress)
+          context.progress = Math.round((e.loaded * 100) / e.total)
       },
     });
   }

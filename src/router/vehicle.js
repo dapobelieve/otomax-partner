@@ -19,7 +19,7 @@ export default [
       component: () => import("@/pages/vehicle/ImageUpload")
     },
     {
-      path: 'create/hire-price',
+      path: 'create/:id/hire-price',
       name: "vehicle-upload-hire-price",
       component: () => import("@/pages/vehicle/HirePrice")
     },
@@ -29,19 +29,19 @@ export default [
       component: () => import("@/pages/vehicle/DocumentSign")
     },
     {
-      path: 'create/sign-doc/callback',
-      name: "vehicle-create-sign-document",
-      component: () => import("@/pages/vehicle/DocumentSign")
+      path: ':id/details',
+      name: "vehicle-details",
+      component: () => import("@/pages/vehicle/VehicleDetails")
     }
+    // {
+    //   path: 'create/sign-doc/callback',
+    //   name: "vehicle-create-sign-document",
+    //   component: () => import("@/pages/vehicle/DocumentSign")
+    // }
     // {
     //   path: "/vehicle/manager",
     //   name: "VehicleManager",
     //   component: () => import("@/pages/VehicleManager")
-    // },
-    // {
-    //   path: "/vehicle/review",
-    //   name: "VehicleReviewPage",
-    //   component: () => import("@/pages/VehicleReviewPage"),
     // },
     // {
     //   path: "/vehicle/listing",

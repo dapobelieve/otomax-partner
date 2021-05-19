@@ -72,7 +72,6 @@ export default {
 			this.files.splice(this.files.indexOf(file), 1)
 		},
 		handleUploadProgress(e) {
-			console.log({e})
 			this.progress = Math.round((e.loaded * 100) / e.total)
 		},
 		handleUploads(e) {

@@ -22,6 +22,9 @@ export default {
 		clearVehicles(state) { 
 			state.fehicles = [];
 		},
+		UPDATE_HIRE_PRICE() {
+			// 
+		},
 		setHireRequest(state, hireRequest) { 
 			state.hireRequest = hireRequest
 		},
@@ -90,6 +93,12 @@ export default {
 				commit('SAVE_VEHICLE_DETAILS', details)
 				return true;
 			}
+		},
+		async hirePrice({ commit }, payload) {
+			return await Api.post(`${apiPath}/vehicles/${payload.vehicle}/price-change-request`, {
+				oldPrice: 0,
+				newPrice: payload.price
+			})
 		}
 	},
 };
