@@ -7,8 +7,8 @@
           <v-col md="2">
             <v-img alt="Otomax Logo" class="shrink mr-2" width="120" contain src="../assets/images/logo-black.svg" transition="scale-transition"/>
           </v-col>
-          <v-col md="5">
-            <div class="d-flex align-center col-md-10 justify-space-between"> 
+          <v-col md="5" class="d-flex justify-end pe-0">
+            <div class="d-flex align-center col-md-10 pe-0 justify-space-between"> 
               <template class="d-none">
                 <div class="nav-item ">
                   <router-link to="/"> 
@@ -106,6 +106,7 @@ export default {
 .v-list {
   .v-list-item {
     cursor: pointer;
+    min-height: 40px;
 
     .v-list-item__title {
       font-size: 0.875rem !important;

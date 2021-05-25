@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-app-bar color="#ffff" app></v-app-bar>
+		<Oheader></Oheader>
 		<v-main class="pt-0">
 			<v-container fluid class="px-md-12 px-6">
 				<v-row class="mt-2 mb-md-5" align="center">
@@ -16,6 +16,9 @@
 </template>
 <script>
 export default {
+	components: {
+		Oheader: () => import("@/components/Header")
+	}
 }	
 </script>
 <style lang="scss" scoped>

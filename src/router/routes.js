@@ -44,6 +44,11 @@ const baseRoutes = [
         name: "FleetPartner",
         component: () => import("@/pages/FleetPartner")
       },
+      // {
+      //   path: "vehicle-manager",
+      //   name: "vehicle-manager",
+      //   component: () => import("@/pages/vehicle/manager")
+      // },
       {
         path: "vendor",
         name: "Vendor",

@@ -2,7 +2,7 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-const apiPath = '/vehicle/api/v1.1'
+const apiPath = ''
 
 export default {
 	namespaced: true,
@@ -42,6 +42,14 @@ export default {
 			}
 
 			return res;
+		},
+		async createVehicleContract({commit}, payload) {
+			let res = await Api.post(`${apiPath}/vehicles/${payload.vehicleId}/contract`);
+			return res.data
+		},
+		async getContractSigningUrl({commit}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/contracts/${payload.contractId}`)
+			return res.data
 		},
 		searchVehicle(store, query) {
 			const  data = new URLSearchParams(query);

@@ -71,9 +71,9 @@ export default {
 		removeImage(file) {
 			this.files.splice(this.files.indexOf(file), 1)
 		},
-		handleUploadProgress(e) {
-			this.progress = Math.round((e.loaded * 100) / e.total)
-		},
+		// handleUploadProgress(e) {
+		// 	this.progress = Math.round((e.loaded * 100) / e.total)
+		// },
 		handleUploads(e) {
 			this.dragging = false;
 			if(e.target.files.length > 10) {
@@ -96,7 +96,17 @@ export default {
 		async uploadImages() {
 			this.loading = true
 			try {
-				let res = await Api.patch(`/vehicle/api/v1.1/vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(), this)
+				let res = await Api.patch(`vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(), this)
+				this.$toast.success("Images Uploaded", {
+					duration: 5000
+				})
+				this.setTimeout(()=>{}, 5000)
+				this.$router.push({
+					name: "vehicle-create-sign-contract",
+					params: {
+						id : this.$route.params.id
+					}
+				})
 				// let res = await axios.patch(`https://reqres.in/api/users/uploads/video`, this.makeFormData(), {
 				// 	onUploadProgress: this.handleUploadProgress,
 				// })
@@ -106,7 +116,6 @@ export default {
 					type: 'error',
 					message: e.message
 				})
-				console.log(e)
 			}
 			finally {
 				this.loading = false
