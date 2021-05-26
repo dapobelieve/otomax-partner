@@ -39,8 +39,8 @@ export default {
 
 			return res;
 		},
-		async register({ commit, dispatch }, payload) {
-			return await Api.post(`${apiPath}/auth/signup`, payload, false)
+		async register({}, payload) {
+			return await Api.post(`${apiPath}/auth/signup`, payload)
 		},
 		async fetchAuthUser({commit}) {
 			let res = await Api.get(`${apiPath}/users/me`) //signed, to include auth header

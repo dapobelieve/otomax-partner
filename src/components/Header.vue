@@ -7,7 +7,7 @@
           <v-col md="2">
             <v-img alt="Otomax Logo" class="shrink mr-2" width="120" contain src="../assets/images/logo-black.svg" transition="scale-transition"/>
           </v-col>
-          <v-col md="5" class="d-flex justify-end pe-0">
+          <v-col md="4"  class="d-flex justify-end pe-0">
             <div class="d-flex align-center col-md-10 pe-0 justify-space-between"> 
               <template class="d-none">
                 <div class="nav-item ">
