@@ -10,7 +10,7 @@ module.exports = {
 	transpileDependencies: [
 		'vuetify'
 	],
-	devServer: {
+	// devServer: {
 	// 	host: 'localhost',
 	// 	https: {
 	// 		key: fs.readFileSync("./certs/localhost-key.pem"),
