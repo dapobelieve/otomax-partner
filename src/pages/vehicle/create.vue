@@ -85,12 +85,11 @@ export default {
 		}
 	},
 	beforeRouteEnter(to, from, next) {
-		console.log(from)
-		next(vm => {
-			if(from.name === 'sign-up') {
-				vm.isFromSignUp = true
-			}
-		})
+		// next(vm => {
+		// 	if(from.name === 'sign-up') {
+		// 		vm.isFromSignUp = true
+		// 	}
+		// })
 	}
 }	
 </script>

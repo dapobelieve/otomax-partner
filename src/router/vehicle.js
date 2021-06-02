@@ -1,48 +1,49 @@
 export default [
+  {
+    path: "/vehicle-manager",
+    component: () => import("@/layout/VehicleLayout"),
+    children: [
+      {
+        path: '',
+        name: "vehicle-manager",
+        component: () => import("@/pages/VehicleManager"),
+      }
+    ]
+  },
 	{
-  path: '/vehicle',
+  path: '/vehicle/create',
   component: () => import("@/layout/VehicleLayout"),
   children: [
     {
-      path: 'create/get-info',
+      path: 'get-info',
       name: 'vehicle-create',
       component: () => import("@/pages/vehicle/create")
     },
      {
-      path: 'create/manual-info',
+      path: 'manual-info',
       name: 'vehicle-create-manual',
       component: () => import("@/pages/vehicle/create-manual")
     },
     {
-      path: 'create/:id/upload-images',
+      path: ':id/upload-images',
       name: "vehicle-upload-images",
       component: () => import("@/pages/vehicle/ImageUpload")
     },
     {
-      path: 'create/:id/sign-doc',
+      path: ':id/sign-doc',
       name: "vehicle-create-sign-contract",
       component: () => import("@/pages/vehicle/SignContract")
     },
     {
-      path: 'create/:id/hire-price',
-      name: "vehicle-upload-hire-price",
+      path: ':id/hire-price',
+      name: "vehicle-set-hire-price",
       component: () => import("@/pages/vehicle/HirePrice")
     },
     {
       path: ':id/details',
       name: "vehicle-details",
       component: () => import("@/pages/vehicle/VehicleDetails")
-    },
-    // {
-    //   path: 'create/sign-doc/callback',
-    //   name: "vehicle-create-sign-document",
-    //   component: () => import("@/pages/vehicle/DocumentSign")
-    // }
-    {
-      path: "vehicle-manager",
-      name: "vehicle-manager",
-      component: () => import("@/pages/VehicleManager")
-    },
+    },   
     // {
     //   path: "/vehicle/listing",
     //   name: "VehicleListing",

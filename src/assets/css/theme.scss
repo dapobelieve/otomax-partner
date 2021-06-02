@@ -12,9 +12,9 @@
 	src: url(../fonts/Acumin-BdItPro.woff);
 }
 @font-face {
-	font-family: 'Acumin Pro Regular';
+	font-family: 'Acumin Pro';
 	font-weight: normal;
-	src: url(../fonts/Acumin-RPro.woff);
+	src: url(../fonts/Acumin-BdPro.otf);
 }
 @font-face {
 	font-family: 'Acumin';
@@ -33,7 +33,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Acumin Pro Regular';
+	font-family: 'Acumin Pro';
 	padding: 0;
 	margin: 0;
 }

@@ -22,7 +22,7 @@
 									 background-color="light_grey" color="primary" striped rounded v-model="progress" ></v-progress-linear>
 									</v-col>
 								</v-row>
-								<input :disabled="files.length === 10" multiple @change="handleUploads" accept="images/jpg, images/png" class="position-absolute" type="file">
+								<input :disabled="files.length === 5" multiple @change="handleUploads" accept="images/jpg, images/png" class="position-absolute" type="file">
 							</div>
 							<div class="w-100 d-flex mt-3 px-md-2">
 								<small>Formats Accepted: <strong>JPG JPEG PNG</strong></small>
@@ -32,12 +32,12 @@
 					</v-row>
 					<v-row class="mb-6">
 						<v-col cols="12" class="w-100 d-flex">
-							<small>Minimum images: 5</small>
-							<small class="ms-auto">{{files.length}}/<strong>10</strong></small>
+							<small>Maximum images: 5</small>
+							<small class="ms-auto">{{files.length}}/<strong>5</strong></small>
 						</v-col>
 						<v-row>
 							<v-col cols="12" md="5" class="w-100 d-flex justify-space-around flex-wrap">
-								<Opreview @remove-image="removeImage($event)" class="mb-4" v-for="x in 10" :key="x" :image="files[x-1]" />
+								<Opreview @remove-image="removeImage($event)" class="mb-4" v-for="x in 5" :key="x" :image="files[x-1]" />
 							</v-col>
 						</v-row>
 					</v-row>
@@ -100,13 +100,15 @@ export default {
 				this.$toast.success("Images Uploaded", {
 					duration: 5000
 				})
-				this.setTimeout(()=>{}, 5000)
-				this.$router.push({
-					name: "vehicle-create-sign-contract",
-					params: {
-						id : this.$route.params.id
-					}
-				})
+				this.setTimeout(() => {
+					this.$router.push({
+						name: "vehicle-set-hire-price",
+						params: {
+							id : this.$route.params.id
+						}
+					})
+				}, 5000)
+				
 				// let res = await axios.patch(`https://reqres.in/api/users/uploads/video`, this.makeFormData(), {
 				// 	onUploadProgress: this.handleUploadProgress,
 				// })

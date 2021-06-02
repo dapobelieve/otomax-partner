@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .app-datepicker {
-        position: relative;
-    }
+.app-datepicker {
+    position: relative;
+}
 </style>

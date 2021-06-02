@@ -16,7 +16,7 @@
                   </router-link>
                 </div>
                 <div class="nav-item ">
-                  <router-link to="/">
+                  <router-link :to="{name: 'vehicle-manager'}">
                     <v-img color="primary" width="40" :src="require('@/assets/images/nav/vehicle.svg')" />
                   </router-link>
                 </div>
@@ -38,9 +38,10 @@
                   </template>
                   <v-list>
                     <v-list-item class="px-6" v-for="(item, i) in menuItems" :key="i">
-                      <v-list-item-title >
+                      <v-list-item-title @click="item.action()">
                         <img style="" :src="item.icon" alt="">
-                      {{ item.title }}</v-list-item-title>
+                        {{ item.title }}
+                      </v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
@@ -97,8 +98,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.v-menu__content {
+<style lang="scss" scoped>
+ .v-menu__content {
   top: 63px !important;
   box-shadow: -2px 0px 8px 5px #0000000d;
 }

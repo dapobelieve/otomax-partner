@@ -2,7 +2,8 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-const apiPath = ''
+const apiPath = '';
+
 
 export default {
 	namespaced: true,
@@ -33,6 +34,10 @@ export default {
 		}
 	},
 	actions: {
+		async vehicleSummary({commit}) {
+			let res = await Api.get(`${apiPath}/vehicles/summary`);
+			return res;
+		},
 		async createVehicle({commit}, payload) {
 			let res = await Api.post(`${apiPath}/vehicles`, payload)
 
@@ -40,15 +45,14 @@ export default {
 				const { _id: id, ...rest} = _get(res, 'data.data')
 				commit('SAVE_VEHICLE_DETAILS', {id, ...rest})
 			}
-
 			return res;
 		},
 		async createVehicleContract({commit}, payload) {
-			let res = await Api.post(`${apiPath}/vehicles/${payload.vehicleId}/contract`);
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/contract`);
 			return res.data
 		},
 		async getContractSigningUrl({commit}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/contracts/${payload.contractId}`)
+			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url`)
 			return res.data
 		},
 		searchVehicle(store, query) {
@@ -57,6 +61,13 @@ export default {
 				store.commit('setVehicles', res.data.data)
 				return res.data
 			} )
+		},
+		async getSingleVehicle({ commit }, payload) {
+			const res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}`)
+			if(res.status === 200) {
+				commit('SAVE_VEHICLE_DETAILS', res.data.data)
+			}
+			return res.data
 		},
 		async getVehicleInfo({commit}, payload) {
 			let res = await Api.post(`${apiPath}/vehicles/details`, {
@@ -103,9 +114,9 @@ export default {
 			}
 		},
 		async hirePrice({ commit }, payload) {
-			return await Api.post(`${apiPath}/vehicles/${payload.vehicle}/price-change-request`, {
-				oldPrice: 0,
-				newPrice: payload.price
+			return await Api.patch(`${apiPath}/vehicles/${payload.vehicle}`, {
+				plan: "WEEKLY",
+				amount: payload.price
 			})
 		}
 	},

@@ -33,7 +33,7 @@ instance.interceptors.response.use((response) => {
     }).then(res => {
       if(res.status === 200) {
         localStorage.setItem('auth.token', res.data.message.access_token)
-        localStorage.setItem('auth.refresh', res.data.message.access_token)
+        localStorage.setItem('auth.refresh', res.data.message.refresh_token)
         instance.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('auth.token')}`;
 
         return instance(prevRequest);

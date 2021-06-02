@@ -23,7 +23,7 @@
 							Price will be reviewed by otomax and a suggested price <br> will be provide based on market trend
 						</div>
 						<div class="w-50 text-center">
-							<router-link to="/" class="btn v-btn v-size--small text-capitalize px-10 py-5 primary v-btn--has-bg" elevation="0">Proceed to vehicle profile</router-link>
+							<!-- <router-link to="/" class="btn v-btn v-size--small text-capitalize px-10 py-5 primary v-btn--has-bg" elevation="0">Proceed to vehicle profile</router-link> -->
 						</div>
 					</div>
 				</Ocard>
@@ -72,6 +72,15 @@ export default {
 				this.$toast.success("Hire price sent for review", {
 					duration: 5000
 				})
+
+				this.setTimeout(() => {
+					this.$router.push({
+						name: "vehicle-create-sign-contract",
+						params: {
+							id : this.$route.params.id
+						}
+					})
+				}, 5000)
 			}
 			catch (e) {
 				this.$toast.error(`${e.message}`, {

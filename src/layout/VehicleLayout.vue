@@ -3,7 +3,7 @@
 		<Oheader></Oheader>
 		<v-main class="pt-0">
 			<v-container fluid class="px-md-12 px-6">
-				<v-row class="mt-2 mb-md-5" align="center">
+				<v-row class="mt-2 mb-md-2" align="center">
 					<v-btn @click="$router.go(-1)" class="bg-white primary--text" text outlined icon color="">
 						<i class="fas fa-arrow-left"/>
 					</v-btn>
