@@ -41,7 +41,7 @@ const baseRoutes = [
     children: [
       {
         path: "/",
-        name: "FleetPartner",
+        name: "home",
         component: () => import("@/pages/FleetPartner")
       },
       {

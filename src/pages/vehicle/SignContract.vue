@@ -1,20 +1,10 @@
 <template>
 	<v-row justify="center">
 		<v-col cols="12" md="10">
-			<Ocard>
+			<Ocard color="transparent">
 				<v-container v-if="url" style="height: 700px;" >
-					<!-- <v-row>
-						<v-tooltip top>
-							<template v-slot:activator="{ on, attrs }">
-								<v-btn @click="getSigningUrl" v-bind="attrs" v-on="on" class="px-5 mb-4 py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" small text >Refresh Siginng Url</v-btn>
-						</template>
-						<span>Left tooltip</span>
-						</v-tooltip>
-					</v-row> -->
-					<v-row class="fill-height" >
-						<v-col>
-							Ensure to click <b>Finish</b> after filling all the fields
-						</v-col>
+					<small class="red--text">*Ensure to click <b>Finish</b> after filling all the fields</small>
+					<v-row class="fill-height" >						
 						<v-col cols="12">
 							<vue-friendly-iframe :src="url" @load="onLoad"></vue-friendly-iframe>
 						</v-col>
@@ -89,20 +79,17 @@ export default {
 	},
 	async mounted() {
 		try {
-			// let vehicle = await this.$store.dispatch('vehicle/getSingleVehicle', { vehicleId: this.$route.params.id	})
-			// console.log(vehicle)
-			let res = await this.$store.dispatch('vehicle/createVehicleContract', {
-				vehicleId: this.$route.params.id
-			});
-
-			this.contract = res.data.contract
-			this.message = "Creating signing url..."
-			await this.getSigningUrl()
-			/**
-			 * TODO:
-			 * User refreshes the page after contract 
-			 * has been created
-			 */
+			const res = await this.$store.dispatch('vehicle/getSingleVehicle', { vehicleId: this.$route.params.id	})
+			const { data: vehicle} = res
+			if(vehicle.contract) { // vehicle has a contract
+				await this.getSigningUrl()
+			}else {
+				let docRes = await this.$store.dispatch('vehicle/createVehicleContract', {
+					vehicleId: this.$route.params.id
+				});
+				await this.getSigningUrl()
+			}
+			
 		}
 		catch(e) {
 			const {error} = e

@@ -2,7 +2,8 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-const apiPath = '';
+// const apiPath = '';
+const apiPath = '/vehicle/api/v1.1';
 
 
 export default {
@@ -34,18 +35,36 @@ export default {
 		}
 	},
 	actions: {
+		async getVehiclesByStatus({}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
+			return res.data
+		},
+		async uploadVehicleDocument({commit}, payload, vehicleId) {
+			const formData = new FormData()
+			Object.keys(payload).forEach(key => {
+				formData.append(key, payload[key])
+			})
+
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/documents/upload`, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			});
+
+			return res
+		},
 		async vehicleSummary({commit}) {
 			let res = await Api.get(`${apiPath}/vehicles/summary`);
-			return res;
+			return res.data;
 		},
 		async createVehicle({commit}, payload) {
 			let res = await Api.post(`${apiPath}/vehicles`, payload)
 
-			if(res.status === 201) {
-				const { _id: id, ...rest} = _get(res, 'data.data')
-				commit('SAVE_VEHICLE_DETAILS', {id, ...rest})
-			}
-			return res;
+			// if(res.status === 201) {
+			// 	const { _id: id, ...rest} = _get(res, 'data.data')
+			// 	commit('SAVE_VEHICLE_DETAILS', {id, ...rest})
+			// }
+			return res.data.data._id;
 		},
 		async createVehicleContract({commit}, payload) {
 			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/contract`);
@@ -80,7 +99,7 @@ export default {
 				throw new Error("Invalid vehicle registration mark")
 			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
 				// set empty defaults except the regNumber
-				const vehicleDetails = ["color", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
+				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
 					return result
 				}, {})
@@ -114,7 +133,7 @@ export default {
 			}
 		},
 		async hirePrice({ commit }, payload) {
-			return await Api.patch(`${apiPath}/vehicles/${payload.vehicle}`, {
+			return await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
 				plan: "WEEKLY",
 				amount: payload.price
 			})

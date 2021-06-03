@@ -1,25 +1,39 @@
 <template>
-	<Ocard class="pa-md-10 pa-6 bg-all">
-		<v-row align="center">
-			<div class="me-4">
-				<img :src="require('@/assets/images/vehicle-status/not-available.svg')" alt="">
-			</div>
-			<h3>Not Available for Hire</h3>
-			<div class="ms-auto">
-				<v-btn class="font-weight-regular py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Change availability</v-btn>
-			</div>
-		</v-row>
-	</Ocard>
+	<div class="preview flex-shrink-0 cursor-pointer">
+		<img v-if="image" :src="image" alt="">
+		<div class="position-absolute text-white">
+			<h2>Boat Tail</h2>
+			<h6>2018 Series</h6>
+		</div>
+	</div>
 </template>
 <script>
 export default {
-	data() {
-		return {
-
+	props: {
+		image: {
+			default: null
 		}
 	},
-	components: {
-		Ocard: () => import("@/components/OtomaxCard"),
-	}
 }	
 </script>
+<style lang="scss" scoped>
+@import "@/assets/css/_variables.scss";
+.preview {
+	flex: 0 1 31%;
+	height: 448px;
+	position: relative;
+	border-radius: $border-radius;
+	background-color: var(--v-light_grey-base) !important;
+	img	{
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		border-radius: $border-radius;
+	}
+
+	div {
+		bottom: 13px;
+		left: 20px;
+	}
+}	
+</style>

@@ -6,7 +6,12 @@ export default [
       {
         path: '',
         name: "vehicle-manager",
-        component: () => import("@/pages/VehicleManager"),
+        component: () => import("@/pages/vehicle/VehicleManager"),
+      },
+      {
+        path: ':category',
+        name: "vehicle-manager-category",
+        component: () => import("@/pages/vehicle/VehicleManagerCategory"),
       }
     ]
   },

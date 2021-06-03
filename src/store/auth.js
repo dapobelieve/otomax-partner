@@ -28,7 +28,6 @@ export default {
 	actions: {
 		async login({dispatch,  commit}, payload) {
 			let res = await Api.post(`${apiPath}/auth/login`, payload, false)
-			console.log(res)
 			if(res.status === 200) {
 				const {data} = res.data
 				localStorage.setItem('auth.token', data.accessToken)

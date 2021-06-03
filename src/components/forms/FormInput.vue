@@ -10,7 +10,6 @@
       elevation="0"
       :required="required"
       solo
-      :hint="message"
       flat
       :placeholder="placeholder"
       :autofocus="false"
@@ -68,7 +67,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-import 
 ::v-deep .v-input {
   &.left {
     input {
@@ -88,7 +86,7 @@ import
 
   &.has-error {
     .v-input__slot {
-      border: 1px solid red;
+      border: 1px solid red !important;
     }
   }
 }

@@ -119,12 +119,11 @@
 						</v-col>
 					</v-row>
 					<v-row justify="center">
-						<v-col v-if="form.taxi" cols="12" md="10" class="d-md-flex pa-0" >
+						<v-col cols="12" md="10" class="d-md-flex pa-0" >
 							<v-col cols="12" md="6" class="pe-md-16 d-flex flex-column justify-space-between">
 								<ODatePicker :error="$v.form.taxi.date.$error" v-model="$v.form.taxi.date.$model" label="Taxi license Expiry date" />
 								<ODatePicker :error="$v.form.mot.date.$error" v-model="$v.form.mot.date.$model" class="mt-7" label="MOT license Expiry date" />
 								<ODatePicker :error="$v.form.roadTax.$error" v-model="$v.form.roadTax.$model"  class="mt-7" label="Road tax Expiry date" />
-								
 							</v-col>
 							<v-col cols="12" md="6" class="pe-md-16 d-flex flex-column justify-space-between">
 								<OFileUploader :error="$v.form.taxi.file.$error" acceptedFiles=".doc, .docx, .pdf" label="Taxi license Upload" v-model="$v.form.taxi.file.$model" />
@@ -149,9 +148,7 @@ export default {
 	data () {
 		return {
 			loading: false,
-			form: {
-				isTax: true
-			},
+			form: {},
 			items: [
 				{
 					text: "Yes",
@@ -165,9 +162,6 @@ export default {
 		}
 	},
 	computed: {
-		vehicle() {
-			return this.$store.state.vehicle.vehicles[this.$route.query.vrm]
-		},
 		regNumberErr() {
 			if (!this.$v.form.regNumber.required) return "This field is required";
 			if (!this.$v.form.regNumber.maxLength) return "Enter a valid registration number eg EBZ5155";
@@ -223,16 +217,10 @@ export default {
 			fuelType: { required, alpha },
 			mileage: { required },
 			isTax: { required },
-			taxi: {	
-				date: { required },
-				file: {required }
-			},
+			taxi: {	date: { required },	file: {required }	},
 			roadTax: { required },
 			logBook: { required },
-			mot: {	
-				date: { required },
-				file: { required }
-			},
+			mot: { date: { required },file: { required } }
 		}
 	},
 	components: {
@@ -249,20 +237,45 @@ export default {
 
 			try {
 				if (!this.$v.$invalid) {
-					await this.$store.dispatch('vehicle/createVehicle', this.form)
-					this.$toast.success('Vehicle Added', {
+					const vehicleId = await this.$store.dispatch('vehicle/createVehicle', this.form);
+
+					// upload taxi doc
+					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+						file: this.form.taxi.file,
+						type: "TAXL",
+						expirationDateEpoch: this.form.taxi.date,
+						vehicleId: vehicleId
+					})
+
+					// upload mot doc
+					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+						file: this.form.mot.file,
+						type: "MOTL",
+						expirationDateEpoch: this.form.mot.date,
+						vehicleId: vehicleId
+					})
+
+					// upload vehicle logBool doc
+					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+						file: this.form.logBook,
+						type: "VEHICLELOG",
+						expirationDateEpoch: this.form.roadTax,
+						vehicleId: vehicleId
+					})
+
+					this.$toast.success('Vehicle Added Successfully', {
 	          type: 'success',
 	          duration: 5000
 	        })
 	        
-					// this.$router.push({
-					// 	name: "vehicle-upload-images",
-					// 	params: {
-					// 		id : this.vehicle.id
-					// 	}
-					// })
+					this.$router.push({
+						name: "vehicle-upload-images",
+						params: {
+							id : vehicleId
+						}
+					})
 				}else {
-					this.$toast.error("Error: The highlighted fields are required", { duration: 0 })
+					this.$toast.error("Error: The highlighted fields are required", { duration: 1000 })
 				}			
 			}
 			catch(err) {
@@ -275,8 +288,8 @@ export default {
 		}
 	},
 	mounted() {
-		if(this.vehicle)
-			this.form = JSON.parse(JSON.stringify(this.vehicle))
+		if(this.$route.query.vrm)
+			this.form = JSON.parse(JSON.stringify(this.$store.state.vehicle.vehicles[this.$route.query.vrm]))
 	}
 }	
 </script>

@@ -64,7 +64,7 @@ export default {
 			this.loading = true
 			try {
 				let res =  await this.$store.dispatch("vehicle/hirePrice", {
-					vehicle: this.$route.params.id,
+					vehicleId: this.$route.params.id,
 					price: this.form.price
 				})
 
@@ -73,7 +73,7 @@ export default {
 					duration: 5000
 				})
 
-				this.setTimeout(() => {
+				setTimeout(() => {
 					this.$router.push({
 						name: "vehicle-create-sign-contract",
 						params: {
