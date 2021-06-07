@@ -87,6 +87,7 @@ export default {
   		try {
   			let res = await this.$store.dispatch('vehicle/createPayementDetail', this.form)
   			this.UPDATE = false
+  			this.$toast.success("Payment Details Updated")
   		}catch(e) {
   			console.log(e.message)
   		}
