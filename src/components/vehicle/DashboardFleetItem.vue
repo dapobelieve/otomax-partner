@@ -12,7 +12,7 @@
         <div class="d-flex mt-10 align-center" style='width: 100%'>
             <div class='count ml-3 mr-auto'>{{ count }}</div>
             <div style='margin-left: auto'>
-                <v-btn elevation="0" class='btn' :href='href' color='primary' small><small>{{ btnText }}</small></v-btn>
+                <router-link class="btn v-btn v-size--small primary v-btn--has-bg" :to="{name: 'vehicle-create'}"><small>Add new vehicle</small></router-link>
             </div>
         </div>
     </div>

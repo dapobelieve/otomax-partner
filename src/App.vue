@@ -8,16 +8,14 @@
 
 <script>
 export default {
-  name: "App",
-
-  data: () => ({
-    //
-  }),
+	name: "App",
+	mounted() {
+	}
 };
 </script>
 
 <style scoped>
 .theme--light.v-application {
-  background: #e4e4e4  !important;
+	background: #F9F9F9  !important;
 }
 </style>

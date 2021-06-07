@@ -1,82 +1,61 @@
 <template>
-  <main>
+  <div>
+    <v-app-bar color="#ffff" app></v-app-bar>
     <v-app-bar app color="white">
-      <v-container class="d-flex align-center">
-        <div class="d-flex align-center">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            src="../assets/images/logo-black.svg"
-            transition="scale-transition"
-            width="70"
-          />
-        </div>
-
-        <v-spacer></v-spacer>
-
-        <div class="d-flex align-center">
-          <v-text-field
-            placeholder="Search"
-            filled
-            rounded
-            dense
-            class="mt-7 mr-2"
-            v-model='query'
-            @change="handleSearch"
-          ></v-text-field>
-          <div class="icon-bg text-center ">
-            <i class="fas fa-search ma-3 text-blue"></i>
-          </div>
-        </div>
-
-        <v-spacer></v-spacer>
-
-        <div class="d-flex">
-          <router-link to="/" :class="{ active: currentRoute == 'Home' }">
-            <i
-              class="ml-8 fas fa-home text-decoration-none "
-              style="width: 30px; height: 30px"
-            ></i>
-          </router-link>
-          <router-link
-            to="/vehicle/manager"
-            :class="{ active: currentRoute == 'Vehicle Manager' }"
-          >
-            <i
-              class="ml-8 fas fa-car text-decoration-none "
-              style="width: 30px; height: 30px"
-            ></i>
-          </router-link>
-          <router-link
-            to="/notification"
-            :class="{ active: currentRoute == 'Notify' }"
-          >
-            <i
-              class="ml-8 fas fa-bell text-decoration-none "
-              style="width: 30px; height: 30px"
-            ></i>
-          </router-link>
-          <router-link
-            to="/profile"
-            :class="{ active: currentRoute == 'Profile' }"
-          >
-            <v-img
-              src="../assets/images/handsome.png"
-              height="38"
-              width="38"
-              class="rounded-circle ml-8"
-            />
-          </router-link>
-          <otomax-menu 
-            class="ml-8" 
-            :class="{ active: currentRoute == 'Filter' }"
-            :items='menuItems' 
-          />
-        </div>
+      <v-container>
+        <v-row align="center" justify-md="space-between">
+          <v-col md="2">
+            <v-img @click="$router.push({name: 'home'})" alt="Otomax Logo" class="shrink mr-2" width="120" contain src="../assets/images/logo-black.svg" transition="scale-transition"/>
+          </v-col>
+          <v-col md="4"  class="d-flex justify-end pe-0">
+            <div class="d-flex align-center col-md-10 pe-0 justify-space-between"> 
+              <template class="d-none">
+                <div class="nav-item ">
+                  <router-link to="/"> 
+                    <img color="primary" width="30" :src="require('@/assets/images/nav/home.svg')" />
+                  </router-link>
+                </div>
+                <div class="nav-item ">
+                  <router-link :to="{name: 'vehicle-manager'}">
+                    <v-img color="primary" width="40" :src="require('@/assets/images/nav/vehicle.svg')" />
+                  </router-link>
+                </div>
+                <div class="nav-item ">
+                  <router-link :to="{name: 'notification'}">
+                    <v-img color="primary" width="25" :src="require('@/assets/images/nav/notification.svg')" />
+                  </router-link>
+                </div>
+                <div class="nav-item ">
+                  <!-- <router-link to="/"> -->
+                    <UserAvatar />
+                  <!-- </router-link> -->
+                </div>
+              </template>
+              <div class="nav-item">
+                <v-menu elevation="0" left transition="slide-y-transition">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-img v-bind="attrs" v-on="on" width="32" :src="require('@/assets/images/nav/icon-menu.svg')" />
+                  </template>
+                  <v-list>
+                    <v-list-item class="px-6" v-for="(item, i) in menuItems" :key="i">
+                      <v-list-item-title v-if="item.action" @click="item.action()">
+                        <img style="" :src="item.icon" alt="">
+                        {{ item.title }}
+                      </v-list-item-title>
+                      <v-list-item-title v-else @click="$router.push({name: `${item.href}`})">
+                        <img style="" :src="item.icon" alt="">
+                        {{ item.title }}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
       </v-container>
     </v-app-bar>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -89,7 +68,9 @@ export default {
       query: '',
       menuItems: [
         { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
-        { title: 'Payment', icon: require('@/assets/images/card.png'), href: '#' },
+        { title: 'Payment', icon: require('@/assets/images/card.png'), 
+          href: 'payment-details' 
+        },
         { title: 'History', icon: require('@/assets/images/clock.png'), href: '#' },
         { title: 'Contact Otomax', icon: require('@/assets/images/chat.png'), href: '#' },
         { title: "FAQ's", icon: require('@/assets/images/call.png'), href: '#' },
@@ -98,7 +79,7 @@ export default {
           icon: require('@/assets/images/logout.png'), 
           href: '#', 
           action: () => { 
-            this.$store.dispatch('logout').then( res => {
+            this.$store.dispatch('auth/logout').then( res => {
               this.$router.push('/account/login')
             })
           }, 
@@ -108,6 +89,7 @@ export default {
   },
   components: {
     OtomaxMenu,
+    UserAvatar: () => import("@/components/UserAvatarComponent")
   },
   computed: {
     currentRoute() {
@@ -122,15 +104,27 @@ export default {
 };
 </script>
 
-<style scoped>
-.active {
-  color: #2633ec;
+<style lang="scss" scoped>
+ .v-menu__content {
+  top: 63px !important;
+  box-shadow: -2px 0px 8px 5px #0000000d;
 }
 
-.icon-bg {
-  background-color: #ebebeb;
-  width: 44px;
-  height: 37px;
-  border-radius: 12px;
+.v-list {
+  .v-list-item {
+    cursor: pointer;
+    min-height: 40px;
+
+    .v-list-item__title {
+      font-size: 0.875rem !important;
+      display: inline-flex;
+      align-items: center;
+      img {
+        margin-right: 8px;
+        height: 1rem !important;
+        width: 1rem !important;
+      }
+    }
+  }
 }
 </style>

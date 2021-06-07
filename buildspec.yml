@@ -43,15 +43,15 @@ phases:
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
       # we can pull the code to build the ingress controller and then apply each if possible
 
-      - kubectl apply -f k8s/ingress/nginx/deploy.yaml
+      # - kubectl apply -f k8s/ingress/nginx/deploy.yaml
 
-      - kubectl apply -f k8s/tls/cert-manager.yaml
+      # - kubectl apply -f k8s/tls/cert-manager.yaml
 
-      - echo "Waiting for 0.5 minutes..."
-      - sleep 0.5m
-      - echo "Done waiting."
+      # - echo "Waiting for 0.5 minutes..."
+      # - sleep 0.5m
+      # - echo "Done waiting."
 
-      - kubectl apply -f k8s/tls/ssl-tls-cluster-issuer.yaml
+      # - kubectl apply -f k8s/tls/ssl-tls-cluster-issuer.yaml
       # get the env variable from aws or configmaps
       - kubectl apply -f k8s/deployment.yaml
       - kubectl apply -f k8s/service.yaml
