@@ -5,7 +5,6 @@ import Vue from "vue"
 // const apiPath = '';
 const apiPath = '/vehicle/api/v1.1';
 
-
 export default {
 	namespaced: true,
 	state: {
@@ -37,6 +36,10 @@ export default {
 	actions: {
 		async getVehiclesByStatus({}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
+			return res.data
+		},
+		async getAllVehicles({}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles`)
 			return res.data
 		},
 		async uploadVehicleDocument({commit}, payload, vehicleId) {
@@ -73,13 +76,6 @@ export default {
 		async getContractSigningUrl({commit}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url`)
 			return res.data
-		},
-		searchVehicle(store, query) {
-			const  data = new URLSearchParams(query);
-			return Api.get(`${apiPath}/vehicles/search?${data.toString()}`).then( res => { 
-				store.commit('setVehicles', res.data.data)
-				return res.data
-			} )
 		},
 		async getSingleVehicle({ commit }, payload) {
 			const res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}`)

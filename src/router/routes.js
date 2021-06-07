@@ -42,7 +42,7 @@ const baseRoutes = [
       {
         path: "/",
         name: "home",
-        component: () => import("@/pages/FleetPartner")
+        component: () => import("@/pages/Home")
       },
       {
         path: "vendor",
@@ -52,7 +52,8 @@ const baseRoutes = [
       {
         path: "notifications",
         name: "notification",
-        component: () => import("@/pages/notification/index")
+        // component: () => import("@/pages/notification/index")
+        component: () => import("@/pages/Notification/")
       },
       {
         path: "profile",

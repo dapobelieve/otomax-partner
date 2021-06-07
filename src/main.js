@@ -5,6 +5,7 @@ import router from "./router/routes.js";
 import store from '@/store'
 import Vuelidate from 'vuelidate';
 import VueFriendlyIframe from 'vue-friendly-iframe';
+import '@/utils/filters'
 
 Vue.use(VueFriendlyIframe);
 Vue.use(Vuelidate)
