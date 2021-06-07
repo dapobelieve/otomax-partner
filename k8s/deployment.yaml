@@ -30,5 +30,5 @@ spec:
           env:
             - name: PORT
               value: '80'
-            - name: NEXT_PUBLIC_GOOGLE_MAP
-              value: AIzaSyCVyjH4XwBHs-cMa4zl1I6Lvg5ABAWkZvU
+            - name: VUE_APP_BASE_API_URL
+              value: https://staging.otomax.co.uk
