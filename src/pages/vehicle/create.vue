@@ -7,7 +7,7 @@
 						<img width="100" height="100" class="mb-10" :src="require('@/assets/images/Group8399.png')" alt="">
 						<h2 class="mb-5 text-center">Upload Vehicle Info</h2>
 						<div class="text-center mb-8">
-							Enter the registration number (license number) <br>of the vehicle below
+							Please provide us with your bank account details
 						</div>
 						<div class="w-50">
 							<FormInput @keyup-enter="fetchInfo" v-model="plateNumber" position="center" class="mb-5" placeholder="e.g UCO-UY87D" />
