@@ -1,53 +1,64 @@
 export default [
+  {
+    path: "/vehicle-manager",
+    component: () => import("@/layout/VehicleLayout"),
+    children: [
+      {
+        path: '',
+        name: "vehicle-manager",
+        component: () => import("@/pages/vehicle/VehicleManager"),
+      },
+      {
+        path: ':category',
+        name: "vehicle-manager-category",
+        component: () => import("@/pages/vehicle/VehicleManagerCategory"),
+      }
+    ]
+  },
 	{
-  path: '/vehicle',
+  path: '/vehicle/create',
   component: () => import("@/layout/VehicleLayout"),
   children: [
     {
-      path: 'create/get-info',
+      path: 'get-info',
       name: 'vehicle-create',
       component: () => import("@/pages/vehicle/create")
     },
      {
-      path: 'create/manual-info',
+      path: 'manual-info',
       name: 'vehicle-create-manual',
       component: () => import("@/pages/vehicle/create-manual")
     },
     {
-      path: 'create/:id/upload-images',
+      path: ':id/upload-images',
       name: "vehicle-upload-images",
       component: () => import("@/pages/vehicle/ImageUpload")
     },
     {
-      path: 'some',
-      name: 'VehicleProfile',
-      component: () => import("@/pages/VehicleProfile"),
+      path: ':id/sign-doc',
+      name: "vehicle-create-sign-contract",
+      component: () => import("@/pages/vehicle/SignContract")
     },
     {
-      path: "/vehicle/manager",
-      name: "VehicleManager",
-      component: () => import("@/pages/VehicleManager")
+      path: ':id/hire-price',
+      name: "vehicle-set-hire-price",
+      component: () => import("@/pages/vehicle/HirePrice")
     },
     {
-      path: "/vehicle/upload/images",
-      name: "VehicleImagesUpload",
-      component: () => import("@/pages/VehicleImagesUpload")
-    },
-    {
-      path: "/vehicle/review",
-      name: "VehicleReviewPage",
-      component: () => import("@/pages/VehicleReviewPage"),
-    },
-    {
-      path: "/vehicle/listing",
-      name: "VehicleListing",
-      component: () => import("@/pages/VehicleListing")
-    },
-    {
-      path: "pickup",
-      name: "PickVehicle",
-      component: () => import("@/pages/PickVehicle")
-    },
+      path: ':id/details',
+      name: "vehicle-details",
+      component: () => import("@/pages/vehicle/VehicleDetails")
+    },   
+    // {
+    //   path: "/vehicle/listing",
+    //   name: "VehicleListing",
+    //   component: () => import("@/pages/VehicleListing")
+    // },
+    // {
+    //   path: "pickup",
+    //   name: "PickVehicle",
+    //   component: () => import("@/pages/PickVehicle")
+    // },
   ],
 },
 ]

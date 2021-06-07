@@ -9,7 +9,7 @@
             </div>
             <h1 class="font-weight-bold">Vehicle Manager</h1>
             <div class="ms-md-auto mt-9 mt-md-0">
-              <v-btn @click.prevent="$router.push({name: 'home'})" color="primary" class="px-15 py-5 text-capitalize" primary elevation="0">Add New Vehicle</v-btn>
+              <v-btn @click.prevent="$router.push({name: 'vehicle-create'})" color="primary" class="px-15 py-5 text-capitalize" primary elevation="0">Add New Vehicle</v-btn>
             </div>
           </v-row>
           <v-row>
@@ -23,46 +23,17 @@
   </v-container>
 </template>
 <script>
+import vehicleCategories from "@/utils/vehicleStates"	
 export default {
   data () {
     return {
       categories: {
-        "availableForVehicle": {
-          name: "Available for Hire",
-          count: 0,
-          desc: "Vehicle(s) awaiting hire.",
-          icon: require('@/assets/images/vehicle-status/available.svg')
-        },
-        "incompleteVehicleProfile":{
-          name: "Incomplete Vehicle profile",
-          count: 0,
-          desc: "Please complete the vehicle listing",
-          icon: require('@/assets/images/vehicle-status/incomplete.svg')
-        },
-        "activeHire":{
-          name: "Active Hire",
-          count: 0,
-          desc: "Vehicle(s) currently on hire.",
-          icon: require('@/assets/images/vehicle-status/active.svg')
-        },
-        "inReview":{
-          name: "In Review by Otomax Admin",
-          count: 0,
-          desc: "Vehicle(s) pending review by Otomax.",
-          icon: require('@/assets/images/vehicle-status/review.svg')
-        },
-        "notAvailableForHire":{
-          name: "Not Available for Hire",
-          count: 0,
-          desc: "Vehicle(s) currently not up for hire.",
-          icon: require('@/assets/images/vehicle-status/not-available.svg')
-        },
-        "returnedVehicles":{
-          name: "Returned Vehicles",
-          count: 0,
-          desc: "Vehicle(s) to be picked up in 24 hours from Otomax.",
-          icon: require('@/assets/images/vehicle-status/returned.svg')
-        }
+        "availableForVehicle": {...vehicleCategories['available']  },
+        "incompleteVehicleProfile":{...vehicleCategories['incomplete']},
+        "activeHire":{...vehicleCategories['active-hire']},
+        "inReview":{...vehicleCategories['in-review']},
+        "notAvailableForHire":{...vehicleCategories['not-available']},
+        "returnedVehicles":{...vehicleCategories['returned']}
       }
     }
   },

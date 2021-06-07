@@ -10,7 +10,7 @@
 							Enter the registration number (license number) <br>of the vehicle below
 						</div>
 						<div class="w-50">
-							<FormInput v-model="plateNumber" position="center" class="mb-5" placeholder="e.g UCO-UY87D" />
+							<FormInput @keyup-enter="fetchInfo" v-model="plateNumber" position="center" class="mb-5" placeholder="e.g UCO-UY87D" />
 							<v-btn :loading="loading" class="text-capitalize" @click="fetchInfo" block color="primary" elevation="0">Fetch Vehicle Info</v-btn>
 						</div>
 					</div>
@@ -84,18 +84,17 @@ export default {
 			})
 		}
 	},
-	beforeRouteEnter(to, from, next) {
-		console.log(from)
-		next(vm => {
-			if(from.name === 'sign-up') {
-				vm.isFromSignUp = true
-			}
-		})
-	}
+	// beforeRouteEnter(to, from, next) {
+	// 	next(vm => {
+	// 		if(from.name === 'sign-up') {
+	// 			vm.isFromSignUp = true
+	// 		}
+	// 	})
+	// }
 }	
 </script>
-<style lang="scss">
-	.v-input {
+<style lang="scss" scoped="">
+	::v-deep .v-input {
 		input {
 			font-weight: bold
 		}

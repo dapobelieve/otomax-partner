@@ -97,7 +97,6 @@ export default {
       this.form.firstName = names[0]
       this.form.lastName = names[1]
       this.form.domain = 'otomax-fleet-ui'
-      
 
       try {
         let resRegister = await this.$store.dispatch('auth/register', this.form)

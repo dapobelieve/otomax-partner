@@ -79,8 +79,13 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-.v-input {
+<style lang="scss" scoped>
+@import "@/assets/css/_variables.scss";
+::v-deep .v-input {
+	.v-input__slot {
+		background-color: var(--v-light_grey-base) !important;
+		border-radius: $border-radius;
+	}
 &.has-error {
     .v-input__slot {
       border: 1px solid red;

@@ -41,7 +41,7 @@ const baseRoutes = [
     children: [
       {
         path: "/",
-        name: "FleetPartner",
+        name: "home",
         component: () => import("@/pages/FleetPartner")
       },
       {
@@ -63,16 +63,6 @@ const baseRoutes = [
         path: "filter",
         name: "Filter",
         component: () => import("@/pages/Filter")
-      },
-      {
-        path: "/hire-price",
-        name: "HirePricePage",
-        component: () => import("@/pages/HirePricePage"),
-      },
-      {
-        path: "/vehicle-not-found",
-        name: "VehicleNotFound",
-        component: () => import("@/pages/VehicleNotFound"),
       },      
       {
         path: 'settings',

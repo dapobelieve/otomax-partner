@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API
+  baseURL: process.env.VUE_APP_BASE_API_URL
 });
 
 instance.interceptors.request.use(
@@ -33,7 +33,7 @@ instance.interceptors.response.use((response) => {
     }).then(res => {
       if(res.status === 200) {
         localStorage.setItem('auth.token', res.data.message.access_token)
-        localStorage.setItem('auth.refresh', res.data.message.access_token)
+        localStorage.setItem('auth.refresh', res.data.message.refresh_token)
         instance.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('auth.token')}`;
 
         return instance(prevRequest);
@@ -53,8 +53,14 @@ class Api {
     return await instance.post(url, payload)
   }
 
-  static async patch(url, payload = {}) {
-    return await instance.patch(url, payload);
+  static async patch(url, payload = {}, context) {
+    return await instance.patch(url, payload, {
+      onUploadProgress: (e) => {
+        // if(context.progress) {
+          context.progress = Math.round((e.loaded * 100) / e.total)
+        // }
+      },
+    });
   }
 
   static async delete(url, payload = {}) {
