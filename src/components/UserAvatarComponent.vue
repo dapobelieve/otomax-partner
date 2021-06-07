@@ -2,7 +2,7 @@
 	<div class="user-avatar d-flex align">
 		<!-- <img class="rounded-circle" src="https://avatars.githubusercontent.com/u/15062380?v=4" alt=""> -->
 		<div class="initials d-flex justify-center align-center">
-			<span class="white--text font-weight-black">D</span>
+			<span class="white--text font-weight-black">{{initials}}</span>
 		</div>
 	</div>
 </template>
@@ -12,8 +12,11 @@ export default {
 	computed: {
 		...mapGetters({
 			user: "auth/user"
-		})
-	}
+		}),
+		initials() {
+			return this.user.firstName.charAt(0).toUpperCase()
+		}
+	},
 }
 </script>
 <style lang="scss">
