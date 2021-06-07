@@ -21,7 +21,7 @@
                   </router-link>
                 </div>
                 <div class="nav-item ">
-                  <router-link to="/">
+                  <router-link :to="{name: 'notification'}">
                     <v-img color="primary" width="25" :src="require('@/assets/images/nav/notification.svg')" />
                   </router-link>
                 </div>
@@ -38,7 +38,11 @@
                   </template>
                   <v-list>
                     <v-list-item class="px-6" v-for="(item, i) in menuItems" :key="i">
-                      <v-list-item-title @click="item.action()">
+                      <v-list-item-title v-if="item.action" @click="item.action()">
+                        <img style="" :src="item.icon" alt="">
+                        {{ item.title }}
+                      </v-list-item-title>
+                      <v-list-item-title v-else @click="$router.push({name: `${item.href}`})">
                         <img style="" :src="item.icon" alt="">
                         {{ item.title }}
                       </v-list-item-title>
@@ -64,7 +68,9 @@ export default {
       query: '',
       menuItems: [
         { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
-        { title: 'Payment', icon: require('@/assets/images/card.png'), href: '/settings/payment-details' },
+        { title: 'Payment', icon: require('@/assets/images/card.png'), 
+          href: 'payment-details' 
+        },
         { title: 'History', icon: require('@/assets/images/clock.png'), href: '#' },
         { title: 'Contact Otomax', icon: require('@/assets/images/chat.png'), href: '#' },
         { title: "FAQ's", icon: require('@/assets/images/call.png'), href: '#' },

@@ -123,7 +123,7 @@ export default {
 					taxi: {date: null, file: null}, 
 					mot: {date: null, file: null},
 					logBook: null,
-					age: year ? new Date().getFullYear() - new Date('2014').getFullYear() : null,
+					age: year ? new Date().getFullYear() - new Date(year).getFullYear() : null,
 					mileage: null,
 					isTax: null,
 					roadTax: null
@@ -134,9 +134,20 @@ export default {
 		},
 		async hirePrice({ commit }, payload) {
 			return await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
-				plan: "WEEKLY",
-				amount: payload.price
+				pricing: {
+					plan: "WEEKLY",
+					amount: payload.price
+				}
 			})
+		},
+		async createPayementDetail({ commit }, payload) {
+			let res = await Api.post(`${apiPath}/payment-details`, {
+				paymentDetail: {...payload}
+			});
+
+			const {data: user} = res.data
+			commit('auth/SET_USER', user, { root: true })
+			return res.data
 		}
 	},
 };

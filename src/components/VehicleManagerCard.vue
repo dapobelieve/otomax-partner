@@ -13,7 +13,7 @@
 				</div>
 				<div class="d-flex align-center mx-3">
 					<h1 style="font-size: 3rem;" class="font-weight-bold">{{category.count}}</h1>
-					<v-btn @click="$router.push({path:  `${category.route}`})" class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" small text color="">view</v-btn>
+					<v-btn v-if="category.count> 0" @click="$router.push({path:  `${category.route}`})" class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" small text color="">view</v-btn>
 				</div>
 			</v-col>
 		</v-row>

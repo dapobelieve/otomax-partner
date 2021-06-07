@@ -42,7 +42,7 @@ export default {
 			return await Api.post(`${apiPath}/auth/signup`, payload)
 		},
 		async fetchAuthUser({commit}) {
-			let res = await Api.get(`${apiPath}/users/me`) //signed, to include auth header
+			let res = await Api.get(`${apiPath}/users/me`)
 			
 			if(res.status === 200) {
 				const { data: user } = res.data
