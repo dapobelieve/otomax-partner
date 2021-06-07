@@ -28,7 +28,6 @@ export default {
 	actions: {
 		async login({dispatch,  commit}, payload) {
 			let res = await Api.post(`${apiPath}/auth/login`, payload, false)
-			console.log(res)
 			if(res.status === 200) {
 				const {data} = res.data
 				localStorage.setItem('auth.token', data.accessToken)
@@ -39,11 +38,11 @@ export default {
 
 			return res;
 		},
-		async register({ commit, dispatch }, payload) {
-			return await Api.post(`${apiPath}/auth/signup`, payload, false)
+		async register({}, payload) {
+			return await Api.post(`${apiPath}/auth/signup`, payload)
 		},
 		async fetchAuthUser({commit}) {
-			let res = await Api.get(`${apiPath}/users/me`) //signed, to include auth header
+			let res = await Api.get(`${apiPath}/users/me`)
 			
 			if(res.status === 200) {
 				const { data: user } = res.data

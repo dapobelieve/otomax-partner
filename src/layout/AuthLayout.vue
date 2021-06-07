@@ -1,6 +1,5 @@
 <template>
   <main>
-    <!-- <auth-header /> -->
     <router-view />
   </main>
 </template>

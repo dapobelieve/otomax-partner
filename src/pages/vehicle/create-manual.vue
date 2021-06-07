@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="10">
+			<v-col cols="12" md="10" lg="7">
 				<Ocard class="py-10 px-6">
 					<v-row class="mb-9">
 						<v-col cols="12">
@@ -100,7 +100,7 @@
 
 									type="number" 
 									class="mb-5" 
-									placeholder="e.g 5000 (5000 - 8000)" />
+									placeholder="Enter a range e.g (5000 - 8000)" />
 
 								<SelectInput 
 									placeholder="Select"
@@ -119,21 +119,20 @@
 						</v-col>
 					</v-row>
 					<v-row justify="center">
-						<v-col v-if="form.taxi" cols="12" md="10" class="d-md-flex pa-0" >
-							<v-col cols="12" md="6" class="pe-md-16">
-								<ODatePicker v-model="form.taxi.date" class="mb-5" label="Taxi license Expiry date" />
-								<ODatePicker v-model="form.mot.date" class="mb-5" label="MOT license Expiry date" />
-								<ODatePicker v-model="form.roadTax" label="Road tax Expiry date" />
-								
+						<v-col cols="12" md="10" class="d-md-flex pa-0" >
+							<v-col cols="12" md="6" class="pe-md-16 d-flex flex-column justify-space-between">
+								<ODatePicker :error="$v.form.taxi.date.$error" v-model="$v.form.taxi.date.$model" label="Taxi license Expiry date" />
+								<ODatePicker :error="$v.form.mot.date.$error" v-model="$v.form.mot.date.$model" class="mt-7" label="MOT license Expiry date" />
+								<ODatePicker :error="$v.form.roadTax.$error" v-model="$v.form.roadTax.$model"  class="mt-7" label="Road tax Expiry date" />
 							</v-col>
-							<v-col cols="12" md="6" class="pe-md-16">
-								<OFileUploader label="Taxi license Upload" v-model="form.taxi.file" class="mb-7" />
-								<OFileUploader label="MOT license Upload" v-model="form.mot.file" class="mb-7" />
-								<OFileUploader label="Vehicle log book Upload" v-model="form.logbook" class="mb-7" />
+							<v-col cols="12" md="6" class="pe-md-16 d-flex flex-column justify-space-between">
+								<OFileUploader :error="$v.form.taxi.file.$error" acceptedFiles=".doc, .docx, .pdf" label="Taxi license Upload" v-model="$v.form.taxi.file.$model" />
+								<OFileUploader :error="$v.form.mot.file.$error" acceptedFiles=".doc, .docx, .pdf" label="MOT license Upload" v-model="$v.form.mot.file.$model" />
+								<OFileUploader :error="$v.form.logBook.$error" acceptedFiles=".doc, .docx, .pdf" label="Vehicle log book Upload" v-model="$v.form.logBook.$model" />
 							</v-col>
 						</v-col>
 					</v-row>
-					<v-row justify="center">
+					<v-row justify="center" class="mt-8">
 						<v-col cols="12" md="7">
 							<v-btn @click="handleSubmit" :loading="loading" block x-large color="primary">Proceed</v-btn>
 						</v-col>
@@ -163,9 +162,6 @@ export default {
 		}
 	},
 	computed: {
-		vehicle() {
-			return this.$store.state.vehicle.vehicles[this.$route.query.vrm]
-		},
 		regNumberErr() {
 			if (!this.$v.form.regNumber.required) return "This field is required";
 			if (!this.$v.form.regNumber.maxLength) return "Enter a valid registration number eg EBZ5155";
@@ -219,11 +215,12 @@ export default {
 			model: { required },
 			color: { required, alpha },
 			fuelType: { required, alpha },
-			mileage: { required, numeric },
+			mileage: { required },
 			isTax: { required },
-			// taxi: {	date: {required } },
-			// roadTax: { required },
-			// mot: {	date: { required } }
+			taxi: {	date: { required },	file: {required }	},
+			roadTax: { required },
+			logBook: { required },
+			mot: { date: { required },file: { required } }
 		}
 	},
 	components: {
@@ -240,8 +237,33 @@ export default {
 
 			try {
 				if (!this.$v.$invalid) {
-					await this.$store.dispatch('vehicle/createVehicle', this.form)
-					this.$toast.success('Vehicle Added', {
+					const vehicleId = await this.$store.dispatch('vehicle/createVehicle', this.form);
+
+					// upload taxi doc
+					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+						file: this.form.taxi.file,
+						type: "TAXL",
+						expirationDateEpoch: this.form.taxi.date,
+						vehicleId: vehicleId
+					})
+
+					// upload mot doc
+					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+						file: this.form.mot.file,
+						type: "MOTL",
+						expirationDateEpoch: this.form.mot.date,
+						vehicleId: vehicleId
+					})
+
+					// upload vehicle logBool doc
+					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+						file: this.form.logBook,
+						type: "VEHICLELOG",
+						expirationDateEpoch: this.form.roadTax,
+						vehicleId: vehicleId
+					})
+
+					this.$toast.success('Vehicle Added Successfully', {
 	          type: 'success',
 	          duration: 5000
 	        })
@@ -249,10 +271,12 @@ export default {
 					this.$router.push({
 						name: "vehicle-upload-images",
 						params: {
-							id : this.vehicle.id
+							id : vehicleId
 						}
 					})
-				}				
+				}else {
+					this.$toast.error("Error: The highlighted fields are required", { duration: 1000 })
+				}			
 			}
 			catch(err) {
 				this.$toast.error(err.message)
@@ -264,7 +288,8 @@ export default {
 		}
 	},
 	mounted() {
-		this.form = JSON.parse(JSON.stringify(this.vehicle))
+		if(this.$route.query.vrm)
+			this.form = JSON.parse(JSON.stringify(this.$store.state.vehicle.vehicles[this.$route.query.vrm]))
 	}
 }	
 </script>

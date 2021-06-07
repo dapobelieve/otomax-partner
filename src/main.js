@@ -3,7 +3,10 @@ import Vuex from 'vuex';
 import App from "./App.vue";
 import router from "./router/routes.js";
 import store from '@/store'
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
+import VueFriendlyIframe from 'vue-friendly-iframe';
+
+Vue.use(VueFriendlyIframe);
 Vue.use(Vuelidate)
 
 

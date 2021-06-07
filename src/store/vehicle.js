@@ -2,7 +2,9 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-const apiPath = '/vehicle/api/v1.1'
+// const apiPath = '';
+const apiPath = '/vehicle/api/v1.1';
+
 
 export default {
 	namespaced: true,
@@ -22,6 +24,9 @@ export default {
 		clearVehicles(state) { 
 			state.fehicles = [];
 		},
+		UPDATE_HIRE_PRICE() {
+			// 
+		},
 		setHireRequest(state, hireRequest) { 
 			state.hireRequest = hireRequest
 		},
@@ -30,15 +35,44 @@ export default {
 		}
 	},
 	actions: {
+		async getVehiclesByStatus({}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
+			return res.data
+		},
+		async uploadVehicleDocument({commit}, payload, vehicleId) {
+			const formData = new FormData()
+			Object.keys(payload).forEach(key => {
+				formData.append(key, payload[key])
+			})
+
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/documents/upload`, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			});
+
+			return res
+		},
+		async vehicleSummary({commit}) {
+			let res = await Api.get(`${apiPath}/vehicles/summary`);
+			return res.data;
+		},
 		async createVehicle({commit}, payload) {
 			let res = await Api.post(`${apiPath}/vehicles`, payload)
 
-			if(res.status === 201) {
-				const { _id: id, ...rest} = _get(res, 'data.data')
-				commit('SAVE_VEHICLE_DETAILS', {id, ...rest})
-			}
-
-			return res;
+			// if(res.status === 201) {
+			// 	const { _id: id, ...rest} = _get(res, 'data.data')
+			// 	commit('SAVE_VEHICLE_DETAILS', {id, ...rest})
+			// }
+			return res.data.data._id;
+		},
+		async createVehicleContract({commit}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/contract`);
+			return res.data
+		},
+		async getContractSigningUrl({commit}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url`)
+			return res.data
 		},
 		searchVehicle(store, query) {
 			const  data = new URLSearchParams(query);
@@ -46,6 +80,13 @@ export default {
 				store.commit('setVehicles', res.data.data)
 				return res.data
 			} )
+		},
+		async getSingleVehicle({ commit }, payload) {
+			const res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}`)
+			if(res.status === 200) {
+				commit('SAVE_VEHICLE_DETAILS', res.data.data)
+			}
+			return res.data
 		},
 		async getVehicleInfo({commit}, payload) {
 			let res = await Api.post(`${apiPath}/vehicles/details`, {
@@ -58,7 +99,7 @@ export default {
 				throw new Error("Invalid vehicle registration mark")
 			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
 				// set empty defaults except the regNumber
-				const vehicleDetails = ["color", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
+				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
 					return result
 				}, {})
@@ -82,7 +123,7 @@ export default {
 					taxi: {date: null, file: null}, 
 					mot: {date: null, file: null},
 					logBook: null,
-					age: year ? new Date().getFullYear() - new Date('2014').getFullYear() : null,
+					age: year ? new Date().getFullYear() - new Date(year).getFullYear() : null,
 					mileage: null,
 					isTax: null,
 					roadTax: null
@@ -90,6 +131,23 @@ export default {
 				commit('SAVE_VEHICLE_DETAILS', details)
 				return true;
 			}
+		},
+		async hirePrice({ commit }, payload) {
+			return await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
+				pricing: {
+					plan: "WEEKLY",
+					amount: payload.price
+				}
+			})
+		},
+		async createPayementDetail({ commit }, payload) {
+			let res = await Api.post(`${apiPath}/payment-details`, {
+				paymentDetail: {...payload}
+			});
+
+			const {data: user} = res.data
+			commit('auth/SET_USER', user, { root: true })
+			return res.data
 		}
 	},
 };

@@ -41,7 +41,7 @@ const baseRoutes = [
     children: [
       {
         path: "/",
-        name: "FleetPartner",
+        name: "home",
         component: () => import("@/pages/FleetPartner")
       },
       {
@@ -50,9 +50,9 @@ const baseRoutes = [
         component: () => import("@/pages/Vendor")
       },
       {
-        path: "notification",
-        name: "Notify",
-        component: () => import("@/pages/Notification")
+        path: "notifications",
+        name: "notification",
+        component: () => import("@/pages/notification/index")
       },
       {
         path: "profile",
@@ -63,24 +63,14 @@ const baseRoutes = [
         path: "filter",
         name: "Filter",
         component: () => import("@/pages/Filter")
-      },
-      {
-        path: "/hire-price",
-        name: "HirePricePage",
-        component: () => import("@/pages/HirePricePage"),
-      },
-      {
-        path: "/vehicle-not-found",
-        name: "VehicleNotFound",
-        component: () => import("@/pages/VehicleNotFound"),
       },      
       {
         path: 'settings',
-        component: () => import("@/layout/BackLayout"),
+        component: () => import("@/layout/VehicleLayout"),
         children: [
           {
             path: 'payment-details',
-            name: 'PaymentDetailsForm',
+            name: 'payment-details',
             component: () => import("@/pages/PaymentDetailsForm"),
           }]
       },

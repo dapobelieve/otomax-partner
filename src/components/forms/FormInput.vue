@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="otomax-input">
     <label>{{label}}</label>
     <v-text-field
       :class="[classes, error ? 'has-error' : '' ]"
@@ -10,7 +10,6 @@
       elevation="0"
       :required="required"
       solo
-      :hint="message"
       flat
       :placeholder="placeholder"
       :autofocus="false"
@@ -67,8 +66,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.v-input {
+<style lang="scss" scoped>
+::v-deep .v-input {
   &.left {
     input {
       text-align: left ;
@@ -87,25 +86,22 @@ export default {
 
   &.has-error {
     .v-input__slot {
-      border: 1px solid red;
+      border: 1px solid red !important;
     }
   }
 }
-.v-input__slot {
+::v-deep .v-input__slot {
   background-color: var(--v-light_grey-base) !important;
   border-radius: 0.85rem !important;
 
   &.error {
     border: 1px solid red !important;
   }
-  
-
   .v-text-field__slot {
     .v-label {
       display: none;
     }
   }
 }
-
 
 </style>
