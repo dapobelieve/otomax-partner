@@ -36,11 +36,9 @@ instance.interceptors.response.use((response) => {
         localStorage.setItem('auth.token', res.data.message.access_token)
         localStorage.setItem('auth.refresh', res.data.message.refresh_token)
         instance.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('auth.token')}`;
-
         return instance(prevRequest);
       }
     })
-
   }
   return Promise.reject({error})
 });
