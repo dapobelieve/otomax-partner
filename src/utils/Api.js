@@ -1,5 +1,6 @@
 import axios from "axios";
 
+console.log(process.env,"process.env")
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_URL
 });
