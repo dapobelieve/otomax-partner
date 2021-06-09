@@ -1,8 +1,10 @@
 import axios from "axios";
+const VUE_APP_BASE_API_URL= `https://staging.otomax.co.uk`
 
 console.log(process.env,"process.env")
+
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API_URL
+  baseURL: VUE_APP_BASE_API_URL
 });
 
 instance.interceptors.request.use(
