@@ -25,7 +25,7 @@ const baseRoutes = [
     children: [
       {
         path: 'login',
-        name: 'Login',
+        name: 'login',
         component: () => import("@/pages/auth/Login"),
         meta: {
           middleware: [isAuthenticated]
