@@ -2,8 +2,8 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-// const apiPath = '';
-const apiPath = '/vehicle/api/v1.1';
+const apiPath = '';
+// const apiPath = '/vehicle/api/v1.1';
 
 export default {
 	namespaced: true,
@@ -93,7 +93,7 @@ export default {
 
 			if(vehicleInfo.StatusCode === "KeyInvalid") {
 				throw new Error("Invalid vehicle registration mark")
-			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
+			}else if (vehicleInfo.StatusCode === "ItemNotFound" || Object.entries(vehicleInfo.DataItems).length < 1) {
 				// set empty defaults except the regNumber
 				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
@@ -108,7 +108,6 @@ export default {
 					age: null,
 					roadTax: null})
 				return false;
-
 			}else {
 				const {BodyStyle: bodyType = ""} = vehicleInfo.DataItems.SmmtDetails
 				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmission, YearOfManufacture:year} 

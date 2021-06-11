@@ -74,7 +74,15 @@ export default [
         meta: {
           middleware: [auth]
         }
-      },   
+      },
+      {
+        path: 'active-hire/:id',
+        name: "vehicle-active-hire",
+        component: () => import("@/pages/vehicle/ActiveHire"),
+        meta: {
+          middleware: [auth]
+        }
+      },
       // {
       //   path: "/vehicle/listing",
       //   name: "VehicleListing",
