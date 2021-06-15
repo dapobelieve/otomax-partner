@@ -2,8 +2,8 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-const apiPath = '';
-// const apiPath = '/vehicle/api/v1.1';
+// const apiPath = '';
+const apiPath = '/vehicle/api/v1.1';
 
 export default {
 	namespaced: true,
@@ -37,6 +37,15 @@ export default {
 		async getVehiclesByStatus({}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
 			return res.data
+		},
+		async changeStatus({}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
+				status: payload.status
+			})
+
+			console.log(res)
+
+			return  res
 		},
 		async getAllVehicles({}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles`)

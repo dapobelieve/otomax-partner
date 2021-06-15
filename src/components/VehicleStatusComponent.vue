@@ -6,11 +6,11 @@
 			</div>
 			<h2>{{category.name}}</h2>
 			<div class="ms-auto">
-				<div class="d-inline-flex align-center flex-column">
+				<div v-if="count > 0" class="d-inline-flex align-center flex-column">
 					<h2>{{count}}</h2>
-				<span>vehicles</span>
+					<span>vehicles</span>
 				</div>
-				<!-- <v-btn class="font-weight-regular py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Change availability</v-btn> -->
+				<v-btn v-else @click="$emit('change-vehicle-status')" class="font-weight-regular py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Change availability</v-btn>
 			</div>
 		</v-row>
 	</Ocard>

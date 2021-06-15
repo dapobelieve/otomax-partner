@@ -26,7 +26,7 @@ export default {
   name: "HireCost",
   data: () => ({}),
   props: {
-    price: { required: true, type: String },
+    price: { required: true, type: Number },
     icon: { required: false, type: String },
     iconLink: { required: false, type: String },
   },

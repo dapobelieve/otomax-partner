@@ -105,10 +105,9 @@ export default {
 							id : this.$route.params.id
 						}
 					})
-				}, 5000)
+				}, 2000)
 			}
 			catch(e) {
-				console.log({e})
 				this.$toast.open({
 					type: 'error',
 					message: e.message

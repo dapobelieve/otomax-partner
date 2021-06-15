@@ -28,7 +28,7 @@
 			</Ocard>
 		</v-col>
 		<v-col cols="6">
-			<v-btn elevation="0" @click="completeReg" block x-large color="primary">Complete Reg</v-btn>
+			<v-btn elevation="0" @click="$router.push({name: 'vehicle-details', params: {'id': $route.params.id}})" block x-large color="primary">Complete Reg</v-btn>
 		</v-col>
 	</v-row>
 </template>

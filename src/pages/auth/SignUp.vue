@@ -37,10 +37,10 @@
             <img left :src="require('@/assets/images/icon-google.svg')" />
             <span class="ml-3">Sign up with Google</span>
           </v-btn>
-          <v-btn elevation="0" block color="#3B5998" large>
+          <!-- <v-btn elevation="0" block color="#3B5998" large>
             <img left :src="require('@/assets/images/icon-facebook.svg')" />
             <span class="text-white ml-3">Sign up with Facebook</span>
-          </v-btn>
+          </v-btn> -->
         </div>
       </form>
     </div>
@@ -99,6 +99,10 @@ export default {
       this.form.domain = 'otomax-fleet-ui'
 
       try {
+        if(name.length < 2) {
+          throw new Error('Full name required')
+        }
+
         let resRegister = await this.$store.dispatch('auth/register', this.form)
         const {email, password, domain } = this.form
         let res = await this.$store.dispatch('auth/login', {email, password, domain})
@@ -116,19 +120,17 @@ export default {
         })
       } 
       catch(err) {
-        this.$toast.error(err.message)
-        console.log({e})
+        const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
       }
       finally {
         this.loading = false;
       }
     },
     async handleGoogle() {
-      try {}
-      catch(e) {}
-      finally {}
-    },
-    async handleFacebook() {
       try {}
       catch(e) {}
       finally {}

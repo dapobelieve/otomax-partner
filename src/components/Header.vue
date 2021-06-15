@@ -65,7 +65,7 @@ export default {
     return {
       query: '',
       menuItems: [
-        { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
+        // { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
         { title: 'Payment', icon: require('@/assets/images/card.png'), 
           href: 'payment-details' 
         },
