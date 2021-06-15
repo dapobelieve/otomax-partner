@@ -18,6 +18,7 @@
                     :date='activeVehicle.updatedAt | ODateFormat'
                     linkText='Hire Profile'
                     :brand='activeVehicle.make'
+                    @hire-profile="$router.push({ name: 'vehicle-active-hire', params: {id: activeVehicle._id}})"
                     :model='activeVehicle.model'
                   />
                 </div>

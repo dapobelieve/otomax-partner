@@ -12,29 +12,27 @@
               <template class="d-none">
                 <div class="nav-item ">
                   <router-link to="/"> 
-                    <img color="primary" width="30" :src="require('@/assets/images/nav/home.svg')" />
+                    <img color="primary" width="23" :src="require('@/assets/images/nav/home.svg')" />
                   </router-link>
                 </div>
                 <div class="nav-item ">
                   <router-link :to="{name: 'vehicle-manager'}">
-                    <v-img color="primary" width="40" :src="require('@/assets/images/nav/vehicle.svg')" />
+                    <v-img color="primary" width="32" class="mb-1" :src="require('@/assets/images/nav/vehicle.svg')" />
                   </router-link>
                 </div>
                 <div class="nav-item ">
                   <router-link :to="{name: 'notification'}">
-                    <v-img color="primary" width="25" :src="require('@/assets/images/nav/notification.svg')" />
+                    <v-img color="primary" width="20" class="mb-1" :src="require('@/assets/images/nav/notification.svg')" />
                   </router-link>
                 </div>
                 <div class="nav-item ">
-                  <!-- <router-link to="/"> -->
-                    <UserAvatar />
-                  <!-- </router-link> -->
+                  <UserAvatar />
                 </div>
               </template>
               <div class="nav-item">
                 <v-menu elevation="0" left transition="slide-y-transition">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-img v-bind="attrs" v-on="on" width="32" :src="require('@/assets/images/nav/icon-menu.svg')" />
+                    <v-img class="mb-2" v-bind="attrs" v-on="on" width="32" :src="require('@/assets/images/nav/icon-menu.svg')" />
                   </template>
                   <v-list>
                     <v-list-item class="px-6" v-for="(item, i) in menuItems" :key="i">
@@ -67,7 +65,7 @@ export default {
     return {
       query: '',
       menuItems: [
-        { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
+        // { title: 'Switch Account', icon: require('@/assets/images/switch.png'), href: '#' },
         { title: 'Payment', icon: require('@/assets/images/card.png'), 
           href: 'payment-details' 
         },
@@ -106,10 +104,9 @@ export default {
 
 <style lang="scss" scoped>
  .v-menu__content {
-  top: 63px !important;
+  top: 60px !important;
   box-shadow: -2px 0px 8px 5px #0000000d;
 }
-
 .v-list {
   .v-list-item {
     cursor: pointer;

@@ -38,6 +38,15 @@ export default {
 			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
 			return res.data
 		},
+		async changeStatus({}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
+				status: payload.status
+			})
+
+			console.log(res)
+
+			return  res
+		},
 		async getAllVehicles({}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles`)
 			return res.data
@@ -93,7 +102,7 @@ export default {
 
 			if(vehicleInfo.StatusCode === "KeyInvalid") {
 				throw new Error("Invalid vehicle registration mark")
-			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
+			}else if (vehicleInfo.StatusCode === "ItemNotFound" || Object.entries(vehicleInfo.DataItems).length < 1) {
 				// set empty defaults except the regNumber
 				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
@@ -108,7 +117,6 @@ export default {
 					age: null,
 					roadTax: null})
 				return false;
-
 			}else {
 				const {BodyStyle: bodyType = ""} = vehicleInfo.DataItems.SmmtDetails
 				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmission, YearOfManufacture:year} 

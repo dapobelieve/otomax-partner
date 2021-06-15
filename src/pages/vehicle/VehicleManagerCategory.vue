@@ -6,14 +6,14 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-    	<v-col class="d-md-flex flex-md-wrap justify-md-space-around" cols="12" md="6" lg=9>
+    	<v-col class="d-md-flex flex-md-wrap justify-md-space-between" cols="12" md="6" lg=9>
     		<VehicleStatusCard v-for="(vehicle, vIndex) in vehicles" :vehicle="vehicle" :class="[vIndex > 1 ? 'mb-8' : '']" :key="vIndex" />
     	</v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-import vehicleCategories from "@/utils/vehicleStates"	
+import vehicleCategories from "@/utils/vehicleStates"
 export default {
 	data () {
 		return {
