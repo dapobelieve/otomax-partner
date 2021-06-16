@@ -34,8 +34,8 @@ export default {
 		}
 	},
 	actions: {
-		async getVehiclesByStatus({}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
+		async getVehiclesByStatus({rootState}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}&userId=${rootState.auth.user.id}`)
 			return res.data
 		},
 		async changeStatus({}, payload) {
@@ -43,13 +43,15 @@ export default {
 				status: payload.status
 			})
 
-			console.log(res)
-
 			return  res
 		},
 		async getAllVehicles({}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles`)
 			return res.data
+		},
+		async deleteImageFromServer({}, payload) {
+			let res = await Api.delete(`${apiPath}/vehicles/${payload.vehicleId}/images/${payload._id}`);
+			return res
 		},
 		async uploadVehicleDocument({commit}, payload, vehicleId) {
 			const formData = new FormData()
@@ -65,8 +67,8 @@ export default {
 
 			return res
 		},
-		async vehicleSummary({commit}) {
-			let res = await Api.get(`${apiPath}/vehicles/summary`);
+		async vehicleSummary({rootState, commit}) {
+			let res = await Api.get(`${apiPath}/vehicles/summary?userId=${rootState.auth.user.id}`);
 			return res.data;
 		},
 		async createVehicle({commit}, payload) {
@@ -143,6 +145,17 @@ export default {
 					amount: payload.price
 				}
 			})
+		},
+		async updateVehicle({commit},  payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload._id}`, {
+				...payload
+			})
+
+			if(res.status === 200) {
+				//
+			}
+
+			return res
 		},
 		async createPayementDetail({ commit }, payload) {
 			let res = await Api.post(`${apiPath}/payment-details`, {
