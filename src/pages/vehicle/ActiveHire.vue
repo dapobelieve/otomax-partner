@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="9">
+			<v-col cols="12" md="12" lg=10 xl=5>
 				<Ocard class="pa-md-8">
 					<v-row>
 						<v-col cols=12 md=7>
@@ -40,7 +40,17 @@
 								</div>
 							</Ocard>
 							<Ocard class="mb-4" color="#FFF9D1">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus minus maiores, inventore sint quaerat aut provident fuga, esse optio dignissimos?
+								<div class="d-flex ">
+									<v-col cols=7>
+										<h4 class="mb-3">Set Vehicle Drop-off Date</h4>
+										<span>Your drop-off date can <br>not be changed once set</span>
+									</v-col>
+									<v-col cols=5 class="d-flex align-end">
+										<v-btn depressed class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" elevation="0" small text color="">
+											Set a Date
+										</v-btn>
+									</v-col>
+								</div>
 							</Ocard>
 							<v-row class="mb-2">
 								<v-col cols=6>

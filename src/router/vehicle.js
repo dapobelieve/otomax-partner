@@ -76,9 +76,25 @@ export default [
         }
       },
       {
-        path: 'active-hire/:id',
+        path: 'active-hire/:vehicleId',
         name: "vehicle-active-hire",
         component: () => import("@/pages/vehicle/ActiveHire"),
+        meta: {
+          middleware: [auth]
+        }
+      },
+      {
+        path: ':vehicleId/edit-details',
+        name: "vehicle-edit-details",
+        component: () => import("@/pages/vehicle/EditVehicle"),
+        meta: {
+          middleware: [auth]
+        }
+      },
+      {
+        path: ':vehicleId/edit-images',
+        name: "vehicle-edit-images",
+        component: () => import("@/pages/vehicle/EditImages"),
         meta: {
           middleware: [auth]
         }

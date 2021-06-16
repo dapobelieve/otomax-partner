@@ -8,15 +8,14 @@
 		<v-row justify="center">
 			<div class='vehicle-profile'>
 				<div class="d-flex align-right mb-5">
-					<v-btn class="font-weight-regular ms-auto py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Edit Vehicle</v-btn>
+					<v-btn @click="$router.push({name: 'vehicle-edit-details', params: {'vehicleId': vehicle._id }})" class="font-weight-regular ms-auto py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Edit Vehicle</v-btn>
 				</div>
 				<div class="vehicle-content">
 						<!-- <div class="edit-area">
 							<img src="../assets/images/Group8338.png" alt="#">
 						</div> -->
 					<div class="vehicle-profile-section"  style='position: relative'>
-						<image-slider-thumb :images="vehicle.images" editLink='#'/> 
-						
+						<image-slider-thumb @edit-vehicle-image="$router.push({name: 'vehicle-edit-images', params: {vehicleId: vehicle._id}})" :images="vehicle.images" editLink='#'/> 
 					</div>
 					<div class="vehicle-profile-section">
 						<div class="hire-desc">

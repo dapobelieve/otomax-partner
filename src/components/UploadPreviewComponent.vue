@@ -15,10 +15,18 @@ export default {
 			default: null
 		}
 	},
+	watch: {
+		image: {
+			immediate: true,
+			handler(newVal, oldVal) {
+			}
+		}
+	},
 	computed: {
 		imageUrl() {
-			if(this.image)
-				return URL.createObjectURL(this.image)
+			if(this.image) {
+				return this.image.url ? this.image.url : URL.createObjectURL(this.image)
+			}
 		}
 	}
 }	

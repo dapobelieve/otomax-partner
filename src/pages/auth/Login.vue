@@ -46,10 +46,10 @@
               <img left :src="require('@/assets/images/icon-google.svg')" />
               <span class="ml-3">Login with Google</span>
             </v-btn>
-            <v-btn elevation="0" block color="#3B5998" large>
+            <!-- <v-btn elevation="0" block color="#3B5998" large>
               <img left :src="require('@/assets/images/icon-facebook.svg')" />
               <span class="text-white ml-3">Login with Facebook</span>
-            </v-btn>
+            </v-btn> -->
           </div>
         </form>
       </div>
@@ -100,10 +100,11 @@ export default {
         this.$router.replace('/')        
       }
       catch(err) {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
+        const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
         else
-          this.$toast.error(err.message)
+           this.$toast.error(err.message)
       }
       finally {
         this.loading = false;
