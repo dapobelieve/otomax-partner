@@ -1,23 +1,25 @@
 <template>
-  <v-container fluid class="px-md-12 px-6">
+  <v-container fluid class="px-6">
     <v-row justify="center">
-      <v-col cols="12" md="10" lg=10>
-        <Ocard class="pa-10">
-          <v-row align="center" class="mb-10 d-flex flex-column flex-md-row">
-            <div class="me-md-5 pa-8 bg-gray rounded-border">
-              <img height="50px" :src="require('@/assets/images/nav/vehicle-active.svg')" alt="">
-            </div>
-            <h1 class="font-weight-bold">Vehicle Manager</h1>
-            <div class="ms-md-auto mt-9 mt-md-0">
-              <v-btn @click.prevent="$router.push({name: 'vehicle-create'})" color="primary" class="px-15 py-5 text-capitalize" primary elevation="0">Add New Vehicle</v-btn>
-            </div>
-          </v-row>
-          <v-row>
-            <v-col class="d-md-flex flex-md-wrap justify-md-space-between" cols=12>
-              <VehicleManagerCard v-for="(cat, catIndex) in categories" :category="cat" :key="catIndex" :number="catIndex" />
-            </v-col>
-          </v-row>
-        </Ocard>
+      <v-col cols="12" lg="10" xl="6">
+        <v-responsive>
+          <Ocard class="pa-7">
+            <v-row align="center" class="mb-10 d-flex flex-column flex-md-row">
+              <div class="me-md-5 pa-8 bg-gray rounded-border">
+                <img height="50px" :src="require('@/assets/images/nav/vehicle-active.svg')" alt="">
+              </div>
+              <h1 class="font-weight-bold">Vehicle Manager</h1>
+              <div class="ms-md-auto mt-9 mt-md-0">
+                <v-btn @click.prevent="$router.push({name: 'vehicle-create'})" color="primary" class="px-15 py-5 text-capitalize" primary elevation="0">Add New Vehicle</v-btn>
+              </div>
+            </v-row>
+            <v-row>
+              <v-col class="d-md-flex flex-md-wrap justify-md-space-between" cols=12>
+                <VehicleManagerCard v-for="(cat, catIndex) in categories" :category="cat" :key="catIndex" :number="catIndex" />
+              </v-col>
+            </v-row>
+          </Ocard>
+        </v-responsive>
       </v-col>
     </v-row>
   </v-container>

@@ -1,7 +1,7 @@
 <template>
 	<v-container class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="7">
+			<v-col cols="12" lg="10" xl="6">
 				<Ocard v-if="!user.paymentDetail || UPDATE" class="pt-10">
 					<div class="d-flex flex-column align-center justify-center mb-8">
 						<h2 class="mb-5 text-center">Payment Details</h2>

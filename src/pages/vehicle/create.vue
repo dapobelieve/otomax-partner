@@ -1,7 +1,7 @@
 <template>
 	<v-container class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="7">
+			<v-col ccols="12" lg="10" xl="6">
 				<Ocard v-if="vehicleFound === 'ENTER_INFO'" class="pt-10">
 					<div class="d-flex flex-column align-center justify-center mb-8">
 						<img width="100" height="100" class="mb-10" :src="require('@/assets/images/Group8399.png')" alt="">

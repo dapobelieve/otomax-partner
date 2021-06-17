@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<v-row v-if="vehicle.status === 'DRAFT' || vehicle.status === 'AVAILABLE'" justify="center" class="mb-8">
+		<v-row v-if="vehicle.status === 'NOT AVAILABLE' || vehicle.status === 'AVAILABLE'" justify="center" class="mb-8">
       <v-col cols="12" md="12">
       	<VehicleStatus @change-vehicle-status="changeStatus"  :category="category" />
       </v-col>

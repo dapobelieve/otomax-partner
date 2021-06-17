@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" md="9" lg="9" xl="6" class="">
+			<v-col cols="12" lg="10" xl="6" class="">
 				<Ocard class="pa-md-15 pa-3">
 					<v-row align="center" class="mb-md-16 mb-10">
 						<v-col class="d-flex justify-center" cols="12" md="1"><img :src="require('@/assets/images/Group848.png')" alt=""></v-col>

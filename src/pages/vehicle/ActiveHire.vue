@@ -2,7 +2,7 @@
 	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
 			<v-col cols="12" md="12" lg=10 xl=5>
-				<Ocard class="pa-md-8">
+				<Ocard class="pa-md-4">
 					<v-row>
 						<v-col cols=12 md=7>
 							<Ocard style="padding: 0 !important;" class="d-flex align-center mb-md-15 mb-10 pa-0" color="#F1F1FC">
@@ -41,11 +41,11 @@
 							</Ocard>
 							<Ocard class="mb-4" color="#FFF9D1">
 								<div class="d-flex ">
-									<v-col cols=7>
+									<v-col cols=8>
 										<h4 class="mb-3">Set Vehicle Drop-off Date</h4>
-										<span>Your drop-off date can <br>not be changed once set</span>
+										<span style="font-weight: 300;">Your drop-off date can <br>not be changed once set</span>
 									</v-col>
-									<v-col cols=5 class="d-flex align-end">
+									<v-col cols=4 class="d-flex align-end">
 										<v-btn depressed class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" elevation="0" small text color="">
 											Set a Date
 										</v-btn>
@@ -54,21 +54,37 @@
 							</Ocard>
 							<v-row class="mb-2">
 								<v-col cols=6>
-									<Ocard color="#F9F9F9">
-										Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Iste.
+									<Ocard  color="#F9F9F9">
+										<v-col class="d-flex flex-column align-center">
+											<span style="font-weight: 300;" class="body-2 mb-3">Contract Ends</span>
+											<h4>13 May 2021</h4>
+										</v-col>
 									</Ocard>
 								</v-col>
 								<v-col cols=6>
 									<Ocard color="#F9F9F9">
-										Lorem ipsum dolor sit amet consectetur adipisicing elit.
+										<v-col class="d-flex flex-column align-center">
+											<span style="font-weight: 300;" class="body-2 mb-3">Hire ID</span>
+											<h4>0982091</h4>
+										</v-col>
 									</Ocard>
 								</v-col>
 							</v-row>
 							<Ocard class="mb-4" color="#F9F9F9">
-								Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem sed magni quis neque repudiandae cum facilis magnam quod, sint? Id.
+								<div class="d-flex ">
+									<v-col cols=8>
+										<span style="font-weight: 300;" class="mb-">Hire Agreement</span>
+										<h4 class="mt-5">Agreed</h4>
+									</v-col>
+									<v-col cols=4 class="d-flex align-end">
+										<v-btn depressed class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" elevation="0" small text color="">
+											view
+										</v-btn>
+									</v-col>
+								</div>
 							</Ocard>
 							<div>
-								<v-btn block color="primary" class="px-15 py-5 text-capitalize w-100" primary elevation="0">Drof-off</v-btn>
+								<v-btn block color="primary" class="px-15 py-7 text-capitalize w-100" primary elevation="0">Drof-off</v-btn>
 							</div>
 						</v-col>
 					</v-row>
