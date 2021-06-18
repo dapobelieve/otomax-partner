@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<v-row v-if="vehicle.status === 'DRAFT' || vehicle.status === 'AVAILABLE'" justify="center" class="mb-8">
+		<v-row v-if="vehicle.status === 'NOT AVAILABLE' || vehicle.status === 'AVAILABLE'" justify="center" class="mb-8">
       <v-col cols="12" md="12">
       	<VehicleStatus @change-vehicle-status="changeStatus"  :category="category" />
       </v-col>
@@ -11,9 +11,6 @@
 					<v-btn @click="$router.push({name: 'vehicle-edit-details', params: {'vehicleId': vehicle._id }})" class="font-weight-regular ms-auto py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Edit Vehicle</v-btn>
 				</div>
 				<div class="vehicle-content">
-						<!-- <div class="edit-area">
-							<img src="../assets/images/Group8338.png" alt="#">
-						</div> -->
 					<div class="vehicle-profile-section"  style='position: relative'>
 						<image-slider-thumb @edit-vehicle-image="$router.push({name: 'vehicle-edit-images', params: {vehicleId: vehicle._id}})" :images="vehicle.images" editLink='#'/> 
 					</div>
@@ -23,10 +20,10 @@
 								<h2>{{ vehicle.make }}</h2>
 								<span>{{ vehicle.model }}</span>
 							</div>
-							<hire-cost v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.amount" iconLink='#' :icon='require("@/assets/images/Group8338.png")' /> 
+							<hire-cost v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.amount" iconLink='#'  /> 
 						</div>
 						<div class="vehicle-summary">
-							<vehicle-brief class='summary-item' text='Auto' details='Transmission' />
+							<vehicle-brief class='summary-item' :text='vehicle.transmissionType' details='Transmission' />
 							<vehicle-brief class='summary-item' :text='vehicle.make' details='Brand' />
 							<vehicle-brief class='summary-item' :text='vehicle.model' details='Model' />
 							<vehicle-brief class='summary-item' :text='vehicle.mileage' details='Mileage' />

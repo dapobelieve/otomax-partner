@@ -1,7 +1,7 @@
 <template>
-	<v-container fluid class="px-md-12 px-6">
+	<v-container fluid class="">
 		<v-row justify="center">
-			<v-col cols="12" md="12" lg="7">
+			<v-col cols="12" lg="10" xl="6">
 				<Ocard class="py-10 px-md-4">
 					<v-row class="mb-9">
 						<v-col cols="12">
@@ -279,7 +279,11 @@ export default {
 				}			
 			}
 			catch(err) {
-				this.$toast.error(err.message)
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
 			}
 			finally {
 				this.loading = false
