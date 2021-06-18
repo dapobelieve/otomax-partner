@@ -107,11 +107,12 @@ export default {
 					})
 				}, 2000)
 			}
-			catch(e) {
-				this.$toast.open({
-					type: 'error',
-					message: e.message
-				})
+			catch(err) {
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+          this.$toast.error(err.message)
 			}
 			finally {
 				this.loading = false

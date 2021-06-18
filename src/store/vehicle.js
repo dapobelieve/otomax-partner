@@ -39,14 +39,14 @@ export default {
 			return res.data
 		},
 		async changeStatus({}, payload) {
-			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/status`, {
 				status: payload.status
 			})
 
 			return  res
 		},
-		async getAllVehicles({}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles`)
+		async getAllVehicles({rootState}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles?userId=${rootState.auth.user.id}`)
 			return res.data
 		},
 		async deleteImageFromServer({}, payload) {
@@ -106,7 +106,7 @@ export default {
 				throw new Error("Invalid vehicle registration mark")
 			}else if (vehicleInfo.StatusCode === "ItemNotFound" || Object.entries(vehicleInfo.DataItems).length < 1) {
 				// set empty defaults except the regNumber
-				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
+				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmissionType", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
 					return result
 				}, {})
@@ -121,10 +121,10 @@ export default {
 				return false;
 			}else {
 				const {BodyStyle: bodyType = ""} = vehicleInfo.DataItems.SmmtDetails
-				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmission, YearOfManufacture:year} 
+				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmissionType, YearOfManufacture:year} 
 					= vehicleInfo.DataItems.VehicleRegistration
 
-				const details = {color, make, model, seats, fuelType, transmission, year, bodyType,
+				const details = {color, make, model, seats, fuelType, transmissionType, year, bodyType,
 					regNumber: payload.number,
 					taxi: {date: null, file: null}, 
 					mot: {date: null, file: null},
@@ -145,6 +145,9 @@ export default {
 					amount: payload.price
 				}
 			})
+		},
+		async updateHirePrice({commit}, payload) {
+			//
 		},
 		async updateVehicle({commit},  payload) {
 			let res = await Api.patch(`${apiPath}/vehicles/${payload._id}`, {

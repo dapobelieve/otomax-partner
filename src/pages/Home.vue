@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="mt-4">
-    <v-row justify="center">
-      <v-col cols=12 lg=10>
+    <v-row justify="center" class="px-4 px-lg-0">
+      <v-col cols=12 lg=10 xl="6">
         <v-row>
           <div class="d-flex justify-left align-center ml-0">
               <div class="d-header d-flex align-center">
@@ -10,24 +10,45 @@
           </div>
         </v-row>
         <v-row justify="center">
-          <v-col cols=12 md=8>
-            <v-row justify="center">
-              <v-col cols="12" md=8>
-                <Ocard color="#000">
-                  <div class="d-flex flex align-center">
-                    <img class="me-4" :src="require('@/assets/images/vehicle-status/active.svg')" alt="">
-                    <h3 class="white--text">Active Hire</h3>
+          <v-col cols=12 md=9>
+            <v-row>
+              <v-col class="d-flex" cols="12" md=7>
+                <DashboardActiveHireCard :vehicle="activeVehicle" />
+              </v-col>
+              <v-col class="d-flex" cols="12" md=5>
+                <DashboardReturnedCard :vehicle="returnedVehicle" />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <DashboardPaymentsCard />
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col cols=12 md=3>
+            <v-row>
+              <v-col cols=12>
+                <Ocard class="pa-4 d-flex flex-column flex" color="#fff">
+                  <div class="d-flex flex align-center mb-14">
+                    <img class="me-4" height="40px" :src="require('@/assets/images/plus.svg')" alt="">
+                    <h3 class="black--text font-weight-medium">Total Vehicles</h3>
+                  </div>
+                  <div class="d-flex flex justify-space-between black--text">
+                    <div>
+                      <h3 class="display-2 font-weight-bold">{{allVehicles.length}}</h3>
+                    </div>
+                    <div class="d-flex">
+                      <v-btn @click="$router.push({name: 'vehicle-create'})" style="letter-spacing: 0.2px;" :ripple="false" depressed class="ms-auto px-4 py-4 text-capitalize" small primary color="primary">
+                        Add New Vehicle
+                      </v-btn>
+                    </div>
                   </div>
                 </Ocard>
               </v-col>
-              <v-col cols="12" md=4>
-                <Ocard color="cyan">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta libero, maiores eum tenetur tempore aspernatur temporibus illum, odio debitis quia.</Ocard>
+              <v-col cols=12>
+                <DashboardIncompleteCard :vehicle="draft" />
               </v-col>
             </v-row>
-            
-          </v-col>
-          <v-col cols=12 md=4>
-            <Ocard color="yellow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta libero, maiores eum tenetur tempore aspernatur temporibus illum, odio debitis quia.</Ocard>
           </v-col>
         </v-row>
       </v-col>
@@ -37,15 +58,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import DashboardFleetInfo from '../components/vehicle/DashboardFleetInfo';
-import DashboardFleetItem from '../components/vehicle/DashboardFleetItem'
-import DashboardSummary from '../components/vehicle/DashboardSummary';
-import TransactionItem from '../components/vehicle/TransactionItem';
-
 export default {
   name: 'FleetPartnerHome',  
   data() {
     return {
+      hideFund: false,
       activeVehicle: null,
       returnedVehicle: null,
       allVehicles: [],
@@ -58,11 +75,11 @@ export default {
     }),
   },
   components: {
+    DashboardActiveHireCard: () => import("@/components/DashboardActiveHireCard"),
+    DashboardReturnedCard: () => import("@/components/DashboardReturnedCard"),
+    DashboardIncompleteCard: () => import("@/components/DashboardIncompleteCard"),
+    DashboardPaymentsCard: () => import("@/components/DashboardPaymentsCard"),
     Ocard: () => import("@/components/OtomaxCard"),
-    DashboardFleetItem,
-    DashboardSummary,
-    DashboardFleetInfo,
-    TransactionItem,
   },
   async mounted()  {
     let active = await this.$store.dispatch('vehicle/getVehiclesByStatus', { status: 'HIRED'});
@@ -71,16 +88,11 @@ export default {
     let all = await this.$store.dispatch('vehicle/getAllVehicles');
     this.allVehicles = all.data
 
-
-
     let draft = await this.$store.dispatch('vehicle/getVehiclesByStatus', { status: 'DRAFT'});
     this.draft = draft.data[2]
 
     let returned = await this.$store.dispatch('vehicle/getVehiclesByStatus', { status: 'RETURNED'});
     this.returnedVehicle = returned.data[0]
-
-
-    console.log(active)
   },
 };
 </script>

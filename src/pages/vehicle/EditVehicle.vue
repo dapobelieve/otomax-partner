@@ -46,7 +46,7 @@
 									placeholder="Enter Body type" 
 								/>
 								<FormInput 
-									v-model="form.transmission" 
+									v-model="form.transmissionType" 
 									label="Transmission Type" 
 									class="mb-5" 
 									placeholder="Enter transmission type" 
@@ -298,6 +298,7 @@ export default {
 			try {
 				let res = await this.$store.dispatch('vehicle/getSingleVehicle', { vehicleId: this.$route.params.vehicleId})
 				this.form = res.data
+				
 			}catch(err) {
 				const {error} = err
 				this.$toast.error(error.response.data.message, { duration: 0})

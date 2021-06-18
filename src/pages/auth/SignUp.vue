@@ -99,7 +99,7 @@ export default {
       this.form.domain = 'otomax-fleet-ui'
 
       try {
-        if(name.length < 2) {
+        if(names.length < 2) {
           throw new Error('Full name required')
         }
 

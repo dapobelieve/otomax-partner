@@ -279,7 +279,11 @@ export default {
 				}			
 			}
 			catch(err) {
-				this.$toast.error(err.message)
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
 			}
 			finally {
 				this.loading = false
