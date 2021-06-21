@@ -7,7 +7,7 @@
         <small>Cost</small>
       </div>
       <div class="hire-item">
-        <span class="price font-weight-bold">£ {{ price }}</span>
+        <span class="price font-weight-bold">£ {{ price.toFixed(2) }}</span>
         <div class="per-week">
           <b>Per Week</b>
         </div>

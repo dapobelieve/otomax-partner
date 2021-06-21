@@ -146,8 +146,9 @@ export default {
 				}
 			})
 		},
-		async updateHirePrice({commit}, payload) {
-			//
+		async updateHirePrice({dispatch, commit}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {...payload})
+			return res
 		},
 		async updateVehicle({commit},  payload) {
 			let res = await Api.patch(`${apiPath}/vehicles/${payload._id}`, {

@@ -22,7 +22,7 @@
 									 background-color="light_grey" color="primary" striped rounded v-model="progress" ></v-progress-linear>
 									</v-col>
 								</v-row>
-								<input :disabled="files.length === 5" multiple @change="handleUploads" accept="images/*" class="position-absolute" type="file">
+								<input :disabled="files.length === limit" multiple @change="handleUploads" accept="images/*" class="position-absolute" type="file">
 							</div>
 							<div class="w-100 d-flex mt-3 px-md-2">
 								<small>Formats Accepted: <strong>JPG JPEG PNG</strong></small>
@@ -33,7 +33,7 @@
 					<v-row class="mb-6">
 						<v-col cols="12" class="w-100 d-flex">
 							<small>Maximum images: {{uploadLimit}}</small>
-							<small class="ms-auto">{{files.length}}/<strong>5</strong></small>
+							<small class="ms-auto">{{files.length}}/<strong>{{uploadLimit}}</strong></small>
 						</v-col>
 						<v-row>
 							<v-col cols="12" md="5" class="w-100 d-flex justify-space-around flex-wrap">
@@ -60,7 +60,7 @@ export default {
 			dragging: false,
 			files: [],
 			progress: 0,
-			uploadLimit: 5,
+			uploadLimit: 10,
 			disabled: false
 		}
 	},

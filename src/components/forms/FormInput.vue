@@ -83,24 +83,28 @@ export default {
       text-align: right ;
     }
   }
-
   &.has-error {
     .v-input__slot {
       border: 1px solid red !important;
     }
   }
-}
-::v-deep .v-input__slot {
-  background-color: var(--v-light_grey-base) !important;
-  border-radius: 0.85rem !important;
 
-  &.error {
-    border: 1px solid red !important;
-  }
-  .v-text-field__slot {
-    .v-label {
-      display: none;
+  .v-input__slot {
+    background-color: var(--v-light_grey-base) !important;
+    border-radius: 0.85rem !important;
+
+    &.error {
+      border: 1px solid red !important;
     }
+    .v-text-field__slot {
+      .v-label {
+        display: none;
+      }
+    }
+  }
+
+  .v-text-field__details {
+    display: none;
   }
 }
 

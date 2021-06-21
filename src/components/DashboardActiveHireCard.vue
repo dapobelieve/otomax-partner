@@ -14,7 +14,7 @@
         <small class="font-weight-bold ">{{ vehicle.updatedAt | ODateFormat }}</small>
       </div>
     </div>
-    <div v-else class="d-flex flex-grow-1 justify-center white--text">
+    <div v-else class="d-flex flex-grow-1 mb-12 mb-md-0 justify-center white--text">
       <span>No Active Hire</span>
     </div>
     <Ocard class="pa-4" color="#1C1C1C">

@@ -65,15 +65,17 @@ export default {
 		async getSigningUrl() {
 			try {
 				let res = await this.$store.dispatch('vehicle/getContractSigningUrl', {
-					vehicleId: this.$route.params.id
+					vehicleId: this.$route.params.id,
+					origin: window.location.origin
 				});
 
 				this.url = res.data
-			}catch(e) {
-				const { error } = e
-				this.$toast.error(`Error: ${error.response.data.message || e.message}`, {
-					duration: 0
-				})
+			}catch(err) {
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
 			} finally {}
 		}
 	},
@@ -91,11 +93,12 @@ export default {
 			}
 			
 		}
-		catch(e) {
-			const {error} = e
-			this.$toast.error(`Error: ${error.response.data.message || e.message}`, {
-				duration: 0
-			})
+		catch(err) {
+			const { error } = err
+      if(error)
+        this.$toast.error(error.response.data.message)
+      else
+         this.$toast.error(err.message)
 		}
 	}
 }	
