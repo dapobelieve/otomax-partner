@@ -24,7 +24,7 @@
           <small>{{vehicle.model}}</small>
         </div>
         <div class="text-right">
-          <v-btn @click="$router.push({name: 'vehicle-active-hire', params: {vehicleId: vehicle._id}})" style="letter-spacing: 0.2px;"  :ripple="false" depressed class="ms-auto px-3 py-4 bg-white text-capitalize primary--text" small text color="">
+          <v-btn @click="$router.push({name: 'vehicle-active-hire', params: {vehicleId: vehicle._id}})" style="letter-spacing: 0.2px;"  :ripple="false" depressed outlined class="ms-auto px-3 py-4 bg-white text-capitalize primary--text" small text color="">
             Hire Profile
           </v-btn>
         </div>
