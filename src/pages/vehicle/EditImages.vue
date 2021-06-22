@@ -113,7 +113,7 @@ export default {
 		async uploadImages() {
 			this.loading = true
 			try {
-				let res = await Api.patch(`/vehicle/api/v1.1/vehicles/${this.$route.params.vehicleId}/images/upload`, this.makeFormData(), this)
+				let res = await Api.patch(`/vehicle/v0.1/vehicles/${this.$route.params.vehicleId}/images/upload`, this.makeFormData(), this)
 				this.$toast.success("Images Updated", {
 					duration: 5000
 				})

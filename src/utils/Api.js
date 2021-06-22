@@ -1,5 +1,5 @@
 import axios from "axios";
-const VUE_APP_BASE_API_URL= `https://staging.otomax.co.uk`
+const VUE_APP_BASE_API_URL= `https://api.otomax.co.uk`
 
 const instance = axios.create({
   baseURL: VUE_APP_BASE_API_URL
@@ -28,7 +28,7 @@ instance.interceptors.response.use((response) => {
   if(error.response.status === 401) {
     let prevRequest = error.config
 
-    return instance.patch('/accounts/api/v1.1/auth/renew-token', {
+    return instance.patch('/accounts/v0.1/auth/renew-token', {
       access_token: localStorage.getItem('auth.token'),
       refresh_token: localStorage.getItem('auth.refresh')
     }).then(res => {
