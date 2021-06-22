@@ -6,8 +6,8 @@
 					<v-row class="mb-9">
 						<v-col cols="12">
 							<Ocard class="pb-md-9" color="#ECF9FF">
-								<h1 class="success--text">Upload Vehicle</h1>
-								<p>Please provide the following vehicle details.</p>
+								<h1 class="success--text">Edit Vehicle Information</h1>
+								<!-- <p>Please provide the following vehicle details.</p> -->
 							</Ocard>
 						</v-col>
 					</v-row>
@@ -113,7 +113,7 @@
 							</v-col>
 						</v-col>
 					</v-row>
-					<v-row justify="center">
+					<!-- <v-row justify="center">
 						<v-col cols="12" md="10">
 							<h3 class="text-grey-5">License Details</h3>
 						</v-col>
@@ -131,7 +131,7 @@
 								<OFileUploader :error="$v.form.logBook.$error" acceptedFiles=".doc, .docx, .pdf" label="Vehicle log book Upload" v-model="$v.form.logBook.$model" />
 							</v-col>
 						</v-col>
-					</v-row>
+					</v-row> -->
 					<v-row justify="center" class="mt-8">
 						<v-col cols="12" md="7">
 							<v-btn @click="handleSubmit" :loading="loading" block x-large color="primary">Save</v-btn>
@@ -218,10 +218,7 @@ export default {
 			fuelType: { required, alpha },
 			mileage: { required },
 			isTax: { required },
-			taxi: {	date: { required },	file: {required }	},
 			roadTax: { required },
-			logBook: { required },
-			mot: { date: { required },file: { required } }
 		}
 	},
 	components: {

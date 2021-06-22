@@ -85,7 +85,7 @@ export default {
 			return res.data
 		},
 		async getContractSigningUrl({commit}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url`)
+			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url?origin=${payload.origin}`)
 			return res.data
 		},
 		async getSingleVehicle({ commit }, payload) {
@@ -146,8 +146,9 @@ export default {
 				}
 			})
 		},
-		async updateHirePrice({commit}, payload) {
-			//
+		async updateHirePrice({dispatch, commit}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {...payload})
+			return res
 		},
 		async updateVehicle({commit},  payload) {
 			let res = await Api.patch(`${apiPath}/vehicles/${payload._id}`, {
