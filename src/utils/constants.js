@@ -1,1 +1,1 @@
-export const baseUrl = 'https://staging.otomax.co.uk' 
+export const baseUrl = 'https://api.otomax.co.uk' 
