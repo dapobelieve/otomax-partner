@@ -2,8 +2,8 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
-const apiPath = '';
-// const apiPath = '/vehicle/api/v1.1';
+// const apiPath = '';
+const apiPath = '/vehicle/api/v1.1';
 
 export default {
 	namespaced: true,

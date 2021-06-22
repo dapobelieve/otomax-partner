@@ -1,5 +1,5 @@
 import axios from "axios";
-const VUE_APP_BASE_API_URL= `http://localhost:5000`
+const VUE_APP_BASE_API_URL= `https://staging.otomax.co.uk`
 
 const instance = axios.create({
   baseURL: VUE_APP_BASE_API_URL
