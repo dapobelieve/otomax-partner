@@ -102,9 +102,16 @@ export default {
 	name: 'VehicleProfile',
 	data: () => ({
 		loading: false,
-		vehicle: {},
+		reactive:  {
+			vehicle:  {}
+		},
 		category: null
 	}),
+	provide() {
+		return {
+			reactive: this.reactive
+		}
+	},
 	components: {
 		HireCost,
 		VehicleBrief,
@@ -113,6 +120,9 @@ export default {
 		VehicleStatus: () => import("@/components/VehicleStatusComponent"),
 	},
 	computed: {
+		vehicle() {
+			return this.reactive.vehicle
+		},
 		computeStatus() {
 			if(this.vehicle.status === 'DRAFT') return 'AVAILABLE';
 			if(this.vehicle.status === 'AVAILABLE') return 'NOT AVAILABLE';
@@ -132,11 +142,11 @@ export default {
 	async beforeMount() {
 		try {
 			const res = await this.$store.dispatch('vehicle/getSingleVehicle', {vehicleId: this.$route.params.id})
-			this.vehicle = res.data
-			if(this.vehicle.images.length > 0) {
-				this.vehicle.images = this.vehicle.images.map(image => image.url)
+			this.reactive.vehicle = res.data
+			if(this.reactive.vehicle.images.length > 0) {
+				this.reactive.vehicle.images = this.reactive.vehicle.images.map(image => image.url)
 			}else {
-				this.vehicle.images[0] = "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F210528125649-rolls-royce-boat-tail.jpg"
+				this.reactive.vehicle.images[0] = "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F210528125649-rolls-royce-boat-tail.jpg"
 			}
 
 			this.category = Object.values(vehicleCategories).filter(x => x.status === this.vehicle.status)[0]

@@ -26,7 +26,7 @@
                   </router-link>
                 </div>
                 <div class="nav-item ">
-                  <UserAvatar />
+                  <UserAvatar class="cursor-pointer" @click.native="$router.push({name: 'profile'})" />
                 </div>
               </template>
               <div class="nav-item">

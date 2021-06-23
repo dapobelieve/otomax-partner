@@ -108,7 +108,7 @@
 									v-model="$v.form.isTax.$model" 
 									:message="isTaxErr"
 									:items="items" 
-									label="Taxi badge" 
+									label="Taxi badge(PHV)" 
 								/>
 							</v-col>
 						</v-col>

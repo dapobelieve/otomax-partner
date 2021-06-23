@@ -9,13 +9,13 @@
       <Ocard class="pt-10">
         <div class="d-flex flex-column align-center justify-center mb-8">
           <img width="100" height="100" class="mb-10" :src="require('@/assets/images/Group8402.png')" alt="">
-          <h2 class="mb-5 text-center">Minimum Hire Price weekly</h2>
+          <h2 class="mb-5 text-center">Minimum Hire Price (weekly)</h2>
           <div class="text-center mb-8">
-            What is the minimum price you want <br> your vehicle to go on hire for?
+            Update the minimum price you want <br> your vehicle to go on hire for.
           </div>
           <div class="w-50">
-            <FormInput  v-model="form.price" position="center" class="mb-3" placeholder="e.g £100" />
-            <v-btn :loading="loading" class="text-capitalize" @click="submitPrice" block color="primary" elevation="0">Save</v-btn>
+            <FormInput :error="$v.form.price.$error" :message="priceErr" v-model="$v.form.price.$model" position="center" class="mb-3" placeholder="e.g £100" />
+            <v-btn :loading="loading" class="text-capitalize py-5" @click="submitPrice" block color="primary" elevation="0">Save</v-btn>
           </div>
         </div>
       </Ocard>
@@ -23,25 +23,62 @@
   </v-row>
 </template>
 <script>
+import { required } from "vuelidate/lib/validators";  
 export default {
+  inject: ['reactive'],
   data () {
     return {
       dialog: false,
       loading: false,
-      form: {}
+      form: {
+        price: null
+      }
+    }
+  },
+  computed: {
+    priceErr() {
+      if (!this.$v.form.price.required) return "Enter a price";
+    },
+    vehicle() {
+      return this.reactive.vehicle
+    }
+  },
+  validations: {
+    form: {
+      price: { required }
     }
   },
   components: {
     Ocard: () => import("@/components/OtomaxCard"),
     FormInput: () => import("@/components/forms/FormInput")
   },
-  computed() {
-    // priceErr() {
-
-    // }
-  },
   methods: {
-    async submitPrice() {}
+    async submitPrice() {
+      this.loading = true;
+      this.$v.$touch();
+      try {
+        if (!this.$v.$invalid) {
+          let res = await this.$store.dispatch('vehicle/updateHirePrice', {
+            vehicleId: this.vehicle._id,
+            oldPrice: this.vehicle.pricing.amount,
+            newPrice: this.form.price
+          })
+          this.$toast.success('Hire price updated')
+          this.$emit('price-updated')
+          this.dialog = false
+        }
+      }catch(err) {
+        console.log({err})
+        const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
+      }
+      finally {
+        this.loading = false
+      }
+    }
   }
 }
 </script>

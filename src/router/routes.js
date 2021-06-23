@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import vehicleRoutes from './vehicle';
+import userRoutes from './user'
 
 import middlewarePipeline from "@/router/kernel/middlewarePipeline";
 import auth from "@/router/middlewares/auth";
@@ -91,7 +92,7 @@ const baseRoutes = [
 
 const router = new VueRouter({
   mode: "history",
-  routes: baseRoutes.concat(vehicleRoutes)
+  routes: baseRoutes.concat(vehicleRoutes, userRoutes)
 })
 
 router.beforeEach((to, from, next) => {
