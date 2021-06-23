@@ -19,7 +19,7 @@
         </div>
         <v-spacer></v-spacer>
         <div>
-          <h3 class="font-weight-bold mb-0 text-blue">{{ (details.pricing && details.pricing.amount) || 1000}}</h3>
+          <h3 class="font-weight-bold mb-0 text-blue">{{ (details.pricing && details.pricing.actualAmount)}}</h3>
           <p class="mb-0 text-gray">{{ (details.pricing && details.pricing.duration) || "Monthly" }}</p>
         </div>
       </div>
