@@ -1,6 +1,9 @@
 import Api from "@/utils/Api"
 
-const apiPath = '/accounts/v0.1';
+
+const STAGING = '/accounts/api/v1.1'
+const PRODUCTION = '/accounts/v0.1/'
+const apiPath = PRODUCTION;
 
 export default {
 	namespaced: true,

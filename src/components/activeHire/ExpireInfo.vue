@@ -7,7 +7,7 @@
             </div>
             <div style='margin-left: auto; align-self: flex-end'>
                 <slot>
-                    <v-btn small color='white' class='btn' elevation='0' :href='href'>{{ btnText }}</v-btn>
+                    <!-- <v-btn small color='white' class='btn' elevation='0' :href='href'>{{ btnText }}</v-btn> -->
                 </slot>
             </div>
         </div>
