@@ -36,7 +36,7 @@
                   </template>
                   <v-list>
                     <v-list-item class="px-6" v-for="(item, i) in menuItems" :key="i">
-                      <v-list-item-title v-if="item.action" @click="item.action()">
+                      <v-list-item-title v-if="item.action" @click.prevent="item.action()">
                         <img style="" :src="item.icon" alt="">
                         {{ item.title }}
                       </v-list-item-title>
@@ -77,6 +77,7 @@ export default {
           icon: require('@/assets/images/logout.png'), 
           href: '#', 
           action: () => { 
+            console.log("clicked")
             this.$store.dispatch('auth/logout').then( res => {
               this.$router.push('/account/login')
             })

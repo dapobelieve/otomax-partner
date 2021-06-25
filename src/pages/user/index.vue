@@ -5,9 +5,9 @@
 				<Ocard class="pt-5 px-md-15 px-5">
 					<v-row class="mb-6">
 						<v-col class="d-flex" cols=12>
-							<v-btn style="letter-spacing: 0.2px;" :ripple="false" outlined depressed class="ms-auto px-3 py-3 border bg-white text-capitalize primary--text" small text color>
+							<!-- <v-btn style="letter-spacing: 0.2px;" :ripple="false" outlined depressed class="ms-auto px-3 py-3 border bg-white text-capitalize primary--text" small text color>
             Edit Profile
-          </v-btn>
+          </v-btn> -->
 						</v-col>
 					</v-row>
 					<v-row justify="space-between" class="mb-5 mb-md-8" align="center">
@@ -21,7 +21,7 @@
 										</div>
 										<span style="right: 20px" class="rounded-pill bg-sky-blue ps-8 px-5 primary--text py-1 position-relative">Fleet Partner</span>
 									</div>
-									<h1>Dapo Believe</h1>
+									<h1>{{fullname}}</h1>
 								</div>
 							</div>
 						</div>
@@ -38,23 +38,23 @@
 						<v-col class="details d-flex justify-center justify-sm-start flex-wrap" md=10>
 							<div class="text-center text-md-start mb-8 mb-md-0">
 								<h3>Business Name</h3>
-								<span>Believe Inc.</span>
+								<span>{{user.businessName || 'N/A'}}</span>
 							</div>
 							<div class="text-center text-md-start mb-8 mb-md-0">
 								<h3>VAT number</h3>
-								<span>None</span>
+								<span>{{user.vatNumber || 'N/A'}}</span>
 							</div>
 							<div class="text-center text-md-start mb-8 mb-md-0">
 								<h3>Address</h3>
-								<span>40 Green Lane London NW04 8UB</span>
+								<span>{{user.location || 'N/A'}}</span>
 							</div>
 							<div class="text-center text-md-start mb-8 mb-md-0">
 								<h3>Phone No.</h3>
-								<span>(+447) 845-6289-456</span>
+								<span>{{user.phoneNumber || 'N/A'}}</span>
 							</div>
 							<div class="text-center text-md-start mb-8 mb-md-0">
 								<h3>Postcode</h3>
-								<span>22-04-1987</span>
+								<span>N/A</span>
 							</div>
 						</v-col>
 					</v-row>
@@ -78,7 +78,10 @@ export default {
 	computed: {
 		...mapGetters({
 			user: 'auth/user'
-		})
+		}),
+		fullname() {
+			return `${this.user.firstName} ${this.user.lastName}`.toUpperCase()
+		},
 	},
 	methods: {
 		async fetchInfo() {

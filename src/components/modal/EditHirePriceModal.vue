@@ -60,10 +60,11 @@ export default {
         if (!this.$v.$invalid) {
           let res = await this.$store.dispatch('vehicle/updateHirePrice', {
             vehicleId: this.vehicle._id,
-            oldPrice: this.vehicle.pricing.amount,
-            newPrice: this.form.price
+            oldPrice: parseFloat(this.vehicle.pricing.amount),
+            newPrice: parseFloat(this.form.price)
           })
           this.$toast.success('Hire price updated')
+          this.form.price = null
           this.$emit('price-updated')
           this.dialog = false
         }

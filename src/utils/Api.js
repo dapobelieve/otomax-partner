@@ -7,7 +7,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-  	const noToken = ['/auth/signup', '/auth/login']
+  	const noToken = ['/auth/signup', '/auth/login', '/auth/google']
 
   	if(!noToken.some(u => config.url.includes(u))) {
   		config.headers['Authorization'] = `Bearer ${localStorage.getItem('auth.token')}`

@@ -5,7 +5,7 @@
         <v-row>
           <div class="d-flex justify-left align-center ml-0">
               <div class="d-header d-flex align-center">
-                <h2 class="ml-4">Welcome {{user.firstName}}!</h2>
+                <h2 v-if="user" class="ml-4">Welcome {{user.firstName}}!</h2>
               </div>
           </div>
         </v-row>

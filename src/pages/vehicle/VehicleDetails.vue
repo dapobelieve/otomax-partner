@@ -22,7 +22,7 @@
 							</div>
 							<hire-cost  v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.amount" iconLink='#'  /> 
 						</div>
-						<div class="vehicle-summary">
+						<div class="vehicle-summary ">
 							<vehicle-brief class='summary-item' :text='vehicle.transmissionType' details='Transmission' />
 							<vehicle-brief class='summary-item' :text='vehicle.make' details='Brand' />
 							<vehicle-brief class='summary-item' :text='vehicle.model' details='Model' />

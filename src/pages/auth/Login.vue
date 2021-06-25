@@ -42,7 +42,7 @@
 
           <div>
             <v-btn elevation="0" large block color="primary" class="mb-7" type='submit' :loading='loading'> Login</v-btn>
-            <v-btn elevation="0" class="mb-5" block color="white" large>
+            <v-btn @click="loginWithGoogle" elevation="0" class="mb-5" block color="white" large>
               <img left :src="require('@/assets/images/icon-google.svg')" />
               <span class="ml-3">Login with Google</span>
             </v-btn>
@@ -59,9 +59,11 @@
 
 <script>
 // import { mapGetters } from 'vuex'
+import socialAuth from "@/mixins/socialAuth";
 import FormInput from "@/components/forms/FormInput";
 import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
+  mixins:  [socialAuth],
   data: () => ({
     loginModal: false,
     checkbox: false,
@@ -78,11 +80,6 @@ export default {
         ],
     },
   }),
-  computed: {
-    // ...mapGetters({
-    //   isLoggedIn: 'auth/isAuthenticated',
-    // })
-  },
   components: {
     FormInput,
     SignUpModal,

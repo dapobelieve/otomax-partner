@@ -161,7 +161,6 @@ export default {
 			if(res.status === 200) {
 				//
 			}
-
 			return res
 		},
 		async createPayementDetail({ commit }, payload) {

@@ -33,7 +33,7 @@
         </div>
         <div>
           <v-btn elevation="0" large block color="primary" class="mb-7" :loading='loading' type="submit">Sign Up</v-btn>
-          <v-btn elevation="0" class="mb-5" block color="white" large @click.prevent='handleGoogle'>
+          <v-btn elevation="0" class="mb-5" block color="white" large @click="loginWithGoogle">
             <img left :src="require('@/assets/images/icon-google.svg')" />
             <span class="ml-3">Sign up with Google</span>
           </v-btn>
@@ -48,10 +48,12 @@
 </template>
 
 <script>
+import socialAuth from "@/mixins/socialAuth";  
 import FormInput from "@/components/forms/FormInput.vue";
 import LoginModal from "@/components/modal/LoginModal.vue";
 import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
+  mixins:  [socialAuth],
   name: 'SignUp',
   data: () => ({
     loginModal: false,
