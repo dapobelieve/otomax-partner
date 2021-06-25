@@ -2,8 +2,9 @@
 	<v-row justify="center">
 		<v-col cols="12" md="10">
 			<Ocard color="transparent">
-				<v-container v-if="url" style="height: 700px;" >
+				<v-container v-if="url" style="height: 650px;" >
 					<small class="red--text">*Ensure to click <b>Finish</b> after filling all the fields</small>
+					<small class="primary--text">*Ensure to click <b>Finish</b> after filling all the fields</small>
 					<v-row class="fill-height" >						
 						<v-col cols="12">
 							<vue-friendly-iframe :src="url" @load="onLoad"></vue-friendly-iframe>

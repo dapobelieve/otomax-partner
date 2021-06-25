@@ -22,7 +22,7 @@
 							</div>
 							<hire-cost v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.actualAmount" iconLink='#'  /> 
 						</div>
-						<div class="vehicle-summary">
+						<div class="vehicle-summary ">
 							<vehicle-brief class='summary-item' :text='vehicle.transmissionType' details='Transmission' />
 							<vehicle-brief class='summary-item' :text='vehicle.make' details='Brand' />
 							<vehicle-brief class='summary-item' :text='vehicle.model' details='Model' />
@@ -71,11 +71,11 @@
 					<h2 class='ml-4 mb-8 text-grey-5'>License Details</h2>
 
 					<div v-if="vehicle.documents && vehicle.documents.length > 0" class="license-area">
-						<div class="license">
-							<expire-info description='M.O.T license Expires Date' title='15th August 2021' href='#' />
+						<div v-if="motDoc" class="license">
+							<expire-info description='M.O.T license Expires Date' :title='motDoc.expirationDateEpoch | ODateFormat' href='#' />
 						</div>
 						<div class="license">
-							<expire-info description='Taxi license Expires Date' title='12th ' href='#' color='#FFF9D1' />
+							<expire-info description='Taxi license Expires Date' :title='taxDoc.expirationDateEpoch | ODateFormat' href='#' color='#FFF9D1' />
 						</div>
 					</div>
 					<div v-else>
@@ -102,6 +102,8 @@ export default {
 	name: 'VehicleProfile',
 	data: () => ({
 		loading: false,
+		motDoc: null,
+		taxDoc: null,
 		reactive:  {
 			vehicle:  {}
 		},
@@ -124,7 +126,7 @@ export default {
 			return this.reactive.vehicle
 		},
 		computeStatus() {
-			if(this.vehicle.status === 'DRAFT') return 'AVAILABLE';
+			if(this.vehicle.status === 'NOT AVAILABLE') return 'AVAILABLE';
 			if(this.vehicle.status === 'AVAILABLE') return 'NOT AVAILABLE';
 		}
 	},
@@ -133,7 +135,9 @@ export default {
 			try {
 				let res = await this.$store.dispatch('vehicle/changeStatus', { vehicleId: this.vehicle._id, status: this.computeStatus});
 				this.$toast.success('Vehicle status updated');
-				console.log(res)
+				this.$router.push({
+					name: 'vehicle-manager'
+				})
 			}catch(e) {
 				console.log(e.message)
 			}
@@ -147,6 +151,12 @@ export default {
 				this.reactive.vehicle.images = this.reactive.vehicle.images.map(image => image.url)
 			}else {
 				this.reactive.vehicle.images[0] = "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F210528125649-rolls-royce-boat-tail.jpg"
+			}
+
+			if(this.reactive.vehicle.documents && this.reactive.vehicle.documents.length) {
+				this.motDoc = this.reactive.vehicle.documents.find(x => x.type === 'MOTL');
+				this.taxDoc = this.reactive.vehicle.documents.find(x => x.type === 'TAXL');
+				this.vehicelLogDoc = this.reactive.vehicle.documents.find(x => x.type === 'VEHICLELOG');
 			}
 
 			this.category = Object.values(vehicleCategories).filter(x => x.status === this.vehicle.status)[0]

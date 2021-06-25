@@ -33,7 +33,7 @@
 					<v-row class="mb-6">
 						<v-col cols="12" class="w-100 d-flex">
 							<small>Maximum images: {{uploadLimit}}</small>
-							<small class="ms-auto">{{files.length}}/<strong>{{this.uploadLimit}}</strong></small>
+							<small class="ms-auto">{{files.length}}/<strong>{{uploadLimit}}</strong></small>
 						</v-col>
 						<v-row>
 							<v-col cols="12" md="5" class="w-100 d-flex justify-space-around flex-wrap">

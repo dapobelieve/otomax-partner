@@ -46,7 +46,7 @@
 									placeholder="Enter Body type" 
 								/>
 								<FormInput 
-									v-model="form.transmission" 
+									v-model="form.transmissionType" 
 									label="Transmission Type" 
 									class="mb-5" 
 									placeholder="Enter transmission type" 

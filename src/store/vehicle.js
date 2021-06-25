@@ -2,8 +2,11 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
+const PRODUCTION = '/vehicle/v0.1';
+const STAGING = '/vehicle/api/v1.1';
 // const apiPath = '';
-const apiPath = '/vehicle/v0.1';
+
+const apiPath = PRODUCTION;
 
 export default {
 	namespaced: true,
@@ -142,7 +145,7 @@ export default {
 			return await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
 				pricing: {
 					plan: "WEEKLY",
-					amount: payload.price
+					amount: parseFloat(payload.price)
 				}
 			})
 		},
@@ -158,7 +161,6 @@ export default {
 			if(res.status === 200) {
 				//
 			}
-
 			return res
 		},
 		async createPayementDetail({ commit }, payload) {

@@ -22,7 +22,7 @@
 									 background-color="light_grey" color="primary" striped rounded v-model="progress" ></v-progress-linear>
 									</v-col>
 								</v-row>
-								<input :disabled="files.length === limit" multiple @change="handleUploads" accept="images/*" class="position-absolute" type="file">
+								<input :disabled="files.length === limit" multiple @change="handleUploads" accept="image/*" class="position-absolute" type="file">
 							</div>
 							<div class="w-100 d-flex mt-3 px-md-2">
 								<small>Formats Accepted: <strong>JPG JPEG PNG</strong></small>
