@@ -1,7 +1,7 @@
 import axios from "axios";
 import Api from "@/utils/Api"
 
-const apiPath = '/vehicle/api/v1.1'
+const apiPath = '/vehicle/v0.1'
 
 
 export default {

@@ -1,13 +1,13 @@
 <template>
-	<v-container fluid class="">
+	<v-container fluid class="px-md-12 px-6">
 		<v-row justify="center">
-			<v-col cols="12" lg="10" xl="6">
-				<Ocard class="py-10 px-md-4">
+			<v-col cols="12" md="12" lg="9" xl="6">
+				<Ocard class="py-10 px-6">
 					<v-row class="mb-9">
 						<v-col cols="12">
 							<Ocard class="pb-md-9" color="#ECF9FF">
-								<h1 class="success--text">Upload Vehicle</h1>
-								<p>Please provide the following vehicle details.</p>
+								<h1 class="success--text">Edit Vehicle Information</h1>
+								<!-- <p>Please provide the following vehicle details.</p> -->
 							</Ocard>
 						</v-col>
 					</v-row>
@@ -108,12 +108,12 @@
 									v-model="$v.form.isTax.$model" 
 									:message="isTaxErr"
 									:items="items" 
-									label="Taxi badge(PHV)" 
+									label="Taxi badge (PHV)" 
 								/>
 							</v-col>
 						</v-col>
 					</v-row>
-					<v-row justify="center">
+					<!-- <v-row justify="center">
 						<v-col cols="12" md="10">
 							<h3 class="text-grey-5">License Details</h3>
 						</v-col>
@@ -131,10 +131,10 @@
 								<OFileUploader :error="$v.form.logBook.$error" acceptedFiles=".doc, .docx, .pdf" label="Vehicle log book Upload" v-model="$v.form.logBook.$model" />
 							</v-col>
 						</v-col>
-					</v-row>
+					</v-row> -->
 					<v-row justify="center" class="mt-8">
 						<v-col cols="12" md="7">
-							<v-btn @click="handleSubmit" :loading="loading" block x-large color="primary">Proceed</v-btn>
+							<v-btn @click="handleSubmit" :loading="loading" block x-large color="primary">Save</v-btn>
 						</v-col>
 					</v-row>
 				</Ocard>
@@ -145,6 +145,7 @@
 <script>
 import { required, numeric, alpha, alphaNum, minLength, maxLength }	from "vuelidate/lib/validators";
 export default {
+	name: "EditVehicle",
 	data () {
 		return {
 			loading: false,
@@ -217,10 +218,7 @@ export default {
 			fuelType: { required, alpha },
 			mileage: { required },
 			isTax: { required },
-			taxi: {	date: { required },	file: {required }	},
 			roadTax: { required },
-			logBook: { required },
-			mot: { date: { required },file: { required } }
 		}
 	},
 	components: {
@@ -236,64 +234,76 @@ export default {
 			this.$v.$touch();
 
 			try {
-				if (!this.$v.$invalid) {
-					const vehicleId = await this.$store.dispatch('vehicle/createVehicle', this.form);
+				// if (!this.$v.$invalid) {
+					const vehicleId = this.$route.params.vehicleId;
+					await this.$store.dispatch('vehicle/updateVehicle', this.form);
 
 					// upload taxi doc
-					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
-						file: this.form.taxi.file,
-						type: "TAXL",
-						expirationDateEpoch: this.form.taxi.date,
-						vehicleId: vehicleId
-					})
+					if(this.form.taxi && this.form.taxi.file) {
+						await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+							file: this.form.taxi.file,
+							type: "TAXL",
+							expirationDateEpoch: this.form.taxi.date,
+							vehicleId: vehicleId
+						})
+					}
 
 					// upload mot doc
-					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
-						file: this.form.mot.file,
-						type: "MOTL",
-						expirationDateEpoch: this.form.mot.date,
-						vehicleId: vehicleId
-					})
+					if(this.form.mot && this.form.mot.file) {
+						await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+							file: this.form.mot.file,
+							type: "MOTL",
+							expirationDateEpoch: this.form.mot.date,
+							vehicleId: vehicleId
+						})
+					}
 
 					// upload vehicle logBool doc
-					await this.$store.dispatch('vehicle/uploadVehicleDocument', {
-						file: this.form.logBook,
-						type: "VEHICLELOG",
-						expirationDateEpoch: this.form.roadTax,
-						vehicleId: vehicleId
-					})
+					if(this.form.logBook) {
+						await this.$store.dispatch('vehicle/uploadVehicleDocument', {
+							file: this.form.logBook,
+							type: "VEHICLELOG",
+							expirationDateEpoch: this.form.roadTax,
+							vehicleId: vehicleId
+						})
+					}
 
-					this.$toast.success('Vehicle Added Successfully', {
+					this.$toast.success('Vehicle Details updated Successfully', {
 	          type: 'success',
 	          duration: 5000
 	        })
 	        
 					this.$router.push({
-						name: "vehicle-upload-images",
+						name: "vehicle-details",
 						params: {
-							id : vehicleId
+							id : this.$route.params.vehicleId
 						}
 					})
-				}else {
-					this.$toast.error("Error: The highlighted fields are required", { duration: 1000 })
-				}			
+				// }else {
+				// 	this.$toast.error("Error: The highlighted fields are required", { duration: 1000 })
+				// }			
 			}
 			catch(err) {
-				const { error } = err
-        if(error)
-          this.$toast.error(error.response.data.message)
-        else
-           this.$toast.error(err.message)
+				console.log({err})
+				this.$toast.error(err.message)
 			}
 			finally {
 				this.loading = false
 			}
-			
+		},
+		async getVehicle() {
+			try {
+				let res = await this.$store.dispatch('vehicle/getSingleVehicle', { vehicleId: this.$route.params.vehicleId})
+				this.form = res.data
+				
+			}catch(err) {
+				const {error} = err
+				this.$toast.error(error.response.data.message, { duration: 0})
+			}
 		}
 	},
-	mounted() {
-		if(this.$route.query.vrm)
-			this.form = JSON.parse(JSON.stringify(this.$store.state.vehicle.vehicles[this.$route.query.vrm]))
+	async mounted() {
+		await this.getVehicle()
 	}
 }	
 </script>

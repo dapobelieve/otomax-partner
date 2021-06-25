@@ -1,6 +1,9 @@
 import Api from "@/utils/Api"
 
-const apiPath = '/accounts/api/v1.1';
+
+const STAGING = '/accounts/api/v1.1'
+const PRODUCTION = '/accounts/v0.1'
+const apiPath = PRODUCTION;
 
 export default {
 	namespaced: true,
@@ -26,16 +29,18 @@ export default {
 		},
 	},
 	actions: {
+		async setTokens({commit}, payload) {
+			localStorage.setItem('auth.token', payload.accessToken);
+			localStorage.setItem('auth.refresh', payload.refreshToken);
+			commit('SET_TOKEN', payload.accessToken);
+		},
 		async login({dispatch,  commit}, payload) {
 			let res = await Api.post(`${apiPath}/auth/login`, payload, false)
 			if(res.status === 200) {
 				const {data} = res.data
-				localStorage.setItem('auth.token', data.accessToken)
-				localStorage.setItem('auth.refresh', data.refreshToken)
-				commit('SET_TOKEN', data.accessToken);
+				await dispatch('setTokens', data);				
 				await dispatch('fetchAuthUser')
 			}
-
 			return res;
 		},
 		async register({}, payload) {

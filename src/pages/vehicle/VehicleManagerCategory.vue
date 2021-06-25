@@ -1,19 +1,19 @@
 <template>
-  <v-container fluid class="px-md-12 px-6">
+  <v-container fluid>
     <v-row justify="center">
-      <v-col cols="12" md="10" lg=9>
+      <v-col cols="12" lg="10" xl="6">
       	<VehicleStatus :category="category" :count="vehicles.length" />
       </v-col>
     </v-row>
     <v-row justify="center">
-    	<v-col class="d-md-flex flex-md-wrap justify-md-space-around" cols="12" md="6" lg=9>
+    	<v-col :class="[vehicles.length % 3 == 0 ? 'justify-md-space-between' : 'justify-md-space-around']" class="d-md-flex flex-md-wrap" cols="12" lg="10" xl="6">
     		<VehicleStatusCard v-for="(vehicle, vIndex) in vehicles" :vehicle="vehicle" :class="[vIndex > 1 ? 'mb-8' : '']" :key="vIndex" />
     	</v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-import vehicleCategories from "@/utils/vehicleStates"	
+import vehicleCategories from "@/utils/vehicleStates"
 export default {
 	data () {
 		return {

@@ -1,10 +1,9 @@
 <template>
   <main style="position:relative">
-    <div 
-      class='editable'
-      v-if="editable"
-    >
-      <a :href='editLink'><img :src="require('@/assets/images/Group8338.png')" width="30"  style="cursor: pointer" /></a>
+    <div @click="$emit('edit-vehicle-image')" class='editable' v-if="editable">
+      <a>
+        <img :src="require('@/assets/images/Group8338.png')" width="30"  style="cursor: pointer" />
+      </a>
     </div>
 
     <div class="thumb-example mb-8 w-100">
@@ -114,7 +113,7 @@ export default {
 }
 .editable {
   position: absolute;
-  z-index: 3433434;
+  z-index: 2;
   top: 20px;
   right: 30px;
   background: $blue;

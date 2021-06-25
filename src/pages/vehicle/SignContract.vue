@@ -2,8 +2,9 @@
 	<v-row justify="center">
 		<v-col cols="12" md="10">
 			<Ocard color="transparent">
-				<v-container v-if="url" style="height: 700px;" >
+				<v-container v-if="url" style="height: 650px;" >
 					<small class="red--text">*Ensure to click <b>Finish</b> after filling all the fields</small>
+					<small class="primary--text">*Ensure to click <b>Finish</b> after filling all the fields</small>
 					<v-row class="fill-height" >						
 						<v-col cols="12">
 							<vue-friendly-iframe :src="url" @load="onLoad"></vue-friendly-iframe>
@@ -28,7 +29,7 @@
 			</Ocard>
 		</v-col>
 		<v-col cols="6">
-			<v-btn elevation="0" @click="completeReg" block x-large color="primary">Complete Reg</v-btn>
+			<v-btn elevation="0" @click="$router.push({name: 'vehicle-details', params: {'id': $route.params.id}})" block x-large color="primary">Complete Reg</v-btn>
 		</v-col>
 	</v-row>
 </template>
@@ -65,15 +66,17 @@ export default {
 		async getSigningUrl() {
 			try {
 				let res = await this.$store.dispatch('vehicle/getContractSigningUrl', {
-					vehicleId: this.$route.params.id
+					vehicleId: this.$route.params.id,
+					origin: window.location.origin
 				});
 
 				this.url = res.data
-			}catch(e) {
-				const { error } = e
-				this.$toast.error(`Error: ${error.response.data.message || e.message}`, {
-					duration: 0
-				})
+			}catch(err) {
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
 			} finally {}
 		}
 	},
@@ -91,11 +94,12 @@ export default {
 			}
 			
 		}
-		catch(e) {
-			const {error} = e
-			this.$toast.error(`Error: ${error.response.data.message || e.message}`, {
-				duration: 0
-			})
+		catch(err) {
+			const { error } = err
+      if(error)
+        this.$toast.error(error.response.data.message)
+      else
+         this.$toast.error(err.message)
 		}
 	}
 }	

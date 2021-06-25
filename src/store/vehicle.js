@@ -2,8 +2,11 @@ import Api from "@/utils/Api"
 import _get from "lodash.get"
 import Vue from "vue"
 
+const PRODUCTION = '/vehicle/v0.1';
+const STAGING = '/vehicle/api/v1.1';
 // const apiPath = '';
-const apiPath = '/vehicle/api/v1.1';
+
+const apiPath = PRODUCTION;
 
 export default {
 	namespaced: true,
@@ -34,13 +37,24 @@ export default {
 		}
 	},
 	actions: {
-		async getVehiclesByStatus({}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}`)
+		async getVehiclesByStatus({rootState}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles?status=${payload.status}&userId=${rootState.auth.user.id}`)
 			return res.data
 		},
-		async getAllVehicles({}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles`)
+		async changeStatus({}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}/status`, {
+				status: payload.status
+			})
+
+			return  res
+		},
+		async getAllVehicles({rootState}, payload) {
+			let res = await Api.get(`${apiPath}/vehicles?userId=${rootState.auth.user.id}`)
 			return res.data
+		},
+		async deleteImageFromServer({}, payload) {
+			let res = await Api.delete(`${apiPath}/vehicles/${payload.vehicleId}/images/${payload._id}`);
+			return res
 		},
 		async uploadVehicleDocument({commit}, payload, vehicleId) {
 			const formData = new FormData()
@@ -56,8 +70,8 @@ export default {
 
 			return res
 		},
-		async vehicleSummary({commit}) {
-			let res = await Api.get(`${apiPath}/vehicles/summary`);
+		async vehicleSummary({rootState, commit}) {
+			let res = await Api.get(`${apiPath}/vehicles/summary?userId=${rootState.auth.user.id}`);
 			return res.data;
 		},
 		async createVehicle({commit}, payload) {
@@ -74,7 +88,7 @@ export default {
 			return res.data
 		},
 		async getContractSigningUrl({commit}, payload) {
-			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url`)
+			let res = await Api.get(`${apiPath}/vehicles/${payload.vehicleId}/signing-url?origin=${payload.origin}`)
 			return res.data
 		},
 		async getSingleVehicle({ commit }, payload) {
@@ -93,9 +107,9 @@ export default {
 
 			if(vehicleInfo.StatusCode === "KeyInvalid") {
 				throw new Error("Invalid vehicle registration mark")
-			}else if (vehicleInfo.StatusCode === "ItemNotFound") {
+			}else if (vehicleInfo.StatusCode === "ItemNotFound" || Object.entries(vehicleInfo.DataItems).length < 1) {
 				// set empty defaults except the regNumber
-				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmission", "year", "mileage", "isTax"].reduce((result, value) => {
+				const vehicleDetails = ["color", "bodyType", "make", "model", "seats", "fuelType", "transmissionType", "year", "mileage", "isTax"].reduce((result, value) => {
 					result[value] = null
 					return result
 				}, {})
@@ -108,13 +122,12 @@ export default {
 					age: null,
 					roadTax: null})
 				return false;
-
 			}else {
 				const {BodyStyle: bodyType = ""} = vehicleInfo.DataItems.SmmtDetails
-				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmission, YearOfManufacture:year} 
+				const { Colour:color, Make:make, Model:model, SeatingCapacity:seats, FuelType:fuelType, TransmissionType:transmissionType, YearOfManufacture:year} 
 					= vehicleInfo.DataItems.VehicleRegistration
 
-				const details = {color, make, model, seats, fuelType, transmission, year, bodyType,
+				const details = {color, make, model, seats, fuelType, transmissionType, year, bodyType,
 					regNumber: payload.number,
 					taxi: {date: null, file: null}, 
 					mot: {date: null, file: null},
@@ -132,9 +145,23 @@ export default {
 			return await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {
 				pricing: {
 					plan: "WEEKLY",
-					amount: payload.price
+					amount: parseFloat(payload.price)
 				}
 			})
+		},
+		async updateHirePrice({dispatch, commit}, payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload.vehicleId}`, {...payload})
+			return res
+		},
+		async updateVehicle({commit},  payload) {
+			let res = await Api.patch(`${apiPath}/vehicles/${payload._id}`, {
+				...payload
+			})
+
+			if(res.status === 200) {
+				//
+			}
+			return res
 		},
 		async createPayementDetail({ commit }, payload) {
 			let res = await Api.post(`${apiPath}/payment-details`, {

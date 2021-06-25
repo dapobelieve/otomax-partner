@@ -1,8 +1,8 @@
 <template>
-	<v-container fluid class="px-md-12 px-6">
+	<v-container class="px-6">
 		<v-row justify="center">
-			<v-col cols="12" lg="10" xl="6" class="">
-				<Ocard class="pa-md-15 pa-3">
+			<v-col cols="12" md="12" lg="12" xl="8">
+				<Ocard class="pa-md-10 pa-3">
 					<v-row align="center" class="mb-md-16 mb-10">
 						<v-col class="d-flex justify-center" cols="12" md="1"><img :src="require('@/assets/images/Group848.png')" alt=""></v-col>
 						<v-col class="d-flex ms-md-8 justify-center justify-md-start" cols="12" md="10"> <h1>Upload Vehicle Images</h1></v-col>
@@ -22,7 +22,7 @@
 									 background-color="light_grey" color="primary" striped rounded v-model="progress" ></v-progress-linear>
 									</v-col>
 								</v-row>
-								<input :disabled="files.length === limit" multiple @change="handleUploads" accept="image/*" class="position-absolute" type="file">
+								<input :disabled="files.length === 5" multiple @change="handleUploads" accept="image/*" class="position-absolute" type="file">
 							</div>
 							<div class="w-100 d-flex mt-3 px-md-2">
 								<small>Formats Accepted: <strong>JPG JPEG PNG</strong></small>
@@ -43,7 +43,8 @@
 					</v-row>
 					<v-row justify="center">
 						<v-col cols="6">
-							<v-btn :disabled="files.length < 1 || disabled" elevation="0" @click="uploadImages" :loading="loading" block x-large color="primary">Save & Continue</v-btn>
+							<v-btn :disabled="files.length < 1 || disabled" elevation="0" @click="uploadImages" :loading="loading" block x-large color="primary">
+							Update</v-btn>
 						</v-col>
 					</v-row>
 				</Ocard>
@@ -69,14 +70,31 @@ export default {
 		Opreview: () => import("@/components/UploadPreviewComponent")
 	},
 	methods: {
-		removeImage(file) {
+		async removeFromServer(imageObj) {
+			try {
+				let res = await this.$store.dispatch('vehicle/deleteImageFromServer', {...imageObj, vehicleId: this.$route.params.vehicleId})
+				this.$toast.success('Image deleted')
+			}catch(err) {
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
+			}
+		},
+		async removeImage(file) {
+			if(file.url) {
+				await this.removeFromServer(file)
+			}
+
 			this.files.splice(this.files.indexOf(file), 1)
 		},
 		handleUploads(e) {
 			this.dragging = false;
 			if(e.target.files.length > 10) {
-				this.files.push(...[...Array.from(e.target.files)].slice(0, this.uploadLimit))
-				this.$toast.info(`More than ${this.uploadLimit} files selected, first ${this.uploadLimit} picked`, {
+				const numberToUpload = this.uploadLimit - this.files.length
+				this.files.push(...[...Array.from(e.target.files)].slice(0, numberToUpload))
+				this.$toast.info(`More than ${this.uploadLimit} files selected, first ${numberToUpload} picked`, {
           duration: 5000
         })
 			}else {
@@ -86,7 +104,8 @@ export default {
 		makeFormData(file) {
 			const form = new FormData();
 			this.files.forEach(file => {
-				form.append('files', file)
+				if(!file.url)
+					form.append('files', file)
 			})
 
 			return form
@@ -94,15 +113,15 @@ export default {
 		async uploadImages() {
 			this.loading = true
 			try {
-				let res = await Api.patch(`/vehicle/v0.1/vehicles/${this.$route.params.id}/images/upload`, this.makeFormData(), this)
-				this.$toast.success("Images Uploaded", {
+				let res = await Api.patch(`/vehicle/v0.1/vehicles/${this.$route.params.vehicleId}/images/upload`, this.makeFormData(), this)
+				this.$toast.success("Images Updated", {
 					duration: 5000
 				})
 				setTimeout(() => {
 					this.$router.push({
-						name: "vehicle-set-hire-price",
+						name: "vehicle-details",
 						params: {
-							id : this.$route.params.id
+							id : this.$route.params.vehicleId
 						}
 					})
 				}, 2000)
@@ -112,12 +131,24 @@ export default {
         if(error)
           this.$toast.error(error.response.data.message)
         else
-          this.$toast.error(err.message)
+           this.$toast.error(err.message)
 			}
 			finally {
 				this.loading = false
 			}
+		},
+		async getVehicle() {
+			try {
+				let res = await this.$store.dispatch('vehicle/getSingleVehicle', { vehicleId: this.$route.params.vehicleId})
+				this.files = res.data.images
+			}catch(err) {
+				const {error} = err
+				this.$toast.error(error.response.data.message, { duration: 0})
+			}
 		}
+	},
+	async mounted() {
+		await this.getVehicle()
 	}
 }	
 </script>

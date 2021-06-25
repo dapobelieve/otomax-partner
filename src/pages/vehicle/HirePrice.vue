@@ -82,10 +82,12 @@ export default {
 					})
 				}, 5000)
 			}
-			catch (e) {
-				this.$toast.error(`${e.message}`, {
-					duration: 5000
-				})
+			catch (err) {
+				const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+          this.$toast.error(err.message)
 			}
 			finally {
 				this.loading = false

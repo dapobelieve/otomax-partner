@@ -42,14 +42,14 @@
 
           <div>
             <v-btn elevation="0" large block color="primary" class="mb-7" type='submit' :loading='loading'> Login</v-btn>
-            <v-btn elevation="0" class="mb-5" block color="white" large>
+            <v-btn @click="loginWithGoogle" elevation="0" class="mb-5" block color="white" large>
               <img left :src="require('@/assets/images/icon-google.svg')" />
               <span class="ml-3">Login with Google</span>
             </v-btn>
-            <v-btn elevation="0" block color="#3B5998" large>
+            <!-- <v-btn elevation="0" block color="#3B5998" large>
               <img left :src="require('@/assets/images/icon-facebook.svg')" />
               <span class="text-white ml-3">Login with Facebook</span>
-            </v-btn>
+            </v-btn> -->
           </div>
         </form>
       </div>
@@ -59,9 +59,11 @@
 
 <script>
 // import { mapGetters } from 'vuex'
+import socialAuth from "@/mixins/socialAuth";
 import FormInput from "@/components/forms/FormInput";
 import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
+  mixins:  [socialAuth],
   data: () => ({
     loginModal: false,
     checkbox: false,
@@ -78,11 +80,6 @@ export default {
         ],
     },
   }),
-  computed: {
-    // ...mapGetters({
-    //   isLoggedIn: 'auth/isAuthenticated',
-    // })
-  },
   components: {
     FormInput,
     SignUpModal,
@@ -100,10 +97,11 @@ export default {
         this.$router.replace('/')        
       }
       catch(err) {
-        if(err.response && err.response.data)
-          this.$toast.error(err.response.data.message)
+        const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
         else
-          this.$toast.error(err.message)
+           this.$toast.error(err.message)
       }
       finally {
         this.loading = false;

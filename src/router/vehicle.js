@@ -1,3 +1,5 @@
+import auth from "@/router/middlewares/auth";
+
 export default [
   {
     path: "/vehicle-manager",
@@ -7,11 +9,17 @@ export default [
         path: '',
         name: "vehicle-manager",
         component: () => import("@/pages/vehicle/VehicleManager"),
+        meta: {
+          middleware: [auth]
+        }
       },
       {
         path: ':category',
         name: "vehicle-manager-category",
         component: () => import("@/pages/vehicle/VehicleManagerCategory"),
+        meta: {
+          middleware: [auth]
+        }
       }
     ]
   },
@@ -22,33 +30,75 @@ export default [
       {
         path: 'create/get-info',
         name: 'vehicle-create',
-        component: () => import("@/pages/vehicle/create")
+        component: () => import("@/pages/vehicle/create"),
+        meta: {
+          middleware: [auth]
+        }
       },
        {
         path: 'create/manual-info',
         name: 'vehicle-create-manual',
-        component: () => import("@/pages/vehicle/create-manual")
+        component: () => import("@/pages/vehicle/create-manual"),
+        meta: {
+          middleware: [auth]
+        }
       },
       {
         path: 'create/:id/upload-images',
         name: "vehicle-upload-images",
-        component: () => import("@/pages/vehicle/ImageUpload")
+        component: () => import("@/pages/vehicle/ImageUpload"),
+        meta: {
+          middleware: [auth]
+        }
       },
       {
         path: 'create/:id/sign-doc',
         name: "vehicle-create-sign-contract",
-        component: () => import("@/pages/vehicle/SignContract")
+        component: () => import("@/pages/vehicle/SignContract"),
+        meta: {
+          middleware: [auth]
+        }
       },
       {
         path: 'create/:id/hire-price',
         name: "vehicle-set-hire-price",
-        component: () => import("@/pages/vehicle/HirePrice")
+        component: () => import("@/pages/vehicle/HirePrice"),
+        meta: {
+          middleware: [auth]
+        }
       },
       {
         path: ':id/details',
         name: "vehicle-details",
-        component: () => import("@/pages/vehicle/VehicleDetails")
-      },   
+        component: () => import("@/pages/vehicle/VehicleDetails"),
+        meta: {
+          middleware: [auth]
+        }
+      },
+      {
+        path: 'active-hire/:vehicleId',
+        name: "vehicle-active-hire",
+        component: () => import("@/pages/vehicle/ActiveHire"),
+        meta: {
+          middleware: [auth]
+        }
+      },
+      {
+        path: ':vehicleId/edit-details',
+        name: "vehicle-edit-details",
+        component: () => import("@/pages/vehicle/EditVehicle"),
+        meta: {
+          middleware: [auth]
+        }
+      },
+      {
+        path: ':vehicleId/edit-images',
+        name: "vehicle-edit-images",
+        component: () => import("@/pages/vehicle/EditImages"),
+        meta: {
+          middleware: [auth]
+        }
+      },
       // {
       //   path: "/vehicle/listing",
       //   name: "VehicleListing",

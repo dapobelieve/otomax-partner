@@ -1,12 +1,13 @@
 import axios from "axios";
+const VUE_APP_BASE_API_URL= `https://api.otomax.co.uk`
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API_URL
+  baseURL: VUE_APP_BASE_API_URL
 });
 
 instance.interceptors.request.use(
   (config) => {
-  	const noToken = ['/auth/signup', '/auth/login']
+  	const noToken = ['/auth/signup', '/auth/login', '/auth/google']
 
   	if(!noToken.some(u => config.url.includes(u))) {
   		config.headers['Authorization'] = `Bearer ${localStorage.getItem('auth.token')}`
@@ -27,7 +28,7 @@ instance.interceptors.response.use((response) => {
   if(error.response.status === 401) {
     let prevRequest = error.config
 
-    return instance.patch('/accounts/api/v1.1/auth/renew-token', {
+    return instance.patch('/accounts/v0.1/auth/renew-token', {
       access_token: localStorage.getItem('auth.token'),
       refresh_token: localStorage.getItem('auth.refresh')
     }).then(res => {
@@ -35,11 +36,9 @@ instance.interceptors.response.use((response) => {
         localStorage.setItem('auth.token', res.data.message.access_token)
         localStorage.setItem('auth.refresh', res.data.message.refresh_token)
         instance.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('auth.token')}`;
-
         return instance(prevRequest);
       }
     })
-
   }
   return Promise.reject({error})
 });
@@ -53,12 +52,12 @@ class Api {
     return await instance.post(url, payload)
   }
 
-  static async patch(url, payload = {}, context) {
+  static async patch(url, payload = {}, context=null) {
     return await instance.patch(url, payload, {
       onUploadProgress: (e) => {
-        // if(context.progress) {
+        if(context) {
           context.progress = Math.round((e.loaded * 100) / e.total)
-        // }
+        }
       },
     });
   }

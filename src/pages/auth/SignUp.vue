@@ -33,14 +33,14 @@
         </div>
         <div>
           <v-btn elevation="0" large block color="primary" class="mb-7" :loading='loading' type="submit">Sign Up</v-btn>
-          <v-btn elevation="0" class="mb-5" block color="white" large @click.prevent='handleGoogle'>
+          <v-btn elevation="0" class="mb-5" block color="white" large @click="loginWithGoogle">
             <img left :src="require('@/assets/images/icon-google.svg')" />
             <span class="ml-3">Sign up with Google</span>
           </v-btn>
-          <v-btn elevation="0" block color="#3B5998" large>
+          <!-- <v-btn elevation="0" block color="#3B5998" large>
             <img left :src="require('@/assets/images/icon-facebook.svg')" />
             <span class="text-white ml-3">Sign up with Facebook</span>
-          </v-btn>
+          </v-btn> -->
         </div>
       </form>
     </div>
@@ -48,10 +48,12 @@
 </template>
 
 <script>
+import socialAuth from "@/mixins/socialAuth";  
 import FormInput from "@/components/forms/FormInput.vue";
 import LoginModal from "@/components/modal/LoginModal.vue";
 import SignUpModal from "@/components/modal/SignUpModal.vue";
 export default {
+  mixins:  [socialAuth],
   name: 'SignUp',
   data: () => ({
     loginModal: false,
@@ -99,6 +101,10 @@ export default {
       this.form.domain = 'otomax-fleet-ui'
 
       try {
+        if(names.length < 2) {
+          throw new Error('Full name required')
+        }
+
         let resRegister = await this.$store.dispatch('auth/register', this.form)
         const {email, password, domain } = this.form
         let res = await this.$store.dispatch('auth/login', {email, password, domain})
@@ -116,19 +122,17 @@ export default {
         })
       } 
       catch(err) {
-        this.$toast.error(err.message)
-        console.log({e})
+        const { error } = err
+        if(error)
+          this.$toast.error(error.response.data.message)
+        else
+           this.$toast.error(err.message)
       }
       finally {
         this.loading = false;
       }
     },
     async handleGoogle() {
-      try {}
-      catch(e) {}
-      finally {}
-    },
-    async handleFacebook() {
       try {}
       catch(e) {}
       finally {}
