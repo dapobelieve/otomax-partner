@@ -25,13 +25,13 @@ metadata:
 spec:
   tls:
     - hosts:
-      - staging.otomax.co.uk # update IP address here
-      secretName: application-cert-tls
+      - partner.otomax.co.uk # update IP address here
+      secretName: partner-otomax-cert-tls
   rules:
-  - host: staging.otomax.co.uk 
+  - host: partner.otomax.co.uk 
     http:
       paths:
       - backend:
           serviceName: APPNAME
           servicePort: 80
-        path: /driver
+        path: /

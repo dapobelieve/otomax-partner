@@ -1,32 +1,31 @@
 <template>
-  <div class="hire-cost">
-    <div class="hire-top">
+  <Ocard color="#cefff2" class="hire-cost">
+    <div class="hire-top d-flex">
       <div class="hire-item">
-        <slot>
-          <div v-if='icon' class="icon-area">
-            <a :href='iconLink'><img :src="icon" alt="" width='30' style="cursor: pointer" /></a><br>
-          </div>
-        </slot>
-
+        <EditHirePriceModal />
         <h4>Vehicle Hiring</h4>
         <small>Cost</small>
       </div>
       <div class="hire-item">
-        <span class="price">$ {{ price }}</span>
+        <span class="price font-weight-bold">£ {{ price.toFixed(2) }}</span>
         <div class="per-week">
           <b>Per Week</b>
         </div>
       </div>
     </div>
-  </div>
+  </Ocard>
 </template>
 
 <script>
 export default {
   name: "HireCost",
   data: () => ({}),
+  components: {
+    Ocard: () => import("@/components/OtomaxCard"),
+    EditHirePriceModal: () => import("@/components/modal/EditHirePriceModal")
+  },
   props: {
-    price: { required: true, type: String },
+    price: { required: true, type: Number },
     icon: { required: false, type: String },
     iconLink: { required: false, type: String },
   },
@@ -38,21 +37,9 @@ export default {
   background: #cefff2;
   width: 100%;
   max-width: 400px;
-  padding: 15px 20px;
-  border-radius: 14px;
 
   .hire-top {
-    display: flex;
-
     .hire-item {
-      place-self: center;
-      p {
-        margin: 10px;
-        font-family: "Roboto, sans-serif" !important;
-        font-size: 0.9rem;
-        width: 80%;
-      }
-      // &:first-child { margin-right: 70px; }
       &:last-child {
         margin-left: auto;
         .price {

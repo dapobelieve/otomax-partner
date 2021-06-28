@@ -62,7 +62,7 @@ export default {
             data.append('file', file)
             data.append('type', 'DRIVERLF')
             data.append('parentId', this.vehicle._id)
-            this.$store.dispatch('uploadDoc', data).then( res => {
+            this.$store.dispatch('profile/uploadDoc', data).then( res => {
                 console.log(res)
                 this.$toast.success('Uploaded Successfully')
             }).catch(err => {

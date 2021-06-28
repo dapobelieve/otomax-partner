@@ -1,5 +1,11 @@
 <template>
-  <main>
+  <main style="position:relative">
+    <div @click="$emit('edit-vehicle-image')" class='editable' v-if="editable">
+      <a>
+        <img :src="require('@/assets/images/Group8338.png')" width="30"  style="cursor: pointer" />
+      </a>
+    </div>
+
     <div class="thumb-example mb-8 w-100">
       <swiper
         class="swiper gallery-top"
@@ -51,6 +57,8 @@ export default {
   name: "SwiperExampleThumbsGallery",
   props: {
     images: { required: true, type: Array },
+    editable: { required: false, default: true, type: Boolean },
+    editLink: { type: String,  }
   },
   components: {
     Swiper,
@@ -102,6 +110,16 @@ export default {
   transition: 300ms opacity !important;
   transform: translate3d(0, 0, 0) !important;
   z-index: 10;
+}
+.editable {
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  right: 30px;
+  background: $blue;
+  padding: 0;
+  border-radius: 15px;
+  line-height: 10px;
 }
 
 .rounded {

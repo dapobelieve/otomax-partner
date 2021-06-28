@@ -22,7 +22,7 @@ export default {
     .vehicle {
         border-radius: 8px;
         height: auto;
-        width: 380px;
+        min-width: 100%;
         background: transparent no-repeat;
         background-size: cover;
 
