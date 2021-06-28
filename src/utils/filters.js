@@ -6,3 +6,7 @@ import parseISO from "date-fns/parseISO";
 Vue.filter("ODateFormat", value => {
 	return format(new Date(value), "Lo MMMM yyyy");
 })
+
+Vue.filter("ODateFormat", value => {
+	return format(new Date(value), "Lo MMMM yyyy");
+})
