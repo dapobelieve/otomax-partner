@@ -20,7 +20,7 @@
 								<h2>{{ vehicle.make }}</h2>
 								<span>{{ vehicle.model }}</span>
 							</div>
-							<hire-cost  v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.amount" iconLink='#'  /> 
+							<hire-cost v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.actualAmount" iconLink='#'  /> 
 						</div>
 						<div class="vehicle-summary ">
 							<vehicle-brief class='summary-item' :text='vehicle.transmissionType' details='Transmission' />

@@ -10,7 +10,7 @@
         <span>Upcoming Fund</span>
       </div>
       <div class="text-right">
-        <h3 class="display-2 font-weight-bold mb-2">{{ hideFund ? '*****' : `£ ${vehicle.pricing.amount}`}}</h3>
+        <h3 class="display-2 font-weight-bold mb-2">{{ hideFund ? '*****' : `£ ${vehicle.pricing.actualAmount}`}}</h3>
         <small class="font-weight-bold ">{{ vehicle.updatedAt | ODateFormat }}</small>
       </div>
     </div>
