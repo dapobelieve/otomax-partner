@@ -72,10 +72,10 @@
 
 					<div v-if="vehicle.documents && vehicle.documents.length > 0" class="license-area">
 						<div v-if="motDoc" class="license">
-							<expire-info description='M.O.T license Expires Date' :title='motDoc.expirationDateEpoch | ODateFormat' href='#' />
+							<expire-info description='M.O.T license Expires Date' :title='new Date(motDoc.expirationDateEpoch).toLocaleDateString()' href='#' />
 						</div>
 						<div class="license">
-							<expire-info description='Taxi license Expires Date' :title='taxDoc.expirationDateEpoch | ODateFormat' href='#' color='#FFF9D1' />
+							<expire-info description='Taxi license Expires Date' :title='new Date(taxDoc.expirationDateEpoch).toLocaleDateString()' href='#' color='#FFF9D1' />
 						</div>
 					</div>
 					<div v-else>
