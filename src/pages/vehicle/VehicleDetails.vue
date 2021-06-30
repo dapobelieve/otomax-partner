@@ -134,15 +134,19 @@
           >
             <div v-if="motDoc" class="license">
               <expire-info
-                description="MOT License Expiry Date"
-                :title="motDoc.expirationDateEpoch | ODateFormat"
+                description="M.O.T license Expires Date"
+                :title="
+                  new Date(motDoc.expirationDateEpoch).toLocaleDateString()
+                "
                 href="#"
               />
             </div>
             <div class="license">
               <expire-info
-                description="Taxi License Expiry Date"
-                :title="taxDoc.expirationDateEpoch | ODateFormat"
+                description="Taxi license Expires Date"
+                :title="
+                  new Date(taxDoc.expirationDateEpoch).toLocaleDateString()
+                "
                 href="#"
                 color="#FFF9D1"
               />
