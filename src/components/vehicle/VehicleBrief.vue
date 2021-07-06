@@ -11,7 +11,7 @@
 export default {
     name: 'VehicleBrief',
     props: {
-        text: { required: true, type: String, default: '' },
+        text: { required: true, type: [String, Number], default: '' },
         details: { required: false, type: String },
     },
 }

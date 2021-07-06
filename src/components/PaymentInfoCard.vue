@@ -3,18 +3,23 @@
 		<div class="d-flex">
 			<div class="dot bg-green mt-1 me-3"></div>
 			<div class="flex-grow-1">
-				<p class="ma-0">February Weekly Fee</p>
-				<small class="grey--text">Date: 15/01/2021</small>
+				<p class="ma-0">{{payment.createdAt | formatTimeZoneDate('month')}} Weekly Fee</p>
+				<small class="grey--text">Date: {{payment.createdAt | formatTimeZoneDate('date')}}</small>
 			</div>
 			<div class="text-center">
 				<p class="ma-0 green--text mb-1">Received</p>
-				<h5>£400</h5>
+				<h5>£{{payment.amount}}</h5>
 			</div>
 		</div>
 	</Ocard>
 </template>
 <script>
 export default {
+	props: {
+		payment: {
+			type:  Object
+		}
+	},
 	components: {
 		Ocard: () => import("@/components/OtomaxCard"),
 	}

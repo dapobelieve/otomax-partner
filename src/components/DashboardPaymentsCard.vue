@@ -3,7 +3,7 @@
 		<h4 class="mb-8">Received Recently</h4>
     <v-row v-if="payments.length">
     	<v-col cols="12">
-    		<DashboardPaymentItemCard v-for="x in 3" :key="x" class="mb-3" />
+    		<DashboardPaymentItemCard v-for="x in payments" :payment="x" :key="x" class="mb-3" />
     	</v-col>
     </v-row>
     <v-row v-else justify="center">
@@ -19,7 +19,7 @@ export default {
 	props: {
 		payments: {
 			type: Array,
-			default: () => [{}]
+			default: () => []
 		}
 	},
 	components:  {

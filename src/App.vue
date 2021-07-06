@@ -14,8 +14,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .theme--light.v-application {
 	background: #F9F9F9  !important;
+}
+
+button::before {
+	opacity: 0 !important;
+}
+
+.v-ripple__container {
+	/*display: none !important;*/
 }
 </style>

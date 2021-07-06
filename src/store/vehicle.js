@@ -4,7 +4,6 @@ import Vue from "vue"
 
 const PRODUCTION = '/vehicle/v0.1';
 const STAGING = '/vehicle/api/v1.1';
-// const apiPath = '';
 
 const apiPath = PRODUCTION;
 
@@ -47,6 +46,27 @@ export default {
 			})
 
 			return  res
+		},
+		async updateUserProfile({commit}, payload) {
+			const formData = new FormData()
+			Object.keys(payload).forEach(key => {
+				if(key === "imageUrl") {
+					formData.append("file", payload[key])
+					delete payload[key] //  api threw errors when unwanted fields were passed
+				}
+				formData.append(key, payload[key])
+			});
+
+			let res = await Api.patch(`${apiPath}/profiles/${payload.id}`, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			});
+
+			const { data: user } = res.data
+
+			commit('auth/SET_USER', user, {root: true})
+			return res
 		},
 		async getAllVehicles({rootState}, payload) {
 			let res = await Api.get(`${apiPath}/vehicles?userId=${rootState.auth.user.id}`)

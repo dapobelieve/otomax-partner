@@ -58,6 +58,14 @@ export default {
 		NotifyItem,
 		NotifyHeader,
 	},
+	methods: {
+		async getNotifications() {
+			let res = await this.$store.dispatch('notification/fetchNotification');
+		}
+	},
+	mounted() {
+		this.getNotifications()
+	}
 }
 </script>
 

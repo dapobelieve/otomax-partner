@@ -6,14 +6,19 @@
 				<small class="black--text">2021</small>
 			</div>
 			<div class="text-end">
-				<h3 class="ma-0 green--text mb-1">£400</h3>
-				<p>11/05/2032</p>
+				<h3 class="ma-0 green--text mb-1">£{{payment.amount}}</h3>
+				<p>{{payment.createdAt | formatTimeZoneDate('date')}}</p>
 			</div>
 		</div>
 	</Ocard>
 </template>
 <script>
 export default {
+	props: {
+		payment: {
+			type: Object
+		}
+	},
 	components: {
 		Ocard: () => import("@/components/OtomaxCard"),
 	}

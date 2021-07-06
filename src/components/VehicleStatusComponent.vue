@@ -10,7 +10,7 @@
 					<h2>{{count}}</h2>
 					<span>vehicles</span>
 				</div>
-				<v-btn v-else @click="$emit('change-vehicle-status')" class="font-weight-regular py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Change availability</v-btn>
+				<v-btn v-else @click="$emit('click', $event)" class="font-weight-regular py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>{{computeDisplayText}}</v-btn>
 			</div>
 		</v-row>
 	</Ocard>
@@ -27,6 +27,28 @@ export default {
 	},
 	components: {
 		Ocard: () => import("@/components/OtomaxCard"),
+	},
+	computed: {
+		computeDisplayText() {
+			switch (this.category.status) {
+				case "HIRED":
+					return 'Hire Profile'
+				break;
+				case "NOT AVAILABLE":
+					return 'Change Availability'
+				break;
+				case "AVAILABLE":
+					return 'Change Availability'
+				break;
+				default:
+					return ''
+			}
+		}
+	},
+	methods: {
+		processValueToEmit () {
+
+		}
 	}
 }	
 </script>

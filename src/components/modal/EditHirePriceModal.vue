@@ -2,8 +2,8 @@
   <v-row>
     <v-dialog v-model="dialog" max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <div class="ms-3 mt-5 mb-6">
-          <a v-bind="attrs" v-on="on"><img :src="require('@/assets/images/Group8338.png')" alt="" width='30' style="cursor: pointer" /></a>
+        <div  class="ms-3 mt-5 mb-6">
+          <a v-if="vehicle.status !== 'HIRED'" v-bind="attrs" v-on="on"><img :src="require('@/assets/images/Group8338.png')" alt="" width='30' style="cursor: pointer" /></a>
         </div>
       </template>
       <Ocard class="pt-10">

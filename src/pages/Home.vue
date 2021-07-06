@@ -21,7 +21,7 @@
             </v-row>
             <v-row>
               <v-col cols="12">
-                <DashboardPaymentsCard />
+                <DashboardPaymentsCard :payments="earnings" />
               </v-col>
             </v-row>
           </v-col>
@@ -66,7 +66,8 @@ export default {
       activeVehicle: null,
       returnedVehicle: null,
       allVehicles: [],
-      draft:  null
+      draft:  null,
+      earnings: []
     };
   },
   computed: {
@@ -92,7 +93,10 @@ export default {
     this.draft = draft.data[2]
 
     let returned = await this.$store.dispatch('vehicle/getVehiclesByStatus', { status: 'RETURNED'});
-    this.returnedVehicle = returned.data[0]
+    this.returnedVehicle = returned.data[0];
+
+    let res = await this.$store.dispatch('payments/getEarnings');
+    this.earnings = res.result.data
   },
 };
 </script>

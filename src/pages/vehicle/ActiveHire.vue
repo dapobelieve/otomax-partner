@@ -3,11 +3,11 @@
 		<v-row justify="center">
 			<v-col cols="12" md="12" lg=10 xl=5>
 				<Ocard class="pa-md-4">
-					<v-row>
+					<v-row v-if="vehicle">
 						<v-col cols=12 md=7>
 							<Ocard style="padding: 0 !important;" class="d-flex align-center mb-md-15 mb-10 pa-0" color="#F1F1FC">
 								<div class="img-card">
-									<img src="https://m.atcdn.co.uk/a/media/w1024/9f9ebc87fc7b432b88304e8fd0464366.jpg" alt="">
+									<img :src="vehicle.images[0].url" alt="">
 								</div>
 								<div class="ms-8 flex">
 									<div class="mb-md-6 mb-6 primary--text">
@@ -15,11 +15,11 @@
 									</div>
 									<div class="d-md-flex align-md-end">
 										<div class="mb-3 mb-md-0">
-											<h2>BMW X5</h2>
-											<span>2018 Series</span>
+											<h2>{{vehicle.make}}</h2>
+											<span>{{vehicle.model}}</span>
 										</div>
 										<div class="ms-auto me-5">
-											<v-btn depressed class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" elevation="0" small text color="">vehicle profile</v-btn> 
+											<v-btn @click="$router.push({name: 'vehicle-details', params: {'id': vehicle._id}})" depressed class="ms-auto px-5 py-4 bg-white rounded-border text-capitalize primary--text" elevation="0" small text color="">vehicle profile</v-btn> 
 										</div>
 									</div>
 								</div>								
@@ -27,7 +27,7 @@
 							<div>
 								<h4 class="mb-8">Received Recently</h4>
 								<div>
-									<PaymentInfoCard v-for="x in 5" :key="x" class="mb-4" color="#F9F9F9" />
+									<PaymentInfoCard v-for="x in earnings" :payment="x" :key="x._id" class="mb-4" color="#F9F9F9" />
 								</div>
 							</div>
 						</v-col>
@@ -35,7 +35,7 @@
 							<Ocard class="mb-4" color="#ECF9FF">
 								<div class="mb-8"><p class="body-2 font-weight-bold">Upcoming <br> Fund</p></div>
 								<div class="text-end">
-									<h5 class="display-2 font-weight-bold">£400</h5>
+									<h5 class="display-2 font-weight-bold">£{{vehicle.pricing.amount * 4}}</h5>
 									<small class="body-2 font-weight-bold primary--text">March 20th</small>
 								</div>
 							</Ocard>
@@ -95,9 +95,26 @@
 </template>
 <script>
 export default {
+	data () {
+		return {
+			vehicle: null,
+			earnings: []
+		}
+	},
 	components: {
 		Ocard: () => import("@/components/OtomaxCard"),
 		PaymentInfoCard: () => import("@/components/PaymentInfoCard")
+	},
+	methods: {
+		async getVehicle() {
+			let res = await this.$store.dispatch('vehicle/getSingleVehicle', {vehicleId: this.$route.params.vehicleId});
+			this.vehicle = res.data
+		}
+	},
+	async mounted() {
+		await this.getVehicle()
+		let res = await this.$store.dispatch('payments/getEarnings');
+		this.earnings = res.result.data
 	}
 }	
 </script>

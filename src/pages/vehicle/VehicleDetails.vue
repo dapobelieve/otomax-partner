@@ -8,159 +8,96 @@
       class="mb-8"
     >
       <v-col cols="12" md="12">
-        <VehicleStatus
-          @change-vehicle-status="changeStatus"
-          :category="category"
-        />
+      	<VehicleStatus @click="changeStatus"  :category="category" />
       </v-col>
     </v-row>
-    <v-row justify="center">
-      <div class="vehicle-profile">
-        <div class="d-flex align-right mb-5">
-          <v-btn
-            @click="
-              $router.push({
-                name: 'vehicle-edit-details',
-                params: { vehicleId: vehicle._id },
-              })
-            "
-            class="font-weight-regular ms-auto py-4 bg-white rounded-border text-capitalize primary--text"
-            outlined
-            elevation="0"
-            x-small
-            text
-            >Edit Vehicle</v-btn
-          >
-        </div>
-        <div class="vehicle-content">
-          <div class="vehicle-profile-section" style="position: relative">
-            <image-slider-thumb
-              @edit-vehicle-image="
-                $router.push({
-                  name: 'vehicle-edit-images',
-                  params: { vehicleId: vehicle._id },
-                })
-              "
-              :images="vehicle.images"
-              editLink="#"
-            />
-          </div>
-          <div class="vehicle-profile-section">
-            <div class="hire-desc">
-              <div class="h-summary">
-                <h2>{{ vehicle.make }}</h2>
-                <span>{{ vehicle.model }}</span>
-              </div>
-              <hire-cost
-                v-if="vehicle.pricing"
-                class="h-cost"
-                :price="vehicle.pricing.actualAmount"
-                iconLink="#"
-              />
-            </div>
-            <div class="vehicle-summary ">
-              <vehicle-brief
-                class="summary-item"
-                :text="vehicle.transmissionType"
-                details="Transmission"
-              />
-              <vehicle-brief
-                class="summary-item"
-                :text="vehicle.make"
-                details="Brand"
-              />
-              <vehicle-brief
-                class="summary-item"
-                :text="vehicle.model"
-                details="Model"
-              />
-              <vehicle-brief
-                class="summary-item"
-                :text="vehicle.mileage"
-                details="Mileage"
-              />
-              <vehicle-brief
-                class="summary-item"
-                :text="vehicle.bodyType"
-                details="Body Type"
-              />
-              <vehicle-brief
-                class="summary-item"
-                :text="vehicle.fuelType"
-                details="Fuel Type"
-              />
-            </div>
-            <div class="vehicle-badge">
-              <div class="v-badge">
-                <div>Color</div>
-                <strong>{{ vehicle.color }}</strong>
-              </div>
-
-              <div class="v-badge">
-                <div>Taxis Badge</div>
-                <strong v-if="vehicle.isTax">Yes</strong>
-                <strong v-else>No</strong>
-              </div>
-
-              <div class="v-badge">
-                <div>Number of seats</div>
-                <strong>N/A</strong>
-              </div>
-
-              <div class="v-badge">
-                <div>Rating</div>
-                <strong>
-                  <v-rating class="h-rating" length="5" :value="4" />
-                </strong>
-              </div>
-            </div>
-            <div class="hire-now" style="margin-top: 20px;">
-              <div
-                class="vehicle-number d-flex bg-gray pa-6 px-10 mt-6 rounded"
-              >
-                <p>Vehicle License Number</p>
-                <h4 class="ml-auto">{{ vehicle.regNumber }}</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="vehicle-license-section mt-15">
-          <h2 class="ml-4 mb-8 text-grey-5">License Details</h2>
-
-          <div
-            v-if="vehicle.documents && vehicle.documents.length > 0"
-            class="license-area"
-          >
-            <div v-if="motDoc" class="license">
-              <expire-info
-                description="MOT License Expiry Date"
-                :title="
-                  new Date(motDoc.expirationDateEpoch).toLocaleDateString()
-                "
-                href="#"
-              />
-            </div>
-            <div class="license">
-              <expire-info
-                description="Taxi License Expiry Date"
-                :title="
-                  new Date(taxDoc.expirationDateEpoch).toLocaleDateString()
-                "
-                href="#"
-                color="#FFF9D1"
-              />
-            </div>
-          </div>
-          <div v-else>
-            <div class="license">
-              N/A
-            </div>
-          </div>
-        </div>
-      </div>
+    <v-row v-if="vehicle.status === 'HIRED'" justify="center" class="mb-8">
+      <v-col cols="12" md="12">
+      	<VehicleStatus @click="$router.push({name: 'vehicle-active-hire', params: {vehicleId: vehicle._id}})" :category="category" />
+      </v-col>
     </v-row>
-  </v-container>
+		<v-row justify="center">
+			<div class='vehicle-profile'>
+				<div class="d-flex align-right mb-5">
+					<v-btn v-if="vehicle.status !== 'HIRED'" @click="$router.push({name: 'vehicle-edit-details', params: {'vehicleId': vehicle._id }})" class="font-weight-regular ms-auto py-4 bg-white rounded-border text-capitalize primary--text" outlined elevation="0" x-small text>Edit Vehicle</v-btn>
+				</div>
+				<div class="vehicle-content">
+					<div class="vehicle-profile-section"  style='position: relative'>
+						<image-slider-thumb v-if="vehicle.images && vehicle.images.length" @edit-vehicle-image="$router.push({name: 'vehicle-edit-images', params: {vehicleId: vehicle._id}})" :images="vehicle.images" editLink='#'/> 
+					</div>
+					<div class="vehicle-profile-section">
+						<div class="hire-desc">
+							<div class="h-summary">
+								<h2>{{ vehicle.make }}</h2>
+								<span>{{ vehicle.model }}</span>
+							</div>
+							<hire-cost v-if="vehicle.pricing" class='h-cost' :price="vehicle.pricing.amount" iconLink='#'  /> 
+						</div>
+						<div class="vehicle-summary ">
+							<vehicle-brief class='summary-item' :text='vehicle.transmissionType' details='Transmission' />
+							<vehicle-brief class='summary-item' :text='vehicle.make' details='Brand' />
+							<vehicle-brief class='summary-item' :text='vehicle.model' details='Model' />
+							<vehicle-brief class='summary-item' :text='vehicle.mileage' details='Mileage' />
+							<vehicle-brief class='summary-item' :text='vehicle.bodyType' details='Body Type' />
+							<vehicle-brief class='summary-item' :text='vehicle.fuelType' details='Fuel Type' />
+						</div>
+						<div class="vehicle-badge">
+							<div class="v-badge">
+								<div>Color</div>
+								<strong>{{ vehicle.color }}</strong>
+							</div>
+
+							<div class="v-badge">
+								<div>Taxis Badge</div>
+								<strong v-if="vehicle.isTax">Yes</strong>
+								<strong v-else>No</strong>
+							</div>
+
+							<div class="v-badge">
+								<div>Number of seats</div>
+								<strong>N/A</strong>
+							</div>
+
+							<div class="v-badge">
+								<div>Rating</div>
+								<strong>
+									<v-rating
+										class='h-rating'
+										length="5"
+										:value="4"
+									/>
+								</strong>
+							</div>
+						</div>
+						<div class="hire-now" style='margin-top: 20px;'>
+							<div class='vehicle-number d-flex bg-gray pa-6 px-10 mt-6 rounded'>
+								<p>Vehicle License Number</p>
+								<h4 class='ml-auto'>{{vehicle.regNumber}}</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="vehicle-license-section mt-15">
+					<h2 class='ml-4 mb-8 text-grey-5'>License Details</h2>
+
+					<div v-if="vehicle.documents && vehicle.documents.length > 0" class="license-area">
+						<div v-if="motDoc" class="license">
+							<expire-info description='M.O.T license Expires Date' :title='new Date(motDoc.expirationDateEpoch).toLocaleDateString()' href='#' />
+						</div>
+						<div class="license">
+							<expire-info description='Taxi license Expires Date' :title='new Date(taxDoc.expirationDateEpoch).toLocaleDateString()' href='#' color='#FFF9D1' />
+						</div>
+					</div>
+					<div v-else>
+						<div class="license">
+							N/A
+						</div>
+					</div>
+				</div>
+			</div>
+		</v-row>
+	</v-container>
 </template>
 
 <script>

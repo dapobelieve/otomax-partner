@@ -5,6 +5,7 @@ const apiPath = '/vehicle/v0.1'
 
 
 export default {
+	namespaced: true,
 	state: {
 	  notifications: [],
 	},
@@ -20,12 +21,10 @@ export default {
 		},
 	},
 	actions: {
-		fetchVehicles(store, page=1) {
-			return axios.get(`${apiPath}/notifications?page=${page}&limit=10`).then( res => {
-				if(page === 1 && res.data.data) store.commit('clearNotifications',[]);
-				store.commit('setNotifications', res.data.data);
-				return res.data;
-			})
+		async fetchNotification({}) {
+			console.log("fetching...")
+			let res = await Api.get(`${apiPath}/notifications`)
+			console.log(res.data)
 		},
 		findNotification(store, notificationId) {
 			return axios.get(`${apiPath}/notifications/${notificationId}`).then( res => res.data.data )
