@@ -22,7 +22,6 @@ export default {
 	},
 	actions: {
 		async fetchNotification({}) {
-			console.log("fetching...")
 			let res = await Api.get(`${apiPath}/notifications`)
 			console.log(res.data)
 		},
